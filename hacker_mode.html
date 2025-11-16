@@ -26,6 +26,10 @@
             --font-hacker: 'Source Code Pro', monospace;
         }
 
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
         html, body {
             margin: 0;
             padding: 0;
@@ -548,6 +552,18 @@
             text-decoration: underline;
         }
 
+        .hero-card {
+            position: relative;
+            margin: 0 auto;
+            width: min(100%, 940px);
+            padding: clamp(1.75rem, 4.5vw, 3.5rem);
+            border: 1px solid rgba(0, 243, 255, 0.45);
+            background: rgba(0, 0, 0, 0.65);
+            box-shadow: 0 25px 40px rgba(0, 0, 0, 0.6);
+            border-radius: 0.65rem;
+            overflow: hidden;
+        }
+
         .hero-card::before,
         .hero-card::after {
             content: '';
@@ -595,8 +611,8 @@
 
         .hero-status-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 15px;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 18px;
             margin-top: 35px;
         }
 
@@ -638,12 +654,14 @@
 
         .threat-feed {
             width: 100%;
-            max-width: 900px;
-            border-top: 1px solid rgba(57, 255, 20, 0.2);
-            border-bottom: 1px solid rgba(57, 255, 20, 0.2);
-            margin-top: 45px;
+            max-width: 920px;
+            border-top: 1px solid rgba(57, 255, 20, 0.35);
+            border-bottom: 1px solid rgba(57, 255, 20, 0.35);
+            margin: 45px auto 0;
             overflow: hidden;
             position: relative;
+            border-radius: 12px;
+            background: rgba(0, 0, 0, 0.45);
         }
 
         .threat-feed::before,
@@ -670,6 +688,7 @@
             display: flex;
             gap: 50px;
             animation: feedScroll 18s linear infinite;
+            padding: 18px 30px;
         }
 
         .feed-track span {
@@ -688,11 +707,11 @@
         .ascii-art {
             font-family: var(--font-hacker);
             color: var(--color-grey);
-            font-size: 10px;
+            font-size: clamp(7px, 2vw, 10px);
             line-height: 1.1;
             letter-spacing: 1px;
             text-align: center;
-            white-space: pre;
+            white-space: pre-wrap;
             opacity: 0.5;
             margin-bottom: 20px;
         }
@@ -758,17 +777,19 @@
         /* Terminal */
         #terminal {
             font-family: var(--font-hacker);
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             background: var(--color-dark);
-            border: 1px solid var(--color-grey);
-            padding: 20px;
-            height: 250px;
+            border: 1px solid rgba(0, 243, 255, 0.3);
+            padding: clamp(1.1rem, 3vw, 1.75rem);
+            min-height: 220px;
             width: 100%;
-            max-width: 600px;
+            max-width: 100%;
             overflow-y: auto;
+            overflow-wrap: anywhere;
             text-align: left;
-            margin: 30px auto 0 auto;
-            box-shadow: 0 0 15px rgba(57, 255, 20, 0.2);
+            margin: 30px auto 0;
+            box-shadow: 0 0 25px rgba(57, 255, 20, 0.25);
+            border-radius: 0.5rem;
         }
 
         #terminal-content span {
@@ -950,6 +971,27 @@
             opacity: 1;
             transform: translateY(0);
         }
+
+        @media (max-width: 640px) {
+            .hero-meta {
+                flex-direction: column;
+                gap: 0.6rem;
+                text-align: center;
+            }
+
+            .hero-status-grid {
+                grid-template-columns: 1fr;
+            }
+
+            #terminal {
+                font-size: 0.85rem;
+                padding: 16px;
+            }
+
+            .threat-feed {
+                margin-top: 30px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1022,18 +1064,6 @@
                     <span>// MODE: <strong>STEALTH</strong></span>
                 </div>
 
-                <!-- ASCII Art -->
-                <pre class="ascii-art">
-                    
-                      .oOOOo.
-                     .OoooooO.
-                    .OooO' 'OooO.
-                    OooO'   'OooO
-                    OooO     OooO
-                    `OooO. .OooO'
-                     `OoooooO'
-                      `OoOoO'
-                </pre>
                 <h1 id="glitch-heading">Vishal Raavi</h1>
                 
                 <!-- Terminal -->
