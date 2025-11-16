@@ -71,15 +71,11 @@ document.addEventListener('DOMContentLoaded', () => {
   }, { threshold: 0.12 });
   revealElements.forEach(el => observer.observe(el));
 
-  // 5) Hacker Mode Toggle
+  // 5) Hacker Mode Toggle - Redirect to hacker_mode.html
   const toggleBtn = document.getElementById('mode-toggle');
   if (toggleBtn) {
     toggleBtn.addEventListener('click', () => {
-      document.body.classList.toggle('hacker-mode');
-      const isHacker = document.body.classList.contains('hacker-mode');
-      toggleBtn.textContent = isHacker ? 'Normal Mode' : 'Hacker Mode';
-      toggleBtn.classList.toggle('btn-primary', !isHacker);
-      toggleBtn.classList.toggle('btn-ghost', isHacker);
+      window.location.href = 'hacker_mode.html';
     });
   }
 
