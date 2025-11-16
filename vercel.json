@@ -3,5 +3,9 @@
     { "source": "/", "destination": "/main.html" },
     { "source": "/home", "destination": "/main.html" },
     { "source": "/stealth", "destination": "/hacker_mode.html" }
+  ],
+  "redirects": [
+    { "source": "/main.html", "destination": "/home", "statusCode": 301 },
+    { "source": "/hacker_mode.html", "destination": "/stealth", "statusCode": 301 }
   ]
 }
