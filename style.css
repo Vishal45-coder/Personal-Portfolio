@@ -1,0 +1,197 @@
+/* Small enhancements to complement Tailwind and improve CTAs */
+:root{
+  --accent-1: #38bdf8; /* sky-400 */
+  --accent-2: #34d399; /* emerald-400 */
+  --muted: rgba(224,224,224,0.9);
+}
+
+/* Button styles */
+.btn-primary{
+  background: linear-gradient(90deg,var(--accent-1),var(--accent-2));
+  color: #061124; /* dark text for contrast */
+  border-radius: 999px;
+  padding: 0.5rem 1rem;
+  box-shadow: 0 8px 24px rgba(52,211,153,0.08), 0 2px 8px rgba(8,145,178,0.08);
+  transition: transform .15s ease, box-shadow .15s ease;
+  text-decoration: none;
+}
+.btn-primary:hover{
+  transform: translateY(-3px);
+  box-shadow: 0 18px 40px rgba(52,211,153,0.14), 0 6px 18px rgba(8,145,178,0.12);
+}
+
+.btn-ghost{
+  background: transparent;
+  color: var(--muted);
+  border-radius: 999px;
+  padding: 0.5rem 1rem;
+  border: 1px solid rgba(255,255,255,0.04);
+  transition: color .12s ease, background .12s ease, transform .12s ease;
+  text-decoration: none;
+}
+.btn-ghost:hover{
+  color: var(--accent-1);
+  transform: translateY(-2px);
+  background: rgba(255,255,255,0.02);
+}
+
+/* Improve focus visibility for keyboard users */
+:focus{
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(56,189,248,0.14);
+  border-radius: 6px;
+}
+
+/* Slight increase in heading contrast and letter spacing */
+h1, h2, h3{
+  letter-spacing: -0.01em;
+}
+
+/* Make container max-width a touch wider on big screens */
+@media (min-width: 1280px){
+  .container{max-width:1200px}
+}
+
+/* --- New interactive and hero styles --- */
+.spotlight{
+  background: radial-gradient(600px 400px at var(--mx,50%) var(--my,50%), rgba(255,255,255,0.06), transparent 20%);
+  mix-blend-mode: overlay;
+  transition: opacity .12s linear;
+}
+
+.hero-blob svg{filter: blur(28px) saturate(120%); transform-origin: center;}
+
+.hero-title span{display:inline-block; transform-origin: center;}
+.hero-title .char{opacity:0; transform: translateY(18px) rotateX(20deg) scale(.98); display:inline-block}
+.hero-title .char.visible{opacity:1; transform: translateY(0) rotateX(0) scale(1); transition: transform .7s cubic-bezier(.16,.8,.3,1), opacity .5s ease;}
+
+.tilt-card{
+  will-change: transform;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+.tilt-card .inner {
+  transition: transform 180ms cubic-bezier(.2,.9,.3,1), box-shadow 180ms ease;
+}
+.tilt-card:hover{transform: translateY(-6px) rotateX(0) rotateY(0)}
+
+.nav-link{color:var(--muted); transition: color .18s ease; text-decoration:none}
+.nav-link:hover{color:var(--accent-1)}
+
+/* subtle floating for cards */
+.glass-card{transition: box-shadow .2s ease, transform .2s ease}
+.glass-card:hover{box-shadow:0 28px 80px rgba(2,6,23,0.6); transform: translateY(-6px) scale(1.01)}
+
+/* make reveal animation snappier for important sections */
+.reveal{transition-duration: 700ms}
+
+/* smaller screens: reduce blob size */
+@media (max-width: 640px){
+  .hero-blob{opacity:0.25}
+  .hero-title{font-size:2rem}
+}
+
+/* --- Hacker Mode Styles --- */
+body.hacker-mode{
+  background: #000 !important;
+  color: #00ff00 !important;
+  font-family: 'Courier New', monospace !important;
+}
+
+.hacker-mode .aurora-background,
+.hacker-mode .spotlight,
+.hacker-mode .hero-blob{
+  display: none !important;
+}
+
+.hacker-mode .hacker-elements{
+  display: block !important;
+}
+
+.hacker-mode .glass-card{
+  background: rgba(0,20,0,0.8) !important;
+  border: 1px solid #00ff00 !important;
+  backdrop-filter: none !important;
+}
+
+.hacker-mode .gradient-text{
+  background: linear-gradient(90deg, #00ff00, #ff0000) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  color: #00ff00 !important;
+}
+
+.hacker-mode .nav-link,
+.hacker-mode .text-gray-300,
+.hacker-mode .text-gray-400{
+  color: #00ff00 !important;
+}
+
+.hacker-mode .btn-primary{
+  background: linear-gradient(90deg, #00ff00, #ff0000) !important;
+  color: #000 !important;
+}
+
+.hacker-mode .btn-ghost{
+  border-color: #00ff00 !important;
+  color: #00ff00 !important;
+}
+
+.hacker-mode .bg-sky-900\/50,
+.hacker-mode .bg-red-900\/50,
+.hacker-mode .bg-emerald-900\/50,
+.hacker-mode .bg-indigo-900\/50,
+.hacker-mode .bg-gray-700\/50{
+  background: rgba(0,255,0,0.2) !important;
+  color: #00ff00 !important;
+}
+
+.hacker-mode .text-sky-200,
+.hacker-mode .text-red-200,
+.hacker-mode .text-emerald-200,
+.hacker-mode .text-indigo-200,
+.hacker-mode .text-gray-200{
+  color: #00ff00 !important;
+}
+
+/* Flying Code Animation */
+.flying-code{
+  animation: flyUp 8s linear infinite;
+}
+
+.flying-code-1{animation-delay: 0s;}
+.flying-code-2{animation-delay: 2s;}
+.flying-code-3{animation-delay: 4s;}
+
+@keyframes flyUp{
+  0%{transform: translateY(100vh); opacity: 0;}
+  10%{opacity: 1;}
+  90%{opacity: 1;}
+  100%{transform: translateY(-100px); opacity: 0;}
+}
+
+/* Binary Stream Animation */
+.binary-stream{
+  animation: binaryFall 6s linear infinite;
+}
+
+.binary-1{animation-delay: 0s;}
+.binary-2{animation-delay: 3s;}
+
+@keyframes binaryFall{
+  0%{transform: translateY(-100vh); opacity: 0;}
+  10%{opacity: 1;}
+  90%{opacity: 1;}
+  100%{transform: translateY(100vh); opacity: 0;}
+}
+
+/* Masked Man Glow */
+.masked-man{
+  filter: drop-shadow(0 0 10px #00ff00);
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow{
+  0%{filter: drop-shadow(0 0 10px #00ff00);}
+  100%{filter: drop-shadow(0 0 20px #ff0000);}
+}
