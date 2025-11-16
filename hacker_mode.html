@@ -14,12 +14,14 @@
         /* Base Styling */
         :root {
             --color-black: #000000;
-            --color-dark: #0A0A0A;
-            --color-dark-grey: #1A1A1A;
-            --color-grey: #333333;
+            --color-dark: #050505;
+            --color-dark-grey: #101010;
+            --color-grey: #2A2A2A;
             --color-light-grey: #E0E0E0;
             --color-green: #39FF14; /* Hacker Green */
-            --color-red: #FF0000;
+            --color-cyan: #00F3FF;
+            --color-purple: #8a2be2;
+            --color-red: #FF3B3B;
             --font-main: 'Inter', sans-serif;
             --font-hacker: 'Source Code Pro', monospace;
         }
@@ -32,6 +34,8 @@
             font-family: var(--font-main);
             overflow-x: hidden;
             letter-spacing: 0.5px;
+            background-image: radial-gradient(circle at 20% 20%, rgba(57, 255, 20, 0.06), transparent 45%),
+                              radial-gradient(circle at 80% 0%, rgba(0, 243, 255, 0.08), transparent 35%);
         }
 
         /* Digital Rain Background */
@@ -43,6 +47,21 @@
             height: 100%;
             z-index: -2;
             opacity: 0.3;
+        }
+
+        /* HUD Grid Overlay */
+        .hud-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background-image: linear-gradient(rgba(0, 243, 255, 0.04) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(0, 243, 255, 0.04) 1px, transparent 1px);
+            background-size: 120px 120px;
+            mix-blend-mode: screen;
+            pointer-events: none;
         }
 
         /* Blurred Binary Stream - Vertical Flow */
@@ -271,15 +290,140 @@
             text-decoration: underline;
         }
 
-        /* Hero Section */
-        #init {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
+        .hero-card::before,
+        .hero-card::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            border: 1px solid rgba(0, 243, 255, 0.4);
+        }
+
+        .hero-card::before {
+            top: 12px;
+            left: 12px;
+            border-right: none;
             border-bottom: none;
+        }
+
+        .hero-card::after {
+            bottom: 12px;
+            right: 12px;
+            border-left: none;
+            border-top: none;
+        }
+
+        .hero-meta {
+            font-family: var(--font-hacker);
+            color: rgba(224, 224, 224, 0.7);
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .hero-meta span {
+            color: var(--color-cyan);
+        }
+
+        .hero-meta strong {
+            color: var(--color-green);
+            letter-spacing: 0;
+        }
+
+        .hero-status-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 15px;
+            margin-top: 35px;
+        }
+
+        .status-card {
+            border: 1px solid rgba(0, 243, 255, 0.25);
+            padding: 12px 15px;
+            text-align: left;
+            background: rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+
+        .status-card::after {
+            content: '';
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            width: 6px;
+            height: 6px;
+            background: var(--color-green);
+            box-shadow: 0 0 6px var(--color-green);
+        }
+
+        .status-card .label {
+            font-size: 0.7rem;
+            color: rgba(224, 224, 224, 0.6);
+            letter-spacing: 1px;
+        }
+
+        .status-card .value {
+            display: block;
+            font-size: 1.2rem;
+            color: var(--color-green);
+            margin-top: 6px;
+        }
+
+        .status-card .value.accent {
+            color: var(--color-cyan);
+        }
+
+        .threat-feed {
+            width: 100%;
+            max-width: 900px;
+            border-top: 1px solid rgba(57, 255, 20, 0.2);
+            border-bottom: 1px solid rgba(57, 255, 20, 0.2);
+            margin-top: 45px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .threat-feed::before,
+        .threat-feed::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 80px;
+            pointer-events: none;
+        }
+
+        .threat-feed::before {
+            left: 0;
+            background: linear-gradient(90deg, #000000 0%, transparent 100%);
+        }
+
+        .threat-feed::after {
+            right: 0;
+            background: linear-gradient(-90deg, #000000 0%, transparent 100%);
+        }
+
+        .feed-track {
+            display: flex;
+            gap: 50px;
+            animation: feedScroll 18s linear infinite;
+        }
+
+        .feed-track span {
+            font-family: var(--font-hacker);
+            color: var(--color-green);
+            font-size: 0.85rem;
+            white-space: nowrap;
+        }
+
+        @keyframes feedScroll {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
         }
         
         /* ASCII Art */
@@ -558,6 +702,9 @@
     <!-- Blurred Binary Stream at Top -->
     <div id="binary-stream-top"></div>
     
+    <!-- HUD Grid Overlay -->
+    <div class="hud-grid"></div>
+    
     <!-- Scanlines Overlay -->
     <div class="scanlines-overlay"></div>
 
@@ -578,13 +725,59 @@
 
         <!-- Hero Section -->
         <section id="init">
+            <div class="hero-card">
+                <div class="hero-meta">
+                    <span>// ACCESS LEVEL: <strong>ALPHA</strong></span>
+                    <span>// MODE: <strong>STEALTH</strong></span>
+                </div>
 
-            <h1 id="glitch-heading">Vishal Raavi</h1>
-            
-            <!-- Terminal -->
-            <div id="terminal">
-                <span id="terminal-content"></span>
-                <span class="blink-caret"></span>
+                <!-- ASCII Art -->
+                <pre class="ascii-art">
+                    
+                      .oOOOo.
+                     .OoooooO.
+                    .OooO' 'OooO.
+                    OooO'   'OooO
+                    OooO     OooO
+                    `OooO. .OooO'
+                     `OoooooO'
+                      `OoOoO'
+                </pre>
+                <h1 id="glitch-heading">Vishal Raavi</h1>
+                
+                <!-- Terminal -->
+                <div id="terminal">
+                    <span id="terminal-content"></span>
+                    <span class="blink-caret"></span>
+                </div>
+
+                <div class="hero-status-grid">
+                    <div class="status-card">
+                        <span class="label">// SYSTEM UPTIME</span>
+                        <span class="value" id="uptime-value">00:00:00</span>
+                    </div>
+                    <div class="status-card">
+                        <span class="label">// MODE</span>
+                        <span class="value accent">HACKER</span>
+                    </div>
+                    <div class="status-card">
+                        <span class="label">// SIGNAL</span>
+                        <span class="value" id="signal-value">100%</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="threat-feed">
+                <div class="feed-track">
+                    <span>[ALERT] Suspicious SSH activity detected on port 22</span>
+                    <span>[TRACE] Reverse proxy initialized - origin masked</span>
+                    <span>[FEED] Zero-day intel synced :: CVE-2049-1337</span>
+                    <span>[STATUS] Drone swarm handshake verified</span>
+                    <span>[ALERT] Suspicious SSH activity detected on port 22</span>
+                    <span>[TRACE] Reverse proxy initialized - origin masked</span>
+                    <span>[FEED] Zero-day intel synced :: CVE-2049-1337</span>
+                    <span>[STATUS] Drone swarm handshake verified</span>
+                </div>
             </div>
         </section>
 
@@ -788,7 +981,7 @@
 
     <script>
     (function() { // <--- ADDED: Wrap entire script in an IIFE to prevent global scope conflicts
-        // --- Binary Stream - Vertical Flow ---
+    // --- Binary Stream - Vertical Flow ---
         const binaryStreamTop = document.getElementById('binary-stream-top');
         const binaryCharsVertical = '01';
 
@@ -819,6 +1012,29 @@
             });
         }
         createBinaryLines();
+
+        // --- HUD Metrics ---
+        const uptimeEl = document.getElementById('uptime-value');
+        const signalEl = document.getElementById('signal-value');
+        const bootTime = Date.now();
+
+        function updateHudMetrics() {
+            if (uptimeEl) {
+                const diff = Date.now() - bootTime;
+                const hours = String(Math.floor(diff / 3600000)).padStart(2, '0');
+                const minutes = String(Math.floor((diff % 3600000) / 60000)).padStart(2, '0');
+                const seconds = String(Math.floor((diff % 60000) / 1000)).padStart(2, '0');
+                uptimeEl.textContent = `${hours}:${minutes}:${seconds}`;
+            }
+
+            if (signalEl) {
+                const signal = 82 + Math.floor(Math.random() * 18);
+                signalEl.textContent = `${signal}%`;
+            }
+        }
+
+        updateHudMetrics();
+        setInterval(updateHudMetrics, 1000);
 
         // --- Hacked Binary River Effect ---
         const canvas = document.getElementById('matrix-bg');
