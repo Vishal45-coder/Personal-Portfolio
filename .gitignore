@@ -1,0 +1,5 @@
+.venv
+.next
+.github
+.claude
+node_modules

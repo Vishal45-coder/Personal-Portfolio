@@ -1,0 +1,236 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-primary: #020817;
+  --bg-surface: #0f172a;
+  --bg-surface-2: #1e293b;
+  --c-primary: #38bdf8;
+  --c-secondary: #818cf8;
+  --c-accent: #34d399;
+  --c-danger: #f43f5e;
+  --c-text: #f1f5f9;
+  --c-muted: #64748b;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  color-scheme: dark;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--c-text);
+  font-family: 'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(56, 189, 248, 0.3);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(56, 189, 248, 0.5);
+}
+
+/* Text selection */
+::selection {
+  background: rgba(56, 189, 248, 0.25);
+  color: #f1f5f9;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+@layer utilities {
+  .reveal-up {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+  .in-view {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-up.delay-100 {
+    transition-delay: 0.1s;
+  }
+  .reveal-up.delay-200 {
+    transition-delay: 0.2s;
+  }
+  .reveal-up.delay-300 {
+    transition-delay: 0.3s;
+  }
+  .reveal-up.delay-400 {
+    transition-delay: 0.4s;
+  }
+  .reveal-up.delay-500 {
+    transition-delay: 0.5s;
+  }
+
+  .gradient-text {
+    background: linear-gradient(135deg, #38bdf8 0%, #818cf8 50%, #34d399 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .gradient-text-blue {
+    background: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .glass {
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(56, 189, 248, 0.08);
+  }
+
+  .glass-hover {
+    transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+  }
+  .glass-hover:hover {
+    border-color: rgba(56, 189, 248, 0.2);
+    box-shadow: 0 8px 32px rgba(56, 189, 248, 0.06);
+    transform: translateY(-2px);
+  }
+
+  .glow-sky {
+    box-shadow: 0 0 20px rgba(56, 189, 248, 0.2);
+  }
+
+  .dot-grid {
+    background-image: radial-gradient(rgba(56, 189, 248, 0.15) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: #38bdf8;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .section-label-green {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: #34d399;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* Hero blob animations */
+  .blob-1 {
+    animation: float 6s ease-in-out infinite;
+  }
+  .blob-2 {
+    animation: float 8s ease-in-out infinite 2s;
+  }
+  .blob-3 {
+    animation: float 10s ease-in-out infinite 4s;
+  }
+
+  /* Glow button effect */
+  .btn-glow {
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-glow::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(56, 189, 248, 0.15), rgba(129, 140, 248, 0.15));
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .btn-glow:hover::after {
+    opacity: 1;
+  }
+
+  /* Card top accent border */
+  .card-accent-sky {
+    border-top: 2px solid #38bdf8;
+  }
+  .card-accent-emerald {
+    border-top: 2px solid #34d399;
+  }
+  .card-accent-indigo {
+    border-top: 2px solid #818cf8;
+  }
+  .card-accent-rose {
+    border-top: 2px solid #f43f5e;
+  }
+}
+
+/* Explicit keyframe definitions — required because Tailwind only generates
+   @keyframes for classes used in templates, not inline style references */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-12px); }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50%       { background-position: 100% 50%; }
+}
+
+@keyframes scanLine {
+  0%   { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
