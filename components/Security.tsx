@@ -8,8 +8,8 @@ interface Lab {
   title: string
   course: string
   badge: string
+  badgeClass: string
   accent: string
-  tagClass: string
   steps?: string[]
   bullets?: string[]
   tools: string[]
@@ -17,12 +17,9 @@ interface Lab {
 
 const labs: Lab[] = [
   {
-    num: '01',
+    num: '01', badge: 'Full Kill Chain · Root', badgeClass: 'tag-rose', accent: 'var(--c-rose)',
     title: 'Solo CTF — 6-Flag Full-Chain Exploitation',
     course: 'ENPM634 · University of Maryland',
-    badge: 'Full Kill Chain · Root',
-    accent: 'var(--c-rose)',
-    tagClass: 'tag-rose',
     steps: [
       'Network Recon → ifconfig, arp-scan',
       'Port Enum → Nmap (HTTP/80, SSH/22)',
@@ -35,12 +32,9 @@ const labs: Lab[] = [
     tools: ['arp-scan', 'Nmap', 'SQLmap', 'Weevely', 'Hydra', 'CyberChef', 'Wireshark'],
   },
   {
-    num: '02',
+    num: '02', badge: 'Black-Box Pentest', badgeClass: 'tag-cyan', accent: 'var(--c-cyan)',
     title: 'Penetration Testing — CTF VM Exploitation',
     course: 'ENPM634 · University of Maryland',
-    badge: 'Black-Box Pentest',
-    accent: 'var(--c-cyan)',
-    tagClass: 'tag-cyan',
     bullets: [
       'Nmap enumeration (SSH/22, HTTP/80, SMB/139, SMB/445)',
       'Wireshark credential capture — plaintext HTTP traffic exploitation',
@@ -50,12 +44,9 @@ const labs: Lab[] = [
     tools: ['Nmap', 'Wireshark', 'Hydra', 'CyberChef', 'SSH'],
   },
   {
-    num: '03',
+    num: '03', badge: 'AWS · NIST CSF · CIS', badgeClass: 'tag-green', accent: 'var(--c-green)',
     title: 'Cloud Security Assessment — AWS',
     course: 'ENPM665 · University of Maryland',
-    badge: 'AWS · NIST CSF · CIS',
-    accent: 'var(--c-green)',
-    tagClass: 'tag-green',
     bullets: [
       'IAM trust relationship enumeration + audit',
       'EC2 hardening: chmod -R 755 exposing .env + API keys, absent patch management',
@@ -66,12 +57,9 @@ const labs: Lab[] = [
     tools: ['AWS CLI', 'IAM Analyzer', 'NIST CSF', 'CIS Benchmarks'],
   },
   {
-    num: '04',
+    num: '04', badge: 'STRIDE · DREAD · ISO 27001', badgeClass: 'tag-violet', accent: 'var(--c-violet)',
     title: 'Enterprise Security Assessment — Threat Modeling',
     course: 'ENPM686 · University of Maryland',
-    badge: 'STRIDE · DREAD · ISO 27001',
-    accent: 'var(--c-violet)',
-    tagClass: 'tag-violet',
     bullets: [
       'STRIDE threat modeling — mapped 16 vulnerabilities across 6 threat categories',
       'DREAD scoring across 12 scenarios: DoS (7.8), Phishing (7.8), Credential Theft (7.6)',
@@ -82,12 +70,9 @@ const labs: Lab[] = [
     tools: ['STRIDE', 'DREAD', 'NIST CSF', 'ISO 27001', 'PCI DSS', 'GDPR'],
   },
   {
-    num: '05',
+    num: '05', badge: 'EK Stack · 17.4M+ Logs', badgeClass: 'tag-green', accent: 'var(--c-green)',
     title: 'Linux Infrastructure & SIEM',
     course: 'ENPM818P · University of Maryland',
-    badge: 'EK Stack · 17.4M+ Logs',
-    accent: 'var(--c-green)',
-    tagClass: 'tag-green',
     bullets: [
       '2-tier LAMP stack (www-vm + db-vm): Apache2, PHP, MySQL, phpMyAdmin, WordPress',
       'Least-privilege RBAC with ACLs + UFW firewall (SSH restricted to VM host IP)',
@@ -100,20 +85,14 @@ const labs: Lab[] = [
 
 function LabEntry({ lab }: { lab: Lab }) {
   return (
-    <div
-      className="reveal border-b"
-      style={{ borderColor: 'rgba(255,255,255,0.07)' }}
-    >
-      <div
-        className="flex gap-0 overflow-hidden"
-        style={{ borderLeft: `2px solid ${lab.accent}` }}
-      >
+    // terminal-row-border and terminal-tools-divider are always-dark classes from globals.css
+    <div className="reveal border-b terminal-row-border">
+      <div className="flex overflow-hidden" style={{ borderLeft: `2px solid ${lab.accent}` }}>
         <div className="flex-1 p-5">
-          {/* Header row */}
           <div className="flex flex-wrap items-start gap-3 mb-4">
             <span
               className="font-display font-bold flex-shrink-0"
-              style={{ fontSize: '1.1rem', color: lab.accent, opacity: 0.5 }}
+              style={{ fontSize: '1.1rem', color: lab.accent, opacity: 0.45 }}
             >
               {lab.num}
             </span>
@@ -122,39 +101,36 @@ function LabEntry({ lab }: { lab: Lab }) {
                 <h3 className="font-mono text-xs font-semibold text-c-text">
                   {lab.title}
                 </h3>
-                <span className={`tag ${lab.tagClass}`}>{lab.badge}</span>
+                <span className={`tag ${lab.badgeClass}`}>{lab.badge}</span>
               </div>
-              <p className="font-mono text-[10px] tracking-wider text-c-muted">{lab.course}</p>
+              <p className="font-mono text-[10px] tracking-wider text-c-muted">
+                {lab.course}
+              </p>
             </div>
           </div>
 
-          {/* Steps (attack chain) */}
           {lab.steps && (
             <div className="mb-4">
-              <p className="font-mono text-[10px] tracking-[0.14em] uppercase text-c-muted mb-2">
+              <p className="font-mono text-[10px] tracking-[0.14em] uppercase mb-2 text-c-muted">
                 Attack Chain
               </p>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-col gap-1.5">
                 {lab.steps.map((step, i) => (
                   <div key={i} className="flex items-start gap-1.5">
-                    <span
-                      className="font-mono text-[10px] font-bold flex-shrink-0"
-                      style={{ color: lab.accent }}
-                    >
+                    <span className="font-mono text-[10px] font-bold flex-shrink-0" style={{ color: lab.accent }}>
                       {String(i + 1).padStart(2, '0')}
                     </span>
-                    <span className="text-c-sub text-[11px] leading-relaxed">{step}</span>
+                    <span className="text-[11px] leading-relaxed text-c-sub">{step}</span>
                   </div>
                 ))}
               </div>
             </div>
           )}
 
-          {/* Bullets */}
           {lab.bullets && (
             <ul className="space-y-1.5 mb-4">
               {lab.bullets.map((b, i) => (
-                <li key={i} className="flex gap-2 text-[11px] text-c-sub leading-relaxed">
+                <li key={i} className="flex gap-2 text-[11px] leading-relaxed text-c-sub">
                   <span className="flex-shrink-0 font-mono" style={{ color: lab.accent }}>→</span>
                   <span>{b}</span>
                 </li>
@@ -162,11 +138,8 @@ function LabEntry({ lab }: { lab: Lab }) {
             </ul>
           )}
 
-          {/* Tools */}
-          <div className="flex flex-wrap gap-1.5 pt-2 border-t" style={{ borderColor: 'rgba(255,255,255,0.05)' }}>
-            {lab.tools.map((t) => (
-              <span key={t} className="tag">{t}</span>
-            ))}
+          <div className="flex flex-wrap gap-1.5 pt-2 border-t terminal-tools-divider">
+            {lab.tools.map((t) => <span key={t} className="tag">{t}</span>)}
           </div>
         </div>
       </div>
@@ -182,9 +155,7 @@ export default function Security() {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.querySelectorAll('.reveal').forEach((el) =>
-              el.classList.add('in-view')
-            )
+            entry.target.querySelectorAll('.reveal').forEach((el) => el.classList.add('in-view'))
           }
         })
       },
@@ -195,32 +166,14 @@ export default function Security() {
   }, [])
 
   return (
-    <section
-      id="security"
-      ref={sectionRef}
-      className="relative py-24 md:py-32 bg-ink overflow-hidden"
-    >
+    <section id="security" ref={sectionRef} className="relative py-24 md:py-32 bg-ink overflow-hidden">
       {/* Watermark */}
-      <div
-        className="absolute top-0 right-0 select-none pointer-events-none"
-        aria-hidden="true"
-        style={{
-          fontFamily: 'Syne, sans-serif',
-          fontSize: 'clamp(10rem, 22vw, 22rem)',
-          fontWeight: 800,
-          color: 'rgba(255,255,255,0.018)',
-          lineHeight: 1,
-          letterSpacing: '-0.05em',
-        }}
-      >
-        05
-      </div>
+      <div className="absolute top-0 right-0 watermark" aria-hidden="true">05</div>
 
       <div className="relative z-10 max-w-5xl mx-auto px-6 sm:px-10 lg:px-16">
-        {/* Header */}
         <div className="mb-10 space-y-4">
           <div className="reveal">
-            <span className="label" style={{ color: 'var(--c-green)' }}>// 05. SECURITY</span>
+            <span className="label text-c-green">// 05. SECURITY</span>
           </div>
           <h2
             className="reveal delay-100 font-display font-bold text-c-text leading-tight"
@@ -239,52 +192,34 @@ export default function Security() {
           <div
             className="inline-flex items-center gap-3 px-4 py-3 rounded"
             style={{
-              border: '1px solid rgba(245,158,11,0.25)',
-              background: 'rgba(245,158,11,0.05)',
+              border: '1px solid var(--c-amber-border)',
+              background: 'var(--c-amber-tint)',
             }}
           >
-            <ShieldCheck size={16} style={{ color: 'var(--c-amber)' }} />
+            <ShieldCheck size={16} className="text-c-amber" />
             <div>
-              <p className="font-mono text-xs font-semibold" style={{ color: 'var(--c-amber)' }}>
+              <p className="font-mono text-xs font-semibold text-c-amber">
                 Burp Suite Certified Practitioner (BSCP)
               </p>
               <p className="font-mono text-[10px] text-c-muted tracking-wider mt-0.5">
                 Certification In Progress · PortSwigger
               </p>
             </div>
-            <span
-              className="font-mono text-[10px] tracking-wider uppercase px-2 py-0.5 rounded"
-              style={{
-                color: 'var(--c-amber)',
-                background: 'rgba(245,158,11,0.1)',
-                border: '1px solid rgba(245,158,11,0.25)',
-              }}
-            >
+            <span className="tag tag-amber font-mono text-[10px] tracking-wider uppercase">
               In Progress
             </span>
           </div>
         </div>
 
-        {/* Terminal */}
+        {/* Terminal — intentionally always dark (it's a terminal) */}
         <div className="reveal delay-200 terminal overflow-hidden">
-          {/* Terminal header */}
-          <div
-            className="flex items-center gap-2 px-4 py-3 border-b"
-            style={{
-              background: 'rgba(255,255,255,0.025)',
-              borderColor: 'rgba(255,255,255,0.07)',
-            }}
-          >
+          <div className="terminal-header flex items-center gap-2 px-4 py-3">
             <span className="w-2.5 h-2.5 rounded-full bg-c-rose opacity-70" />
             <span className="w-2.5 h-2.5 rounded-full bg-c-amber opacity-70" />
             <span className="w-2.5 h-2.5 rounded-full bg-c-green opacity-70" />
             <span className="ml-3 font-mono text-[11px] text-c-muted">~/security-labs</span>
           </div>
-
-          {/* Lab entries */}
-          {labs.map((lab) => (
-            <LabEntry key={lab.num} lab={lab} />
-          ))}
+          {labs.map((lab) => <LabEntry key={lab.num} lab={lab} />)}
         </div>
       </div>
     </section>

@@ -15,12 +15,9 @@ interface Role {
 
 const roles: Role[] = [
   {
-    num: '01',
-    period: 'Jan 2026 – Present',
-    current: true,
+    num: '01', period: 'Jan 2026 – Present', current: true,
     role: 'Software Developer — General Assistant',
-    company: 'CALCE · University of Maryland',
-    location: 'College Park, MD',
+    company: 'CALCE · University of Maryland', location: 'College Park, MD',
     accent: 'var(--c-cyan)',
     bullets: [
       'Sole architect of the MOSTCOOL Reliability Web Platform — enterprise-grade R(t)/A(t) analysis tool packaged as a Docker image with microservice-decoupled React.js + Flask architecture and 8 REST endpoints',
@@ -30,12 +27,9 @@ const roles: Role[] = [
     ],
   },
   {
-    num: '02',
-    period: 'Aug 2024 – Dec 2025',
-    current: false,
+    num: '02', period: 'Aug 2024 – Dec 2025', current: false,
     role: 'Software Developer — Graduate Research Assistant',
-    company: 'CALCE · University of Maryland',
-    location: 'College Park, MD',
+    company: 'CALCE · University of Maryland', location: 'College Park, MD',
     accent: 'var(--c-violet)',
     bullets: [
       'Designed 5 physics-based degradation model UIs with bidirectional parameter binding to a 200+ component thermal-hydraulic JSON model',
@@ -46,12 +40,9 @@ const roles: Role[] = [
     ],
   },
   {
-    num: '03',
-    period: 'Apr 2024 – Aug 2024',
-    current: false,
+    num: '03', period: 'Apr 2024 – Aug 2024', current: false,
     role: 'Software Developer',
-    company: 'CALCE · University of Maryland',
-    location: 'College Park, MD',
+    company: 'CALCE · University of Maryland', location: 'College Park, MD',
     accent: 'var(--c-green)',
     bullets: [
       'Built a cross-platform reliability modeling desktop tool (Python Tkinter, NumPy) — improved user modeling efficiency by 60% and optimized performance for large datasets across Windows and macOS',
@@ -68,9 +59,7 @@ export default function Experience() {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.querySelectorAll('.reveal').forEach((el) =>
-              el.classList.add('in-view')
-            )
+            entry.target.querySelectorAll('.reveal').forEach((el) => el.classList.add('in-view'))
           }
         })
       },
@@ -81,33 +70,14 @@ export default function Experience() {
   }, [])
 
   return (
-    <section
-      id="experience"
-      ref={sectionRef}
-      className="relative py-24 md:py-32 overflow-hidden"
-      style={{ background: 'var(--ink-1)' }}
-    >
+    <section id="experience" ref={sectionRef} className="relative py-24 md:py-32 overflow-hidden bg-ink-1">
       {/* Watermark */}
-      <div
-        className="absolute top-0 left-0 select-none pointer-events-none"
-        aria-hidden="true"
-        style={{
-          fontFamily: 'Syne, sans-serif',
-          fontSize: 'clamp(10rem, 22vw, 22rem)',
-          fontWeight: 800,
-          color: 'rgba(255,255,255,0.018)',
-          lineHeight: 1,
-          letterSpacing: '-0.05em',
-        }}
-      >
-        04
-      </div>
+      <div className="absolute top-0 left-0 watermark" aria-hidden="true">04</div>
 
       <div className="relative z-10 max-w-5xl mx-auto px-6 sm:px-10 lg:px-16">
-        {/* Header */}
         <div className="mb-14 space-y-4">
           <div className="reveal">
-            <span className="label" style={{ color: 'var(--c-cyan)' }}>// 04. EXPERIENCE</span>
+            <span className="label text-c-cyan">// 04. EXPERIENCE</span>
           </div>
           <h2
             className="reveal delay-100 font-display font-bold text-c-text leading-tight"
@@ -120,31 +90,23 @@ export default function Experience() {
           </p>
         </div>
 
-        {/* Entries */}
         <div>
           {roles.map((r, i) => (
             <div key={r.num}>
               <hr className="h-rule" />
-              <div
-                className={`reveal delay-${(i + 1) * 100} py-10 flex flex-col sm:flex-row gap-6 sm:gap-10`}
-              >
-                {/* Left: number */}
+              <div className={`reveal delay-${(i + 1) * 100} py-10 flex flex-col sm:flex-row gap-6 sm:gap-10`}>
+                {/* Number */}
                 <div className="flex-shrink-0 sm:w-16">
                   <span
                     className="font-display font-bold leading-none"
-                    style={{
-                      fontSize: 'clamp(2.5rem, 4vw, 3.5rem)',
-                      color: r.accent,
-                      opacity: 0.3,
-                    }}
+                    style={{ fontSize: 'clamp(2.5rem, 4vw, 3.5rem)', color: r.accent, opacity: 0.28 }}
                   >
                     {r.num}
                   </span>
                 </div>
 
-                {/* Right: content */}
+                {/* Content */}
                 <div className="flex-1">
-                  {/* Period + current */}
                   <div className="flex flex-wrap items-center gap-2 mb-3">
                     <span
                       className="font-mono text-[11px] tracking-[0.12em] uppercase"
@@ -157,8 +119,8 @@ export default function Experience() {
                         className="font-mono text-[10px] tracking-wider uppercase px-2 py-0.5 rounded"
                         style={{
                           color: 'var(--c-green)',
-                          background: 'rgba(16,185,129,0.1)',
-                          border: '1px solid rgba(16,185,129,0.2)',
+                          background: 'var(--c-green-tint)',
+                          border: '1px solid var(--c-green-border)',
                         }}
                       >
                         Current
@@ -166,7 +128,6 @@ export default function Experience() {
                     )}
                   </div>
 
-                  {/* Role */}
                   <h3
                     className="font-display font-bold text-c-text leading-tight mb-1"
                     style={{ fontSize: 'clamp(1rem, 2vw, 1.4rem)' }}
@@ -174,22 +135,17 @@ export default function Experience() {
                     {r.role}
                   </h3>
 
-                  {/* Company + location */}
                   <p
                     className="font-mono text-[11px] tracking-[0.1em] uppercase mb-5"
-                    style={{ color: r.accent, opacity: 0.75 }}
+                    style={{ color: r.accent, opacity: 0.7 }}
                   >
                     {r.company} · {r.location}
                   </p>
 
-                  {/* Bullets */}
                   <ul className="space-y-2.5">
                     {r.bullets.map((b, j) => (
                       <li key={j} className="flex gap-3 text-sm text-c-sub leading-relaxed">
-                        <span
-                          className="flex-shrink-0 font-mono font-semibold mt-0.5"
-                          style={{ color: r.accent }}
-                        >
+                        <span className="flex-shrink-0 font-mono font-semibold mt-0.5" style={{ color: r.accent }}>
                           →
                         </span>
                         <span>{b}</span>

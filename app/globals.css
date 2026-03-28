@@ -4,26 +4,140 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
+/* ═══════════════════════════════════════
+   DARK THEME
+   Deep cybersecurity aesthetic
+═══════════════════════════════════════ */
+[data-theme="dark"] {
+  /* Backgrounds — layered depths */
   --ink:      #070B12;
   --ink-1:    #0D1117;
-  --ink-2:    #131A24;
+  --ink-2:    #111827;
+
+  /* Text */
+  --c-text:   #E8EDF5;
+  --c-sub:    #94A3B8;
+  --c-muted:  #5B6878;
+
+  /* Accents — electric, neon-adjacent */
   --c-cyan:   #22D3EE;
   --c-violet: #8B5CF6;
   --c-green:  #10B981;
   --c-amber:  #F59E0B;
   --c-rose:   #F43F5E;
-  --c-text:   #E8EDF5;
-  --c-sub:    #94A3B8;
-  --c-muted:  #5B6878;
+
+  /* Accent tints (colored rgba overlays) */
+  --c-cyan-tint:    rgba(34, 211, 238, 0.08);
+  --c-cyan-border:  rgba(34, 211, 238, 0.22);
+  --c-cyan-glow:    rgba(34, 211, 238, 0.05);
+  --c-violet-tint:  rgba(139, 92, 246, 0.08);
+  --c-violet-border:rgba(139, 92, 246, 0.22);
+  --c-violet-glow:  rgba(139, 92, 246, 0.04);
+  --c-green-tint:   rgba(16, 185, 129, 0.08);
+  --c-green-border: rgba(16, 185, 129, 0.22);
+  --c-amber-tint:   rgba(245, 158, 11, 0.08);
+  --c-amber-border: rgba(245, 158, 11, 0.25);
+  --c-rose-tint:    rgba(244, 63, 94, 0.08);
+  --c-rose-border:  rgba(244, 63, 94, 0.22);
+
+  /* Neutral overlays */
+  --overlay-xs: rgba(255, 255, 255, 0.025);
+  --overlay-sm: rgba(255, 255, 255, 0.05);
+  --overlay-md: rgba(255, 255, 255, 0.08);
+
+  /* Borders */
   --c-line:   rgba(255, 255, 255, 0.07);
+  --border-md: rgba(255, 255, 255, 0.12);
+
+  /* UI chrome */
+  --watermark:      rgba(255, 255, 255, 0.018);
+  --navbar-bg:      rgba(7, 11, 18, 0.92);
+  --mobile-menu-bg: rgba(7, 11, 18, 0.97);
+  --grid-line:      rgba(255, 255, 255, 0.025);
+  --scrollbar:      rgba(34, 211, 238, 0.2);
+  --selection:      rgba(34, 211, 238, 0.18);
+  --shadow-card:    0 2px 12px rgba(0, 0, 0, 0.4);
+  --shadow-float:   0 8px 32px rgba(0, 0, 0, 0.6);
+
+  /* Toggle button */
+  --toggle-bg:     rgba(255, 255, 255, 0.05);
+  --toggle-border: rgba(255, 255, 255, 0.1);
+  --toggle-hover:  rgba(255, 255, 255, 0.09);
 }
 
+/* ═══════════════════════════════════════
+   LIGHT THEME
+   Premium SaaS — Vercel / Linear aesthetic
+═══════════════════════════════════════ */
+[data-theme="light"] {
+  /* Backgrounds — cool blue-gray foundation */
+  --ink:      #EFF3F8;
+  --ink-1:    #FFFFFF;
+  --ink-2:    #E4EAF2;
+
+  /* Text — deep navy for authority */
+  --c-text:   #0F172A;
+  --c-sub:    #334155;
+  --c-muted:  #64748B;
+
+  /* Accents — deeper, richer for contrast on light */
+  --c-cyan:   #0891B2;
+  --c-violet: #7C3AED;
+  --c-green:  #059669;
+  --c-amber:  #D97706;
+  --c-rose:   #E11D48;
+
+  /* Accent tints */
+  --c-cyan-tint:    rgba(8, 145, 178, 0.08);
+  --c-cyan-border:  rgba(8, 145, 178, 0.25);
+  --c-cyan-glow:    rgba(8, 145, 178, 0.06);
+  --c-violet-tint:  rgba(124, 58, 237, 0.08);
+  --c-violet-border:rgba(124, 58, 237, 0.25);
+  --c-violet-glow:  rgba(124, 58, 237, 0.05);
+  --c-green-tint:   rgba(5, 150, 105, 0.08);
+  --c-green-border: rgba(5, 150, 105, 0.25);
+  --c-amber-tint:   rgba(217, 119, 6, 0.09);
+  --c-amber-border: rgba(217, 119, 6, 0.28);
+  --c-rose-tint:    rgba(225, 29, 72, 0.07);
+  --c-rose-border:  rgba(225, 29, 72, 0.22);
+
+  /* Neutral overlays */
+  --overlay-xs: rgba(0, 0, 0, 0.03);
+  --overlay-sm: rgba(0, 0, 0, 0.055);
+  --overlay-md: rgba(0, 0, 0, 0.09);
+
+  /* Borders */
+  --c-line:    rgba(0, 0, 0, 0.08);
+  --border-md: rgba(0, 0, 0, 0.14);
+
+  /* UI chrome */
+  --watermark:      rgba(0, 0, 0, 0.05);
+  --navbar-bg:      rgba(239, 243, 248, 0.94);
+  --mobile-menu-bg: rgba(239, 243, 248, 0.98);
+  --grid-line:      rgba(0, 0, 0, 0.055);
+  --scrollbar:      rgba(8, 145, 178, 0.3);
+  --selection:      rgba(8, 145, 178, 0.2);
+  --shadow-card:    0 1px 4px rgba(0, 0, 0, 0.07), 0 4px 16px rgba(0, 0, 0, 0.05);
+  --shadow-float:   0 8px 32px rgba(0, 0, 0, 0.12);
+
+  /* Toggle button */
+  --toggle-bg:     rgba(0, 0, 0, 0.05);
+  --toggle-border: rgba(0, 0, 0, 0.12);
+  --toggle-hover:  rgba(0, 0, 0, 0.09);
+}
+
+/* ═══════════════════════════════════════
+   BASE STYLES
+═══════════════════════════════════════ */
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 html {
   scroll-behavior: smooth;
   color-scheme: dark;
+}
+
+[data-theme="light"] {
+  color-scheme: light;
 }
 
 body {
@@ -38,11 +152,12 @@ body {
 /* Scrollbar */
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: var(--ink); }
-::-webkit-scrollbar-thumb { background: rgba(34, 211, 238, 0.2); border-radius: 2px; }
-::-webkit-scrollbar-thumb:hover { background: rgba(34, 211, 238, 0.4); }
+::-webkit-scrollbar-thumb { background: var(--scrollbar); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: var(--c-cyan); opacity: 0.4; }
 
-::selection { background: rgba(34, 211, 238, 0.18); color: var(--c-text); }
+::selection { background: var(--selection); color: var(--c-text); }
 
+/* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
@@ -52,8 +167,28 @@ body {
   html { scroll-behavior: auto; }
 }
 
+/* ═══════════════════════════════════════
+   SMOOTH THEME TRANSITION
+   Applied only during the switch — doesn't
+   interfere with hover/reveal animations.
+═══════════════════════════════════════ */
+.theme-switching *,
+.theme-switching *::before,
+.theme-switching *::after {
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    color 0.3s ease,
+    fill 0.3s ease,
+    stroke 0.3s ease,
+    box-shadow 0.3s ease !important;
+}
+
+/* ═══════════════════════════════════════
+   UTILITIES
+═══════════════════════════════════════ */
 @layer utilities {
-  /* ── Scroll reveal ── */
+  /* Scroll reveal */
   .reveal {
     opacity: 0;
     transform: translateY(20px);
@@ -81,15 +216,27 @@ body {
   .delay-500 { transition-delay: 0.50s; }
   .delay-600 { transition-delay: 0.60s; }
 
-  /* ── Grid background ── */
+  /* Grid background — adapts per theme */
   .grid-bg {
     background-image:
-      linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+      linear-gradient(var(--grid-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
     background-size: 64px 64px;
   }
 
-  /* ── Mono label ── */
+  /* Section watermark numbers */
+  .watermark {
+    color: var(--watermark);
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: clamp(10rem, 22vw, 22rem);
+    line-height: 1;
+    letter-spacing: -0.05em;
+    user-select: none;
+    pointer-events: none;
+  }
+
+  /* Mono label */
   .label {
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.68rem;
@@ -99,50 +246,87 @@ body {
     color: var(--c-muted);
   }
 
-  /* ── Tags ── */
+  /* Tags — neutral base */
   .tag {
     display: inline-block;
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.68rem;
     padding: 0.2rem 0.55rem;
     border-radius: 3px;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    background: rgba(255, 255, 255, 0.03);
-    color: var(--c-sub);
+    border: 1px solid var(--c-line);
+    background: var(--overlay-xs);
+    color: var(--c-muted);
     line-height: 1.6;
   }
-  .tag-cyan   { border-color: rgba(34,211,238,0.22);  background: rgba(34,211,238,0.07);  color: var(--c-cyan);   }
-  .tag-violet { border-color: rgba(139,92,246,0.22);  background: rgba(139,92,246,0.07);  color: var(--c-violet); }
-  .tag-green  { border-color: rgba(16,185,129,0.22);  background: rgba(16,185,129,0.07);  color: var(--c-green);  }
-  .tag-amber  { border-color: rgba(245,158,11,0.22);  background: rgba(245,158,11,0.07);  color: var(--c-amber);  }
-  .tag-rose   { border-color: rgba(244,63,94,0.22);   background: rgba(244,63,94,0.07);   color: var(--c-rose);   }
+  /* Accent tags — use theme-aware tint vars */
+  .tag-cyan {
+    border-color: var(--c-cyan-border);
+    background: var(--c-cyan-tint);
+    color: var(--c-cyan);
+  }
+  .tag-violet {
+    border-color: var(--c-violet-border);
+    background: var(--c-violet-tint);
+    color: var(--c-violet);
+  }
+  .tag-green {
+    border-color: var(--c-green-border);
+    background: var(--c-green-tint);
+    color: var(--c-green);
+  }
+  .tag-amber {
+    border-color: var(--c-amber-border);
+    background: var(--c-amber-tint);
+    color: var(--c-amber);
+  }
+  .tag-rose {
+    border-color: var(--c-rose-border);
+    background: var(--c-rose-tint);
+    color: var(--c-rose);
+  }
 
-  /* ── Horizontal rule ── */
-  .h-rule { border: none; border-top: 1px solid var(--c-line); width: 100%; }
+  /* Horizontal rule */
+  .h-rule {
+    border: none;
+    border-top: 1px solid var(--c-line);
+    width: 100%;
+  }
 
-  /* ── Blinking cursor ── */
+  /* Blinking cursor */
   .cursor::after {
     content: '_';
     animation: blink 1.2s step-end infinite;
     color: var(--c-cyan);
   }
 
-  /* ── Terminal block ── */
+  /* Terminal block — theme-aware */
   .terminal {
-    background: rgba(13, 17, 23, 0.9);
-    border: 1px solid rgba(255, 255, 255, 0.07);
+    background: var(--ink-2);
+    border: 1px solid var(--c-line);
     border-radius: 6px;
     font-family: 'JetBrains Mono', monospace;
   }
+  .terminal-header {
+    background: var(--overlay-xs);
+    border-bottom: 1px solid var(--c-line);
+  }
+  .terminal-row-border {
+    border-color: var(--c-line);
+  }
+  .terminal-tools-divider {
+    border-color: var(--c-line);
+  }
 
-  /* ── Subtle surface ── */
+  /* Surface card */
   .surface {
-    background: rgba(13, 17, 23, 0.6);
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: var(--overlay-xs);
+    border: 1px solid var(--c-line);
   }
 }
 
-/* ── Explicit keyframe definitions ── */
+/* ═══════════════════════════════════════
+   EXPLICIT KEYFRAMES
+═══════════════════════════════════════ */
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(20px); }
   to   { opacity: 1; transform: translateY(0); }
@@ -159,10 +343,11 @@ body {
   0%, 100% { transform: translateY(0); }
   50%       { transform: translateY(-8px); }
 }
-@keyframes slideInLeft {
-  from { opacity: 0; transform: translateX(-20px); }
-  to   { opacity: 1; transform: translateX(0); }
-}
 @keyframes ping {
   75%, 100% { transform: scale(2); opacity: 0; }
+}
+@keyframes toggleSpin {
+  0%   { transform: rotate(0deg) scale(1); }
+  50%  { transform: rotate(180deg) scale(0.8); }
+  100% { transform: rotate(360deg) scale(1); }
 }

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { Menu, X } from 'lucide-react'
+import { ThemeToggle } from './ThemeToggle'
 
 const navLinks = [
   { label: 'About',      href: '#about' },
@@ -13,9 +14,9 @@ const navLinks = [
 ]
 
 export default function Navbar() {
-  const [scrolled, setScrolled]       = useState(false)
-  const [mobileOpen, setMobileOpen]   = useState(false)
-  const [activeSection, setActive]    = useState('')
+  const [scrolled, setScrolled]     = useState(false)
+  const [mobileOpen, setMobileOpen] = useState(false)
+  const [activeSection, setActive]  = useState('')
 
   useEffect(() => {
     const onScroll = () => {
@@ -40,22 +41,19 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? 'border-b'
-          : ''
-      }`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'border-b' : ''}`}
       style={{
-        background: scrolled ? 'rgba(7,11,18,0.92)' : 'transparent',
+        background: scrolled ? 'var(--navbar-bg)' : 'transparent',
         backdropFilter: scrolled ? 'blur(20px)' : 'none',
         WebkitBackdropFilter: scrolled ? 'blur(20px)' : 'none',
-        borderColor: scrolled ? 'rgba(255,255,255,0.06)' : 'transparent',
+        borderColor: 'var(--c-line)',
       }}
     >
       <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-16 gap-4">
+
           {/* Logo */}
-          <div>
+          <div className="flex-shrink-0">
             <span className="font-display text-xl font-black text-c-text tracking-tight leading-none">
               VR
             </span>
@@ -64,8 +62,8 @@ export default function Navbar() {
             </span>
           </div>
 
-          {/* Desktop nav */}
-          <div className="hidden md:flex items-center gap-0.5">
+          {/* Desktop nav links */}
+          <div className="hidden md:flex items-center gap-0.5 flex-1 justify-center">
             {navLinks.map((link) => {
               const isActive = activeSection === link.href.slice(1)
               return (
@@ -73,9 +71,7 @@ export default function Navbar() {
                   key={link.href}
                   onClick={() => nav(link.href)}
                   className="px-3 py-1.5 font-mono text-[11px] tracking-[0.12em] uppercase transition-colors duration-200"
-                  style={{
-                    color: isActive ? 'var(--c-cyan)' : 'var(--c-muted)',
-                  }}
+                  style={{ color: isActive ? 'var(--c-cyan)' : 'var(--c-muted)' }}
                   onMouseEnter={(e) => {
                     if (!isActive) e.currentTarget.style.color = 'var(--c-sub)'
                   }}
@@ -89,39 +85,38 @@ export default function Navbar() {
             })}
           </div>
 
-          {/* Resume button */}
-          <div className="hidden md:block">
+          {/* Right cluster: Resume + Toggle */}
+          <div className="hidden md:flex items-center gap-2 flex-shrink-0">
             <a
               href="/Vishal_Resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center px-4 py-1.5 rounded font-mono text-[11px] tracking-[0.12em] uppercase transition-all duration-200"
               style={{
-                border: '1px solid rgba(34,211,238,0.35)',
+                border: '1px solid var(--c-cyan-border)',
                 color: 'var(--c-cyan)',
               }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = 'rgba(34,211,238,0.08)'
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = 'transparent'
-              }}
+              onMouseEnter={(e) => (e.currentTarget.style.background = 'var(--c-cyan-tint)')}
+              onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
             >
               Resume
             </a>
+            <ThemeToggle />
           </div>
 
-          {/* Mobile hamburger */}
-          <button
-            onClick={() => setMobileOpen(!mobileOpen)}
-            className="md:hidden p-2 text-c-muted transition-colors duration-200"
-            style={{}}
-            onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--c-sub)')}
-            onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--c-muted)')}
-            aria-label="Toggle menu"
-          >
-            {mobileOpen ? <X size={20} /> : <Menu size={20} />}
-          </button>
+          {/* Mobile: toggle + hamburger */}
+          <div className="md:hidden flex items-center gap-2">
+            <ThemeToggle />
+            <button
+              onClick={() => setMobileOpen(!mobileOpen)}
+              className="p-1.5 text-c-muted transition-colors duration-200"
+              onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--c-sub)')}
+              onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--c-muted)')}
+              aria-label="Toggle menu"
+            >
+              {mobileOpen ? <X size={20} /> : <Menu size={20} />}
+            </button>
+          </div>
         </div>
       </div>
 
@@ -134,9 +129,9 @@ export default function Navbar() {
         <div
           className="px-6 py-4 flex flex-col gap-0.5 border-b"
           style={{
-            background: 'rgba(7,11,18,0.96)',
+            background: 'var(--mobile-menu-bg)',
             backdropFilter: 'blur(20px)',
-            borderColor: 'rgba(255,255,255,0.06)',
+            borderColor: 'var(--c-line)',
           }}
         >
           {navLinks.map((link) => {
@@ -158,7 +153,7 @@ export default function Navbar() {
             rel="noopener noreferrer"
             className="mt-3 inline-flex items-center justify-center px-4 py-2.5 rounded font-mono text-[11px] tracking-[0.12em] uppercase"
             style={{
-              border: '1px solid rgba(34,211,238,0.35)',
+              border: '1px solid var(--c-cyan-border)',
               color: 'var(--c-cyan)',
             }}
           >

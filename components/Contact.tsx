@@ -25,11 +25,7 @@ const links = [
   },
 ]
 
-function ContactRow({
-  item,
-}: {
-  item: (typeof links)[0]
-}) {
+function ContactRow({ item }: { item: (typeof links)[0] }) {
   const [copied, setCopied] = useState(false)
 
   const handleClick = async (e: React.MouseEvent) => {
@@ -48,7 +44,7 @@ function ContactRow({
   const inner = (
     <div
       className="flex items-center justify-between py-5 border-b group transition-colors duration-200"
-      style={{ borderColor: 'rgba(255,255,255,0.07)' }}
+      style={{ borderColor: 'var(--c-line)' }}
     >
       <div className="flex items-center gap-4">
         <span className="text-c-muted group-hover:text-c-cyan transition-colors duration-200">
@@ -67,10 +63,8 @@ function ContactRow({
         {item.isEmail ? (
           copied ? (
             <>
-              <Check size={13} style={{ color: 'var(--c-green)' }} />
-              <span className="font-mono text-[10px] tracking-wider" style={{ color: 'var(--c-green)' }}>
-                Copied
-              </span>
+              <Check size={13} className="text-c-green" />
+              <span className="font-mono text-[10px] tracking-wider text-c-green">Copied</span>
             </>
           ) : (
             <>
@@ -86,18 +80,9 @@ function ContactRow({
   )
 
   if (item.isEmail) {
-    return (
-      <div onClick={handleClick} className="cursor-pointer">
-        {inner}
-      </div>
-    )
+    return <div onClick={handleClick} className="cursor-pointer">{inner}</div>
   }
-
-  return (
-    <a href={item.href} target="_blank" rel="noopener noreferrer">
-      {inner}
-    </a>
-  )
+  return <a href={item.href} target="_blank" rel="noopener noreferrer">{inner}</a>
 }
 
 export default function Contact() {
@@ -108,9 +93,7 @@ export default function Contact() {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.querySelectorAll('.reveal').forEach((el) =>
-              el.classList.add('in-view')
-            )
+            entry.target.querySelectorAll('.reveal').forEach((el) => el.classList.add('in-view'))
           }
         })
       },
@@ -124,23 +107,24 @@ export default function Contact() {
     <section
       id="contact"
       ref={sectionRef}
-      className="relative py-24 md:py-32 grid-bg overflow-hidden"
-      style={{ background: 'var(--ink-1)' }}
+      className="relative py-24 md:py-32 grid-bg overflow-hidden bg-ink-1"
     >
-      {/* Glow */}
+      {/* Watermark */}
+      <div className="absolute top-0 left-0 watermark" aria-hidden="true">06</div>
+
+      {/* Bottom glow — adapts per theme */}
       <div
         className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] pointer-events-none"
         aria-hidden="true"
         style={{
-          background: 'radial-gradient(ellipse at bottom, rgba(34,211,238,0.04) 0%, transparent 70%)',
+          background: `radial-gradient(ellipse at bottom, var(--c-cyan-glow) 0%, transparent 70%)`,
           filter: 'blur(40px)',
         }}
       />
 
       <div className="relative z-10 max-w-3xl mx-auto px-6 sm:px-10 lg:px-16">
-        {/* Section label */}
         <div className="reveal mb-6">
-          <span className="label" style={{ color: 'var(--c-cyan)' }}>// 06. CONTACT</span>
+          <span className="label text-c-cyan">// 06. CONTACT</span>
         </div>
 
         {/* Headline */}
@@ -151,9 +135,7 @@ export default function Contact() {
           >
             <span className="block text-c-text">LET&apos;S BUILD</span>
             <span className="block text-c-text">SOMETHING</span>
-            <span className="block" style={{ color: 'var(--c-cyan)' }}>
-              WORTH BREAKING.
-            </span>
+            <span className="block text-c-cyan">WORTH BREAKING.</span>
           </h2>
         </div>
 
@@ -165,8 +147,8 @@ export default function Contact() {
           <div
             className="inline-flex items-center gap-2 px-3 py-1.5 rounded flex-shrink-0 self-start"
             style={{
-              border: '1px solid rgba(16,185,129,0.25)',
-              background: 'rgba(16,185,129,0.05)',
+              border: '1px solid var(--c-green-border)',
+              background: 'var(--c-green-tint)',
             }}
           >
             <span className="relative flex h-1.5 w-1.5 flex-shrink-0">
@@ -177,25 +159,19 @@ export default function Contact() {
                   animation: 'ping 2s cubic-bezier(0,0,0.2,1) infinite',
                 }}
               />
-              <span
-                className="relative rounded-full h-1.5 w-1.5"
-                style={{ backgroundColor: 'var(--c-green)' }}
-              />
+              <span className="relative rounded-full h-1.5 w-1.5 bg-c-green" />
             </span>
-            <span className="font-mono text-[10px] tracking-[0.15em] uppercase" style={{ color: 'var(--c-green)' }}>
+            <span className="font-mono text-[10px] tracking-[0.15em] uppercase text-c-green">
               Available
             </span>
           </div>
         </div>
 
-        {/* Divider */}
         <hr className="h-rule reveal delay-300" />
 
         {/* Contact rows */}
         <div className="reveal delay-300">
-          {links.map((item) => (
-            <ContactRow key={item.label} item={item} />
-          ))}
+          {links.map((item) => <ContactRow key={item.label} item={item} />)}
         </div>
 
         {/* Resume CTA */}
@@ -207,8 +183,7 @@ export default function Contact() {
             className="inline-flex items-center gap-2.5 px-6 py-3 rounded font-mono text-[11px] tracking-[0.12em] uppercase font-bold transition-opacity duration-200 hover:opacity-80"
             style={{ background: 'var(--c-cyan)', color: 'var(--ink)' }}
           >
-            <Download size={13} />
-            Download Resume
+            <Download size={13} /> Download Resume
           </a>
         </div>
       </div>

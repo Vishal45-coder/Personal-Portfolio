@@ -3,28 +3,16 @@
 import { useEffect, useRef } from 'react'
 
 const stats = [
-  {
-    value: '3.88 / 4.0',
-    label: 'M.Eng. Cybersecurity + GCEN · UMD',
-    color: 'var(--c-cyan)',
-  },
-  {
-    value: '2+ Years',
-    label: 'Production engineering at CALCE',
-    color: 'var(--c-violet)',
-  },
-  {
-    value: '17.4M+',
-    label: 'Log entries indexed · EK Stack lab',
-    color: 'var(--c-green)',
-  },
+  { value: '3.88 / 4.0', label: 'M.Eng. Cybersecurity + GCEN · UMD', color: 'var(--c-cyan)' },
+  { value: '2+ Years',   label: 'Production engineering at CALCE',     color: 'var(--c-violet)' },
+  { value: '17.4M+',    label: 'Log entries indexed · EK Stack lab',   color: 'var(--c-green)' },
 ]
 
 const credentials = [
-  { label: 'M.Eng. Cybersecurity', meta: 'UMD · 2025', dot: 'var(--c-cyan)' },
+  { label: 'M.Eng. Cybersecurity',        meta: 'UMD · 2025', dot: 'var(--c-cyan)' },
   { label: 'Grad. Cert. Cloud Engineering', meta: 'UMD · 2025', dot: 'var(--c-cyan)' },
-  { label: 'B.Tech Computer Science', meta: 'GITAM · 2023', dot: 'var(--c-violet)' },
-  { label: 'BSCP', meta: 'In Progress', dot: 'var(--c-amber)', amber: true },
+  { label: 'B.Tech Computer Science',     meta: 'GITAM · 2023', dot: 'var(--c-violet)' },
+  { label: 'BSCP',                        meta: 'In Progress',  dot: 'var(--c-amber)', amber: true },
 ]
 
 export default function About() {
@@ -35,9 +23,9 @@ export default function About() {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach((el) =>
-              el.classList.add('in-view')
-            )
+            entry.target
+              .querySelectorAll('.reveal, .reveal-left, .reveal-right')
+              .forEach((el) => el.classList.add('in-view'))
           }
         })
       },
@@ -48,26 +36,9 @@ export default function About() {
   }, [])
 
   return (
-    <section
-      id="about"
-      ref={sectionRef}
-      className="relative py-24 md:py-32 bg-ink overflow-hidden"
-    >
-      {/* Watermark number */}
-      <div
-        className="absolute top-0 right-0 select-none pointer-events-none"
-        aria-hidden="true"
-        style={{
-          fontFamily: 'Syne, sans-serif',
-          fontSize: 'clamp(10rem, 22vw, 22rem)',
-          fontWeight: 800,
-          color: 'rgba(255,255,255,0.018)',
-          lineHeight: 1,
-          letterSpacing: '-0.05em',
-        }}
-      >
-        01
-      </div>
+    <section id="about" ref={sectionRef} className="relative py-24 md:py-32 bg-ink overflow-hidden">
+      {/* Watermark */}
+      <div className="absolute top-0 right-0 watermark" aria-hidden="true">01</div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
         <div className="grid lg:grid-cols-5 gap-12 lg:gap-20 items-start">
@@ -75,7 +46,7 @@ export default function About() {
           {/* Left — story */}
           <div className="lg:col-span-3 space-y-7">
             <div className="reveal">
-              <span className="label" style={{ color: 'var(--c-cyan)' }}>// 01. ABOUT</span>
+              <span className="label text-c-cyan">// 01. ABOUT</span>
             </div>
 
             <h2
@@ -83,9 +54,9 @@ export default function About() {
               style={{ fontSize: 'clamp(1.8rem, 4vw, 3rem)' }}
             >
               Engineering at the intersection of{' '}
-              <span style={{ color: 'var(--c-cyan)' }}>System Design</span>{' '}
+              <span className="text-c-cyan">System Design</span>{' '}
               &amp;{' '}
-              <span style={{ color: 'var(--c-violet)' }}>Security</span>
+              <span className="text-c-violet">Security</span>
             </h2>
 
             <div className="space-y-4 text-c-sub leading-relaxed text-sm sm:text-base">
@@ -116,14 +87,11 @@ export default function About() {
                   key={c.label}
                   className="flex items-center gap-2 px-3 py-1.5 rounded"
                   style={{
-                    background: 'rgba(255,255,255,0.03)',
-                    border: '1px solid rgba(255,255,255,0.07)',
+                    background: 'var(--overlay-xs)',
+                    border: '1px solid var(--c-line)',
                   }}
                 >
-                  <span
-                    className="w-1.5 h-1.5 rounded-full flex-shrink-0"
-                    style={{ backgroundColor: c.dot }}
-                  />
+                  <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ backgroundColor: c.dot }} />
                   <span className="text-c-sub text-xs font-medium">{c.label}</span>
                   <span
                     className="text-[10px] font-mono"
@@ -144,10 +112,7 @@ export default function About() {
                   <div className="py-6">
                     <div
                       className="font-display font-bold leading-none mb-2"
-                      style={{
-                        fontSize: 'clamp(1.8rem, 3.5vw, 2.8rem)',
-                        color: s.color,
-                      }}
+                      style={{ fontSize: 'clamp(1.8rem, 3.5vw, 2.8rem)', color: s.color }}
                     >
                       {s.value}
                     </div>
