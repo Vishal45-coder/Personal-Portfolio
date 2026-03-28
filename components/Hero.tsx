@@ -14,7 +14,7 @@ const stats = [
   { value: '3.88', label: 'GPA · M.Eng.' },
   { value: '2+',   label: 'Years in Production' },
   { value: '5',    label: 'Security Labs' },
-  { value: '850+', label: 'Software Downloads' },
+  { value: '17.4M+', label: 'Log Entries Indexed' },
 ]
 
 export default function Hero() {

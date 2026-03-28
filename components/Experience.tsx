@@ -24,7 +24,7 @@ const roles: Role[] = [
     accent: 'var(--c-cyan)',
     bullets: [
       'Sole architect of the MOSTCOOL Reliability Web Platform — enterprise-grade R(t)/A(t) analysis tool packaged as a Docker image with microservice-decoupled React.js + Flask architecture and 8 REST endpoints',
-      'Designed and delivered the MOSTCOOL public web application — 10+ page MPA serving 850+ software downloads for a federally funded research initiative; integrated Google Analytics 4',
+      'Designed and delivered the MOSTCOOL public web application — 10+ page MPA for a federally funded research initiative; built the software distribution platform that has served 850+ downloads across MOSTCOOL modules; integrated Google Analytics 4',
       'Engineered a Flask REST API with GitHub Issues API integration for automated support ticketing + secure gated ZIP download pipeline deployed via GitHub Actions CI/CD',
       'Refactored platform codebase to remediate OWASP Top 10 vulnerabilities (XSS, Insecure Design) — cut production bugs by 50% through input validation and CORS whitelisting',
     ],

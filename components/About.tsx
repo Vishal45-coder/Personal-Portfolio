@@ -14,11 +14,6 @@ const stats = [
     color: 'var(--c-violet)',
   },
   {
-    value: '850+',
-    label: 'Software downloads via platform',
-    color: 'var(--c-green)',
-  },
-  {
     value: '17.4M+',
     label: 'Log entries indexed · EK Stack lab',
     color: 'var(--c-green)',

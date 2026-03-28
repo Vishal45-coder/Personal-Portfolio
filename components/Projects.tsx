@@ -49,7 +49,7 @@ const workProjects: CaseStudy[] = [
     badgeColor: 'tag-violet',
     title: 'MOSTCOOL Research Platform',
     tagline:
-      'Public-facing hub for a federally funded research initiative — automated distribution, OWASP-hardened.',
+      'Public-facing hub for a federally funded research initiative — distribution platform, OWASP-hardened, serving 850+ downloads across MOSTCOOL modules.',
     accent: 'var(--c-violet)',
     tagClass: 'tag-violet',
     challenge:
@@ -61,7 +61,7 @@ const workProjects: CaseStudy[] = [
       'OWASP Top 10 remediation (XSS, Insecure Design) — input validation + CORS whitelisting',
     ],
     impact: [
-      { value: '850+', label: 'Software Downloads' },
+      { value: '850+', label: 'Downloads Served via Platform' },
       { value: '50%',  label: 'Bug Reduction' },
       { value: '10+',  label: 'Pages' },
     ],
