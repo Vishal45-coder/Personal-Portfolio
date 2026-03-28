@@ -1,219 +1,171 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
-import { Target, ShieldCheck, Cloud, BookOpen, Server } from 'lucide-react'
+import { ShieldCheck } from 'lucide-react'
 
-interface LabCard {
-  icon: React.ReactNode
+interface Lab {
+  num: string
   title: string
   course: string
   badge: string
-  badgeColor: string
-  accentColor: string
-  accentClass: string
-  content: React.ReactNode
+  accent: string
+  tagClass: string
+  steps?: string[]
+  bullets?: string[]
   tools: string[]
-  delay: string
 }
 
-const offensiveTools = [
-  'Metasploit', 'Burp Suite', 'Nmap', 'SQLmap', 'Hydra', 'Wireshark',
-  'Weevely', 'Shodan', 'arp-scan', 'CyberChef', 'Sublist3r',
-]
-
-const defensiveTools = [
-  'Elasticsearch', 'Kibana', 'Filebeat', 'UFW', 'auditd', 'CloudWatch',
-  'CloudTrail', 'IAM Analyzer', 'NIST CSF', 'CIS Benchmarks',
-]
-
-const labCards: LabCard[] = [
+const labs: Lab[] = [
   {
-    icon: <Target size={18} />,
+    num: '01',
     title: 'Solo CTF — 6-Flag Full-Chain Exploitation',
-    course: 'ENPM634, University of Maryland',
-    badge: 'Full Kill Chain • Root',
-    badgeColor: 'text-c-danger bg-c-danger/10 border-c-danger/25',
-    accentColor: '#f43f5e',
-    accentClass: 'card-accent-rose',
-    delay: 'delay-100',
+    course: 'ENPM634 · University of Maryland',
+    badge: 'Full Kill Chain · Root',
+    accent: 'var(--c-rose)',
+    tagClass: 'tag-rose',
+    steps: [
+      'Network Recon → ifconfig, arp-scan',
+      'Port Enum → Nmap (HTTP/80, SSH/22)',
+      'SQL Injection → SQLmap → DB Dump → CEO Creds',
+      'File Upload → Weevely PHP Webshell → RCE',
+      'SSH Pivot → Admin Private Key Exfil',
+      'User Enum → /etc/passwd → Hydra Spray',
+      'Root Escalation → Python ZIP Decrypt → Hex → CyberChef',
+    ],
     tools: ['arp-scan', 'Nmap', 'SQLmap', 'Weevely', 'Hydra', 'CyberChef', 'Wireshark'],
-    content: (
-      <div className="space-y-2">
-        <p className="text-xs text-c-muted font-mono mb-3">Attack chain:</p>
-        {[
-          'Network Recon → ifconfig, arp-scan',
-          'Port Enum → Nmap (HTTP/80, SSH/22)',
-          'SQL Injection → SQLmap → Database Dump → CEO Credentials',
-          'File Upload → Weevely PHP Webshell → RCE',
-          'SSH Pivot → Admin Private Key Exfiltration',
-          'User Enum → /etc/passwd → Hydra Password Spray',
-          'Root Escalation → Python ZIP Decryption → Hex Dump → CyberChef',
-        ].map((step, i) => (
-          <div key={i} className="flex gap-2.5 text-xs text-slate-400">
-            <span className="text-c-danger font-mono flex-shrink-0 font-bold">
-              {String(i + 1).padStart(2, '0')}
-            </span>
-            <span>{step}</span>
-          </div>
-        ))}
-      </div>
-    ),
   },
   {
-    icon: <Target size={18} />,
+    num: '02',
     title: 'Penetration Testing — CTF VM Exploitation',
-    course: 'ENPM634, University of Maryland',
+    course: 'ENPM634 · University of Maryland',
     badge: 'Black-Box Pentest',
-    badgeColor: 'text-c-primary bg-c-primary/10 border-c-primary/25',
-    accentColor: '#38bdf8',
-    accentClass: 'card-accent-sky',
-    delay: 'delay-200',
+    accent: 'var(--c-cyan)',
+    tagClass: 'tag-cyan',
+    bullets: [
+      'Nmap enumeration (SSH/22, HTTP/80, SMB/139, SMB/445)',
+      'Wireshark credential capture — plaintext HTTP traffic exploitation',
+      'Hydra brute-force + lateral movement via SSH',
+      'Hex dump + CyberChef data exfiltration',
+    ],
     tools: ['Nmap', 'Wireshark', 'Hydra', 'CyberChef', 'SSH'],
-    content: (
-      <ul className="space-y-2">
-        {[
-          'Nmap enumeration (SSH/22, HTTP/80, SMB/139, SMB/445)',
-          'Wireshark credential capture — plaintext HTTP traffic exploitation',
-          'Hydra brute-force attack + lateral movement via SSH',
-          'Hex dump + CyberChef data exfiltration',
-        ].map((item, i) => (
-          <li key={i} className="flex gap-2.5 text-xs text-slate-400">
-            <span className="w-1.5 h-1.5 rounded-full bg-c-primary flex-shrink-0 mt-1"></span>
-            <span>{item}</span>
-          </li>
-        ))}
-      </ul>
-    ),
   },
   {
-    icon: <Cloud size={18} />,
+    num: '03',
     title: 'Cloud Security Assessment — AWS',
-    course: 'ENPM665, University of Maryland',
-    badge: 'AWS • NIST CSF • CIS',
-    badgeColor: 'text-c-accent bg-c-accent/10 border-c-accent/25',
-    accentColor: '#34d399',
-    accentClass: 'card-accent-emerald',
-    delay: 'delay-300',
+    course: 'ENPM665 · University of Maryland',
+    badge: 'AWS · NIST CSF · CIS',
+    accent: 'var(--c-green)',
+    tagClass: 'tag-green',
+    bullets: [
+      'IAM trust relationship enumeration + audit',
+      'EC2 hardening: chmod -R 755 exposing .env + API keys, absent patch management',
+      'Missing iptables/nftables firewall + no IDS/IPS (Snort/Suricata)',
+      'SELinux in permissive mode (sestatus: Current mode: permissive)',
+      'Synthesized 6-domain risk report aligned to NIST CSF + CIS Benchmarks',
+    ],
     tools: ['AWS CLI', 'IAM Analyzer', 'NIST CSF', 'CIS Benchmarks'],
-    content: (
-      <ul className="space-y-2">
-        {[
-          'IAM trust relationship enumeration + audit',
-          'EC2 hardening: absent patch management, chmod -R 755 exposing .env + API keys',
-          'Missing iptables/nftables firewall + no IDS/IPS (Snort/Suricata)',
-          'SELinux in permissive mode (sestatus: Current mode: permissive)',
-          'Synthesized 6-domain risk report aligned to NIST CSF + CIS Benchmarks',
-        ].map((item, i) => (
-          <li key={i} className="flex gap-2.5 text-xs text-slate-400">
-            <span className="w-1.5 h-1.5 rounded-full bg-c-accent flex-shrink-0 mt-1"></span>
-            <span>{item}</span>
-          </li>
-        ))}
-      </ul>
-    ),
   },
   {
-    icon: <BookOpen size={18} />,
+    num: '04',
     title: 'Enterprise Security Assessment — Threat Modeling',
-    course: 'ENPM686, University of Maryland',
-    badge: 'STRIDE • DREAD • ISO 27001',
-    badgeColor: 'text-c-secondary bg-c-secondary/10 border-c-secondary/25',
-    accentColor: '#818cf8',
-    accentClass: 'card-accent-indigo',
-    delay: 'delay-100',
+    course: 'ENPM686 · University of Maryland',
+    badge: 'STRIDE · DREAD · ISO 27001',
+    accent: 'var(--c-violet)',
+    tagClass: 'tag-violet',
+    bullets: [
+      'STRIDE threat modeling — mapped 16 vulnerabilities across 6 threat categories',
+      'DREAD scoring across 12 scenarios: DoS (7.8), Phishing (7.8), Credential Theft (7.6)',
+      '65+ workstations/servers assessed (Ubuntu 22.04, Windows 10, macOS)',
+      '$250,400/year remediation roadmap: Cloudflare WAF, Okta IAM, Splunk, HashiCorp Vault',
+      'Compliance gap analysis: NIST CSF, ISO 27001, PCI DSS, GDPR',
+    ],
     tools: ['STRIDE', 'DREAD', 'NIST CSF', 'ISO 27001', 'PCI DSS', 'GDPR'],
-    content: (
-      <ul className="space-y-2">
-        {[
-          'STRIDE threat modeling — mapped 16 vulnerabilities across 6 threat categories',
-          'DREAD scoring across 12 threat scenarios: DoS (7.8), Phishing (7.8), Credential Theft (7.6)',
-          '65+ workstations/servers assessed (Ubuntu 22.04, Windows 10, macOS)',
-          '$250,400/year remediation roadmap: Cloudflare WAF, Okta IAM, Splunk, HashiCorp Vault',
-          'Compliance gap analysis: NIST CSF, ISO 27001, PCI DSS, GDPR',
-        ].map((item, i) => (
-          <li key={i} className="flex gap-2.5 text-xs text-slate-400">
-            <span className="w-1.5 h-1.5 rounded-full bg-c-secondary flex-shrink-0 mt-1"></span>
-            <span>{item}</span>
-          </li>
-        ))}
-      </ul>
-    ),
   },
   {
-    icon: <Server size={18} />,
+    num: '05',
     title: 'Linux Infrastructure & SIEM',
-    course: 'ENPM818P, University of Maryland',
-    badge: 'EK Stack • 17.4M+ Logs',
-    badgeColor: 'text-c-accent bg-c-accent/10 border-c-accent/25',
-    accentColor: '#34d399',
-    accentClass: 'card-accent-emerald',
-    delay: 'delay-200',
+    course: 'ENPM818P · University of Maryland',
+    badge: 'EK Stack · 17.4M+ Logs',
+    accent: 'var(--c-green)',
+    tagClass: 'tag-green',
+    bullets: [
+      '2-tier LAMP stack (www-vm + db-vm): Apache2, PHP, MySQL, phpMyAdmin, WordPress',
+      'Least-privilege RBAC with ACLs + UFW firewall (SSH restricted to VM host IP)',
+      'EK Stack (Elasticsearch + Kibana) — 17.4M+ log entries indexed and queryable in real-time',
+      'MySQL port 3306 locked to www-vm IP only (network segmentation)',
+    ],
     tools: ['Elasticsearch', 'Kibana', 'Filebeat', 'UFW', 'Apache2', 'auditd'],
-    content: (
-      <ul className="space-y-2">
-        {[
-          '2-tier LAMP stack (www-vm + db-vm): Apache2, PHP, MySQL, phpMyAdmin, WordPress',
-          'Least-privilege RBAC with ACLs + UFW firewall (SSH restricted to VM host IP)',
-          'EK Stack (Elasticsearch + Kibana) — eliminated Logstash overhead',
-          '17.4M+ log entries indexed and queryable in real-time via Kibana Discover',
-          'MySQL port 3306 locked to www-vm IP only (network segmentation)',
-        ].map((item, i) => (
-          <li key={i} className="flex gap-2.5 text-xs text-slate-400">
-            <span className="w-1.5 h-1.5 rounded-full bg-c-accent flex-shrink-0 mt-1"></span>
-            <span>{item}</span>
-          </li>
-        ))}
-      </ul>
-    ),
   },
 ]
 
-function LabCard({ card }: { card: LabCard }) {
+function LabEntry({ lab }: { lab: Lab }) {
   return (
     <div
-      className={`reveal-up ${card.delay} bg-bg-surface/60 backdrop-blur-sm border border-white/5 ${card.accentClass} rounded-xl overflow-hidden hover:border-white/10 hover:shadow-lg transition-all duration-300 hover:-translate-y-1`}
+      className="reveal border-b"
+      style={{ borderColor: 'rgba(255,255,255,0.07)' }}
     >
-      <div className="p-5">
-        {/* Header */}
-        <div className="flex items-start gap-3 mb-3">
-          <div
-            className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5"
-            style={{
-              background: `${card.accentColor}15`,
-              color: card.accentColor,
-            }}
-          >
-            {card.icon}
+      <div
+        className="flex gap-0 overflow-hidden"
+        style={{ borderLeft: `2px solid ${lab.accent}` }}
+      >
+        <div className="flex-1 p-5">
+          {/* Header row */}
+          <div className="flex flex-wrap items-start gap-3 mb-4">
+            <span
+              className="font-display font-bold flex-shrink-0"
+              style={{ fontSize: '1.1rem', color: lab.accent, opacity: 0.5 }}
+            >
+              {lab.num}
+            </span>
+            <div className="flex-1">
+              <div className="flex flex-wrap items-center gap-2 mb-1">
+                <h3 className="font-mono text-xs font-semibold text-c-text">
+                  {lab.title}
+                </h3>
+                <span className={`tag ${lab.tagClass}`}>{lab.badge}</span>
+              </div>
+              <p className="font-mono text-[10px] tracking-wider text-c-muted">{lab.course}</p>
+            </div>
           </div>
-          <div>
-            <h3 className="text-sm font-bold text-slate-100 leading-snug mb-1">
-              {card.title}
-            </h3>
-            <p className="text-xs text-c-muted font-mono">{card.course}</p>
-          </div>
-        </div>
 
-        {/* Badge */}
-        <span
-          className={`inline-block text-xs font-mono font-semibold px-2.5 py-0.5 rounded-full border mb-4 ${card.badgeColor}`}
-        >
-          {card.badge}
-        </span>
+          {/* Steps (attack chain) */}
+          {lab.steps && (
+            <div className="mb-4">
+              <p className="font-mono text-[10px] tracking-[0.14em] uppercase text-c-muted mb-2">
+                Attack Chain
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {lab.steps.map((step, i) => (
+                  <div key={i} className="flex items-start gap-1.5">
+                    <span
+                      className="font-mono text-[10px] font-bold flex-shrink-0"
+                      style={{ color: lab.accent }}
+                    >
+                      {String(i + 1).padStart(2, '0')}
+                    </span>
+                    <span className="text-c-sub text-[11px] leading-relaxed">{step}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
 
-        {/* Content */}
-        <div className="mb-4">{card.content}</div>
+          {/* Bullets */}
+          {lab.bullets && (
+            <ul className="space-y-1.5 mb-4">
+              {lab.bullets.map((b, i) => (
+                <li key={i} className="flex gap-2 text-[11px] text-c-sub leading-relaxed">
+                  <span className="flex-shrink-0 font-mono" style={{ color: lab.accent }}>→</span>
+                  <span>{b}</span>
+                </li>
+              ))}
+            </ul>
+          )}
 
-        {/* Tools */}
-        <div className="pt-3 border-t border-white/5">
-          <p className="text-xs text-c-muted mb-2 font-mono">Tools used:</p>
-          <div className="flex flex-wrap gap-1.5">
-            {card.tools.map((tool) => (
-              <span
-                key={tool}
-                className="bg-bg-surface-2 text-slate-400 text-xs px-2 py-0.5 rounded-full border border-white/5"
-              >
-                {tool}
-              </span>
+          {/* Tools */}
+          <div className="flex flex-wrap gap-1.5 pt-2 border-t" style={{ borderColor: 'rgba(255,255,255,0.05)' }}>
+            {lab.tools.map((t) => (
+              <span key={t} className="tag">{t}</span>
             ))}
           </div>
         </div>
@@ -230,19 +182,15 @@ export default function Security() {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target
-              .querySelectorAll('.reveal-up')
-              .forEach((el) => el.classList.add('in-view'))
+            entry.target.querySelectorAll('.reveal').forEach((el) =>
+              el.classList.add('in-view')
+            )
           }
         })
       },
-      { threshold: 0.05 }
+      { threshold: 0.04 }
     )
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current)
-    }
-
+    if (sectionRef.current) observer.observe(sectionRef.current)
     return () => observer.disconnect()
   }, [])
 
@@ -250,99 +198,93 @@ export default function Security() {
     <section
       id="security"
       ref={sectionRef}
-      className="relative py-24 md:py-32 overflow-hidden"
-      style={{ background: 'rgba(2, 8, 23, 0.98)' }}
+      className="relative py-24 md:py-32 bg-ink overflow-hidden"
     >
-      {/* Subtle pattern */}
-      <div className="absolute inset-0 dot-grid opacity-5" aria-hidden="true" />
-
-      {/* Left glow */}
+      {/* Watermark */}
       <div
-        className="absolute top-1/2 left-0 -translate-y-1/2 w-96 h-96 rounded-full opacity-5 pointer-events-none"
-        style={{
-          background: 'radial-gradient(circle, #34d399 0%, transparent 70%)',
-          filter: 'blur(80px)',
-        }}
+        className="absolute top-0 right-0 select-none pointer-events-none"
         aria-hidden="true"
-      />
+        style={{
+          fontFamily: 'Syne, sans-serif',
+          fontSize: 'clamp(10rem, 22vw, 22rem)',
+          fontWeight: 800,
+          color: 'rgba(255,255,255,0.018)',
+          lineHeight: 1,
+          letterSpacing: '-0.05em',
+        }}
+      >
+        05
+      </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 max-w-5xl mx-auto px-6 sm:px-10 lg:px-16">
         {/* Header */}
-        <div className="text-center mb-12 md:mb-16 space-y-4">
-          <div className="reveal-up">
-            <span className="section-label-green">// 05. SECURITY</span>
+        <div className="mb-10 space-y-4">
+          <div className="reveal">
+            <span className="label" style={{ color: 'var(--c-green)' }}>// 05. SECURITY</span>
           </div>
-          <h2 className="reveal-up delay-100 text-3xl sm:text-4xl md:text-5xl font-bold text-slate-100">
+          <h2
+            className="reveal delay-100 font-display font-bold text-c-text leading-tight"
+            style={{ fontSize: 'clamp(1.8rem, 4vw, 3rem)' }}
+          >
             Offensive Security Practice
           </h2>
-          <p className="reveal-up delay-200 text-c-muted text-base sm:text-lg max-w-2xl mx-auto">
-            From black-box recon to root access — documented attack chains and
-            security research
+          <p className="reveal delay-200 text-c-muted text-sm leading-relaxed max-w-lg">
+            From black-box recon to root access — documented attack chains and security research
+            from isolated lab environments.
           </p>
         </div>
 
-        {/* Certification badge */}
-        <div className="reveal-up delay-300 flex justify-center mb-12">
-          <div className="inline-flex items-center gap-3 px-5 py-3 rounded-xl border border-amber-400/25 bg-amber-400/5">
-            <ShieldCheck size={18} className="text-amber-400" />
+        {/* BSCP badge */}
+        <div className="reveal delay-300 mb-10">
+          <div
+            className="inline-flex items-center gap-3 px-4 py-3 rounded"
+            style={{
+              border: '1px solid rgba(245,158,11,0.25)',
+              background: 'rgba(245,158,11,0.05)',
+            }}
+          >
+            <ShieldCheck size={16} style={{ color: 'var(--c-amber)' }} />
             <div>
-              <p className="text-sm font-semibold text-amber-400">
+              <p className="font-mono text-xs font-semibold" style={{ color: 'var(--c-amber)' }}>
                 Burp Suite Certified Practitioner (BSCP)
               </p>
-              <p className="text-xs text-c-muted font-mono">
+              <p className="font-mono text-[10px] text-c-muted tracking-wider mt-0.5">
                 Certification In Progress · PortSwigger
               </p>
             </div>
-            <span className="text-xs font-mono text-amber-400 bg-amber-400/10 border border-amber-400/25 px-2 py-0.5 rounded-full">
+            <span
+              className="font-mono text-[10px] tracking-wider uppercase px-2 py-0.5 rounded"
+              style={{
+                color: 'var(--c-amber)',
+                background: 'rgba(245,158,11,0.1)',
+                border: '1px solid rgba(245,158,11,0.25)',
+              }}
+            >
               In Progress
             </span>
           </div>
         </div>
 
-        {/* Lab cards grid */}
-        <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-5 mb-12 md:mb-14">
-          {labCards.map((card) => (
-            <LabCard key={card.title} card={card} />
-          ))}
-        </div>
-
-        {/* Security tools */}
-        <div className="reveal-up delay-400 glass rounded-2xl p-5 sm:p-6 md:p-8">
-          <h3 className="text-sm sm:text-base font-bold text-slate-200 mb-5 sm:mb-6 font-mono text-center">
-            Security Tools &amp; Frameworks
-          </h3>
-          <div className="grid sm:grid-cols-2 gap-5 sm:gap-6">
-            <div>
-              <p className="text-xs font-mono text-c-danger mb-3 uppercase tracking-wider">
-                Offensive
-              </p>
-              <div className="flex flex-wrap gap-2">
-                {offensiveTools.map((tool) => (
-                  <span
-                    key={tool}
-                    className="text-xs px-2.5 py-1 rounded-full border text-c-danger/80 border-c-danger/20 bg-c-danger/5"
-                  >
-                    {tool}
-                  </span>
-                ))}
-              </div>
-            </div>
-            <div>
-              <p className="text-xs font-mono text-c-accent mb-3 uppercase tracking-wider">
-                Defensive / SIEM
-              </p>
-              <div className="flex flex-wrap gap-2">
-                {defensiveTools.map((tool) => (
-                  <span
-                    key={tool}
-                    className="text-xs px-2.5 py-1 rounded-full border text-c-accent/80 border-c-accent/20 bg-c-accent/5"
-                  >
-                    {tool}
-                  </span>
-                ))}
-              </div>
-            </div>
+        {/* Terminal */}
+        <div className="reveal delay-200 terminal overflow-hidden">
+          {/* Terminal header */}
+          <div
+            className="flex items-center gap-2 px-4 py-3 border-b"
+            style={{
+              background: 'rgba(255,255,255,0.025)',
+              borderColor: 'rgba(255,255,255,0.07)',
+            }}
+          >
+            <span className="w-2.5 h-2.5 rounded-full bg-c-rose opacity-70" />
+            <span className="w-2.5 h-2.5 rounded-full bg-c-amber opacity-70" />
+            <span className="w-2.5 h-2.5 rounded-full bg-c-green opacity-70" />
+            <span className="ml-3 font-mono text-[11px] text-c-muted">~/security-labs</span>
           </div>
+
+          {/* Lab entries */}
+          {labs.map((lab) => (
+            <LabEntry key={lab.num} lab={lab} />
+          ))}
         </div>
       </div>
     </section>

@@ -1,137 +1,64 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
-import { MapPin } from 'lucide-react'
 
-interface ExperienceEntry {
+interface Role {
+  num: string
   period: string
+  current: boolean
   role: string
   company: string
   location: string
-  dotColor: string
-  isCurrent: boolean
+  accent: string
   bullets: string[]
-  delay: string
 }
 
-const experiences: ExperienceEntry[] = [
+const roles: Role[] = [
   {
+    num: '01',
     period: 'Jan 2026 – Present',
-    role: 'Software Developer (General Assistant)',
-    company: 'CALCE | University of Maryland',
+    current: true,
+    role: 'Software Developer — General Assistant',
+    company: 'CALCE · University of Maryland',
     location: 'College Park, MD',
-    dotColor: '#38bdf8',
-    isCurrent: true,
-    delay: 'delay-100',
+    accent: 'var(--c-cyan)',
     bullets: [
-      'Sole architect of the MOSTCOOL Reliability Web Platform — enterprise-grade R(t)/A(t) analysis tool packaged as a locally-run Docker image with microservice-decoupled React.js + Flask architecture and 8 REST endpoints',
+      'Sole architect of the MOSTCOOL Reliability Web Platform — enterprise-grade R(t)/A(t) analysis tool packaged as a Docker image with microservice-decoupled React.js + Flask architecture and 8 REST endpoints',
       'Designed and delivered the MOSTCOOL public web application — 10+ page MPA serving 850+ software downloads for a federally funded research initiative; integrated Google Analytics 4',
-      'Engineered a Flask REST API with GitHub Issues API integration for automated support ticketing + secure gated ZIP download pipeline — deployed via GitHub Actions CI/CD',
+      'Engineered a Flask REST API with GitHub Issues API integration for automated support ticketing + secure gated ZIP download pipeline deployed via GitHub Actions CI/CD',
       'Refactored platform codebase to remediate OWASP Top 10 vulnerabilities (XSS, Insecure Design) — cut production bugs by 50% through input validation and CORS whitelisting',
     ],
   },
   {
+    num: '02',
     period: 'Aug 2024 – Dec 2025',
-    role: 'Software Developer (Graduate Research Assistant)',
-    company: 'CALCE | University of Maryland',
+    current: false,
+    role: 'Software Developer — Graduate Research Assistant',
+    company: 'CALCE · University of Maryland',
     location: 'College Park, MD',
-    dotColor: '#818cf8',
-    isCurrent: false,
-    delay: 'delay-200',
+    accent: 'var(--c-violet)',
     bullets: [
-      'Designed 5 physics-based degradation model UIs (particle erosion, pipe wall thinning, crystalline fouling, valve MTBF, pump sub-component failure) with bidirectional parameter binding to a 200+ component thermal-hydraulic JSON model',
-      'Implemented brute-force state enumeration algorithm (Python, NetworkX) — evaluates all 2ᴺ system states via DFS; capped at N=22 (4.2M evaluations) with minimal cut-set approximation for larger topologies',
+      'Designed 5 physics-based degradation model UIs with bidirectional parameter binding to a 200+ component thermal-hydraulic JSON model',
+      'Implemented brute-force state enumeration (Python, NetworkX) — evaluates all 2ᴺ system states via DFS; capped at N=22 (4.2M evaluations) with minimal cut-set approximation',
       'Engineered multi-sheet Excel round-trip serialization (SheetJS, 5 worksheets) with full backward compatibility and orphaned-node cleanup',
       'Reduced API latency by 30% through optimized serialization and request validation to prevent injection attacks',
-      'Architected cross-platform Bash/Shell automation suite for Docker orchestration across ARM64 and x86_64 architectures',
+      'Architected cross-platform Bash/Shell automation suite for Docker orchestration across ARM64 and x86_64',
     ],
   },
   {
+    num: '03',
     period: 'Apr 2024 – Aug 2024',
+    current: false,
     role: 'Software Developer',
-    company: 'CALCE | University of Maryland',
+    company: 'CALCE · University of Maryland',
     location: 'College Park, MD',
-    dotColor: '#34d399',
-    isCurrent: false,
-    delay: 'delay-300',
+    accent: 'var(--c-green)',
     bullets: [
       'Built a cross-platform reliability modeling desktop tool (Python Tkinter, NumPy) — improved user modeling efficiency by 60% and optimized performance for large datasets across Windows and macOS',
       'Developed a responsive website (HTML, CSS, JavaScript) — reduced load times by 40%; integrated Google Sheets API as a lightweight serverless backend for research data',
     ],
   },
 ]
-
-function TimelineEntry({ entry }: { entry: ExperienceEntry }) {
-  return (
-    <div className={`reveal-up ${entry.delay} relative flex gap-5 sm:gap-8`}>
-      {/* Dot + vertical line */}
-      <div className="flex flex-col items-center flex-shrink-0 pt-1">
-        <div className="relative w-4 h-4 rounded-full flex-shrink-0 z-10" style={{ backgroundColor: entry.dotColor }}>
-          {entry.isCurrent && (
-            <span
-              className="absolute inset-0 rounded-full animate-ping opacity-60"
-              style={{ backgroundColor: entry.dotColor }}
-            />
-          )}
-        </div>
-        <div className="w-px flex-1 mt-2 bg-gradient-to-b from-white/10 to-transparent" />
-      </div>
-
-      {/* Content */}
-      <div className="pb-10 sm:pb-14 flex-1 min-w-0">
-        {/* Period + current badge */}
-        <div className="flex flex-wrap items-center gap-2 mb-3">
-          <span
-            className="text-xs font-mono px-2.5 py-1 rounded-full border"
-            style={{
-              color: entry.dotColor,
-              borderColor: `${entry.dotColor}30`,
-              background: `${entry.dotColor}10`,
-            }}
-          >
-            {entry.period}
-          </span>
-          {entry.isCurrent && (
-            <span className="text-xs font-mono text-c-accent bg-c-accent/10 border border-c-accent/20 px-2 py-0.5 rounded-full">
-              Current
-            </span>
-          )}
-        </div>
-
-        {/* Card */}
-        <div className="glass glass-hover rounded-xl p-4 sm:p-5 md:p-6">
-          <div className="mb-4">
-            <h3 className="text-base sm:text-lg font-bold text-slate-100 mb-1.5 leading-snug">
-              {entry.role}
-            </h3>
-            <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm">
-              <span className="font-semibold" style={{ color: entry.dotColor }}>
-                {entry.company}
-              </span>
-              <span className="text-white/20 hidden sm:inline">·</span>
-              <span className="flex items-center gap-1 text-c-muted text-xs sm:text-sm">
-                <MapPin size={12} className="flex-shrink-0" />
-                {entry.location}
-              </span>
-            </div>
-          </div>
-
-          <ul className="space-y-2.5">
-            {entry.bullets.map((bullet, i) => (
-              <li key={i} className="flex gap-2.5 text-xs sm:text-sm text-slate-400 leading-relaxed">
-                <span
-                  className="flex-shrink-0 w-1.5 h-1.5 rounded-full mt-1.5"
-                  style={{ background: entry.dotColor }}
-                />
-                <span>{bullet}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-    </div>
-  )
-}
 
 export default function Experience() {
   const sectionRef = useRef<HTMLElement>(null)
@@ -141,9 +68,9 @@ export default function Experience() {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target
-              .querySelectorAll('.reveal-up')
-              .forEach((el) => el.classList.add('in-view'))
+            entry.target.querySelectorAll('.reveal').forEach((el) =>
+              el.classList.add('in-view')
+            )
           }
         })
       },
@@ -157,27 +84,123 @@ export default function Experience() {
     <section
       id="experience"
       ref={sectionRef}
-      className="relative py-24 md:py-32 bg-bg-surface/20"
+      className="relative py-24 md:py-32 overflow-hidden"
+      style={{ background: 'var(--ink-1)' }}
     >
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Watermark */}
+      <div
+        className="absolute top-0 left-0 select-none pointer-events-none"
+        aria-hidden="true"
+        style={{
+          fontFamily: 'Syne, sans-serif',
+          fontSize: 'clamp(10rem, 22vw, 22rem)',
+          fontWeight: 800,
+          color: 'rgba(255,255,255,0.018)',
+          lineHeight: 1,
+          letterSpacing: '-0.05em',
+        }}
+      >
+        04
+      </div>
+
+      <div className="relative z-10 max-w-5xl mx-auto px-6 sm:px-10 lg:px-16">
         {/* Header */}
-        <div className="text-center mb-12 md:mb-16 space-y-4">
-          <div className="reveal-up">
-            <span className="section-label">// 04. EXPERIENCE</span>
+        <div className="mb-14 space-y-4">
+          <div className="reveal">
+            <span className="label" style={{ color: 'var(--c-cyan)' }}>// 04. EXPERIENCE</span>
           </div>
-          <h2 className="reveal-up delay-100 text-3xl sm:text-4xl md:text-5xl font-bold text-slate-100">
+          <h2
+            className="reveal delay-100 font-display font-bold text-c-text leading-tight"
+            style={{ fontSize: 'clamp(1.8rem, 4vw, 3rem)' }}
+          >
             Where I&apos;ve Worked
           </h2>
-          <p className="reveal-up delay-200 text-c-muted text-sm sm:text-base">
+          <p className="reveal delay-200 font-mono text-[11px] tracking-[0.12em] uppercase text-c-muted">
             Center for Advanced Life Cycle Engineering (CALCE) · University of Maryland
           </p>
         </div>
 
-        {/* Timeline */}
+        {/* Entries */}
         <div>
-          {experiences.map((entry) => (
-            <TimelineEntry key={`${entry.period}-${entry.role}`} entry={entry} />
+          {roles.map((r, i) => (
+            <div key={r.num}>
+              <hr className="h-rule" />
+              <div
+                className={`reveal delay-${(i + 1) * 100} py-10 flex flex-col sm:flex-row gap-6 sm:gap-10`}
+              >
+                {/* Left: number */}
+                <div className="flex-shrink-0 sm:w-16">
+                  <span
+                    className="font-display font-bold leading-none"
+                    style={{
+                      fontSize: 'clamp(2.5rem, 4vw, 3.5rem)',
+                      color: r.accent,
+                      opacity: 0.3,
+                    }}
+                  >
+                    {r.num}
+                  </span>
+                </div>
+
+                {/* Right: content */}
+                <div className="flex-1">
+                  {/* Period + current */}
+                  <div className="flex flex-wrap items-center gap-2 mb-3">
+                    <span
+                      className="font-mono text-[11px] tracking-[0.12em] uppercase"
+                      style={{ color: r.accent }}
+                    >
+                      {r.period}
+                    </span>
+                    {r.current && (
+                      <span
+                        className="font-mono text-[10px] tracking-wider uppercase px-2 py-0.5 rounded"
+                        style={{
+                          color: 'var(--c-green)',
+                          background: 'rgba(16,185,129,0.1)',
+                          border: '1px solid rgba(16,185,129,0.2)',
+                        }}
+                      >
+                        Current
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Role */}
+                  <h3
+                    className="font-display font-bold text-c-text leading-tight mb-1"
+                    style={{ fontSize: 'clamp(1rem, 2vw, 1.4rem)' }}
+                  >
+                    {r.role}
+                  </h3>
+
+                  {/* Company + location */}
+                  <p
+                    className="font-mono text-[11px] tracking-[0.1em] uppercase mb-5"
+                    style={{ color: r.accent, opacity: 0.75 }}
+                  >
+                    {r.company} · {r.location}
+                  </p>
+
+                  {/* Bullets */}
+                  <ul className="space-y-2.5">
+                    {r.bullets.map((b, j) => (
+                      <li key={j} className="flex gap-3 text-sm text-c-sub leading-relaxed">
+                        <span
+                          className="flex-shrink-0 font-mono font-semibold mt-0.5"
+                          style={{ color: r.accent }}
+                        >
+                          →
+                        </span>
+                        <span>{b}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
           ))}
+          <hr className="h-rule" />
         </div>
       </div>
     </section>

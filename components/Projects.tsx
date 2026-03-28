@@ -3,193 +3,229 @@
 import { useEffect, useRef } from 'react'
 import { Briefcase, GraduationCap } from 'lucide-react'
 
-interface ProjectMetric {
-  label: string
-}
-
-interface Project {
-  accentColor: string
-  accentClass: string
+interface CaseStudy {
+  num: string
   badge: string
   badgeColor: string
   title: string
-  description: string
-  bullets: string[]
-  metrics: ProjectMetric[]
-  techStack: string[]
+  tagline: string
+  accent: string
+  tagClass: string
+  challenge: string
+  built: string[]
+  impact: { value: string; label: string }[]
+  tech: string[]
 }
 
-const workProjects: Project[] = [
+const workProjects: CaseStudy[] = [
   {
-    accentColor: '#38bdf8',
-    accentClass: 'card-accent-sky',
-    badge: 'Work Project · Full Stack',
-    badgeColor: 'text-c-primary bg-c-primary/10 border-c-primary/20',
+    num: '01',
+    badge: 'Professional · Full Stack',
+    badgeColor: 'tag-cyan',
     title: 'MOSTCOOL Reliability Web Platform',
-    description:
-      'Sole architect of an enterprise-grade R(t)/A(t) analysis tool for data center liquid cooling. Modernized a legacy desktop application into a full-stack containerized web platform — accessible from any device with a single Docker command.',
-    bullets: [
+    tagline:
+      'Enterprise-grade R(t)/A(t) analysis tool — containerized, zero-config, anywhere-deployable.',
+    accent: 'var(--c-cyan)',
+    tagClass: 'tag-cyan',
+    challenge:
+      'Researchers were locked to a legacy Windows-only desktop tool with no scalability, no access from other devices, and no API surface.',
+    built: [
       'Microservice-decoupled React.js + Flask architecture with 8 REST endpoints',
-      'React Flow graph editor with 7 custom node types and centralized useReducer state manager (14 action types, 6 parallel Map collections)',
-      'Brute-force state enumeration (Python, NetworkX) — evaluates all 2ᴺ states via DFS, capped at N=22 (4.2M evaluations)',
-      'Multi-sheet Excel round-trip serialization (SheetJS, 5 worksheets) with backward compatibility and orphaned-node cleanup',
-      'Cross-platform Bash/Shell automation suite for ARM64 + x86_64 Docker orchestration',
+      'React Flow graph editor: 7 custom node types, 14 action types, 6 parallel Map collections',
+      'Brute-force DFS state enumeration (Python + NetworkX) — 2ᴺ states, capped at N=22 (4.2M evaluations)',
+      'Multi-sheet Excel round-trip serialization via SheetJS (5 worksheets, backward compat)',
+      'Cross-platform Bash automation for Docker orchestration across ARM64 + x86_64',
     ],
-    metrics: [
-      { label: '50% API Latency Reduction' },
-      { label: '4.2M State Evaluations' },
-      { label: '5 Worksheet Export' },
+    impact: [
+      { value: '50%',  label: 'API Latency Reduction' },
+      { value: '4.2M', label: 'State Evaluations' },
+      { value: '1 CMD', label: 'Docker Deploy' },
     ],
-    techStack: ['React.js', 'Flask', 'Docker', 'Python', 'NetworkX', 'React Flow', 'SheetJS'],
+    tech: ['React.js', 'Flask', 'Docker', 'Python', 'NetworkX', 'React Flow', 'SheetJS'],
   },
   {
-    accentColor: '#818cf8',
-    accentClass: 'card-accent-indigo',
-    badge: 'Work Project · Full Stack + Security',
-    badgeColor: 'text-c-secondary bg-c-secondary/10 border-c-secondary/20',
-    title: 'MOSTCOOL Research Platform — Public Facing',
-    description:
-      'Designed and built the public-facing hub for a federally funded research initiative: a 10+ page responsive MPA serving 850+ software downloads, researcher onboarding, and stakeholder engagement.',
-    bullets: [
-      'Data-driven UI systems in Vanilla JS: modal modules directory (7+ modules), team directory with filtering (15+ members), timeline news feed with URL deep-link routing',
-      'Flask REST API + GitHub Issues API integration (token-authenticated) for automated support ticketing from the web UI',
-      'Gated ZIP download pipeline for secure software distribution — deployed with GitHub Actions CI/CD and Gunicorn WSGI',
-      'OWASP Top 10 remediation (XSS, Insecure Design): input validation, CORS whitelisting — cut production bugs by 50%',
+    num: '02',
+    badge: 'Professional · Full Stack + Security',
+    badgeColor: 'tag-violet',
+    title: 'MOSTCOOL Research Platform',
+    tagline:
+      'Public-facing hub for a federally funded research initiative — automated distribution, OWASP-hardened.',
+    accent: 'var(--c-violet)',
+    tagClass: 'tag-violet',
+    challenge:
+      'A federally funded research initiative had no public web presence, no automated software distribution, and no stakeholder engagement platform.',
+    built: [
+      '10+ page responsive MPA: modal modules directory, team directory, timeline news feed',
+      'Flask REST API + GitHub Issues API integration for automated support ticketing',
+      'Gated ZIP download pipeline with GitHub Actions CI/CD + Gunicorn WSGI deployment',
+      'OWASP Top 10 remediation (XSS, Insecure Design) — input validation + CORS whitelisting',
     ],
-    metrics: [
-      { label: '850+ Software Downloads' },
-      { label: '50% Bug Reduction' },
-      { label: '10+ Pages' },
+    impact: [
+      { value: '850+', label: 'Software Downloads' },
+      { value: '50%',  label: 'Bug Reduction' },
+      { value: '10+',  label: 'Pages' },
     ],
-    techStack: ['HTML5', 'Tailwind CSS', 'Vanilla JS', 'Flask', 'GitHub API', 'GitHub Actions', 'Gunicorn'],
+    tech: ['HTML5', 'Tailwind CSS', 'Vanilla JS', 'Flask', 'GitHub API', 'GitHub Actions', 'Gunicorn'],
   },
 ]
 
-const personalProjects: Project[] = [
+const personalProjects: CaseStudy[] = [
   {
-    accentColor: '#34d399',
-    accentClass: 'card-accent-emerald',
-    badge: 'Personal Project · Cloud Security',
-    badgeColor: 'text-c-accent bg-c-accent/10 border-c-accent/20',
+    num: '03',
+    badge: 'Personal · Cloud Security',
+    badgeColor: 'tag-green',
     title: 'Scalable & Secure E-Commerce Platform on AWS',
-    description:
-      'Independently designed, architected, and deployed a production-grade, full-stack e-commerce platform on AWS with defense-in-depth security at every layer. Built to handle variable load with zero single points of failure.',
-    bullets: [
-      'Multi-tier high availability: ALB → EC2 Auto Scaling Group → Multi-AZ RDS (MySQL)',
+    tagline:
+      'Production-grade cloud-native architecture with defense-in-depth security at every layer.',
+    accent: 'var(--c-green)',
+    tagClass: 'tag-green',
+    challenge:
+      'Design and deploy a production-grade e-commerce platform from scratch on AWS — handling variable load, zero single points of failure, and security embedded at every architectural layer.',
+    built: [
+      'Multi-tier HA: ALB → EC2 Auto Scaling Group → Multi-AZ RDS (MySQL)',
       'AWS WAF with custom rule sets blocking SQL injection and XSS at the edge',
-      'ACM for end-to-end TLS/HTTPS + KMS with customer-managed keys (AES-256 encryption at rest)',
-      'CloudFront CDN with custom cache behaviors and TTL policies for global content delivery',
-      'Least-privilege IAM with role-based access policies across all services',
-      'Private VPC with public/private subnet segmentation, NAT Gateway, and Security Groups',
-      'Full observability: CloudWatch dashboards + CloudTrail for immutable API audit logging',
+      'ACM for end-to-end TLS/HTTPS + KMS customer-managed keys (AES-256 at rest)',
+      'CloudFront CDN with custom cache behaviors for global content delivery',
+      'Private VPC: public/private subnet segmentation, NAT Gateway, Security Groups',
+      'Full observability: CloudWatch dashboards + CloudTrail immutable API audit logs',
     ],
-    metrics: [
-      { label: 'Multi-AZ Redundancy' },
-      { label: 'Defense-in-Depth Security' },
-      { label: 'Zero Single Point of Failure' },
+    impact: [
+      { value: 'Multi-AZ', label: 'Redundancy' },
+      { value: 'D-in-D', label: 'Security Model' },
+      { value: 'Zero',    label: 'Single Point of Failure' },
     ],
-    techStack: [
+    tech: [
       'AWS EC2', 'S3', 'RDS', 'VPC', 'ALB',
       'WAF', 'CloudFront', 'KMS', 'ACM', 'CloudWatch', 'CloudTrail',
     ],
   },
 ]
 
-function ProjectCard({ project, delay }: { project: Project; delay: string }) {
+function CaseStudyEntry({ project }: { project: CaseStudy }) {
   return (
-    <div
-      className={`reveal-up ${delay} group relative flex flex-col bg-bg-surface/60 backdrop-blur-sm border border-white/5 ${project.accentClass} rounded-2xl overflow-hidden hover:border-white/10 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300`}
-    >
-      <div className="flex flex-col flex-1 p-5 sm:p-6 lg:p-7">
-        {/* Badge */}
-        <div className="mb-4">
-          <span
-            className={`inline-block text-xs font-mono font-semibold px-3 py-1 rounded-full border ${project.badgeColor}`}
+    <div className="reveal py-12">
+      {/* Num + badge + title */}
+      <div className="flex flex-col sm:flex-row sm:items-start gap-4 mb-6">
+        <span
+          className="font-display font-bold leading-none flex-shrink-0"
+          style={{
+            fontSize: 'clamp(2.5rem, 5vw, 4rem)',
+            color: project.accent,
+            opacity: 0.25,
+            lineHeight: 1,
+          }}
+        >
+          {project.num}
+        </span>
+        <div className="flex-1 pt-1">
+          <span className={`tag ${project.badgeColor} mb-3 inline-block`}>{project.badge}</span>
+          <h3
+            className="font-display font-bold text-c-text leading-tight mb-2"
+            style={{ fontSize: 'clamp(1.3rem, 3vw, 2rem)' }}
           >
-            {project.badge}
-          </span>
+            {project.title}
+          </h3>
+          <p className="text-c-muted text-sm leading-relaxed">{project.tagline}</p>
+        </div>
+      </div>
+
+      {/* 3-column grid */}
+      <div className="grid sm:grid-cols-3 gap-0 border rounded overflow-hidden"
+        style={{ borderColor: 'rgba(255,255,255,0.07)' }}
+      >
+        {/* Challenge */}
+        <div
+          className="p-5 border-b sm:border-b-0 sm:border-r"
+          style={{ borderColor: 'rgba(255,255,255,0.07)', background: 'rgba(255,255,255,0.015)' }}
+        >
+          <p
+            className="font-mono text-[10px] tracking-[0.15em] uppercase mb-3"
+            style={{ color: project.accent }}
+          >
+            Challenge
+          </p>
+          <p className="text-c-sub text-xs leading-relaxed">{project.challenge}</p>
         </div>
 
-        {/* Title */}
-        <h3 className="text-lg sm:text-xl font-bold text-slate-100 mb-3 leading-snug">
-          {project.title}
-        </h3>
-
-        {/* Description */}
-        <p className="text-slate-400 text-sm leading-relaxed mb-5">
-          {project.description}
-        </p>
-
-        {/* Technical bullets */}
-        <ul className="space-y-2 mb-5 flex-1">
-          {project.bullets.map((bullet, i) => (
-            <li key={i} className="flex gap-2.5 text-sm text-slate-400 leading-relaxed">
-              <span
-                className="flex-shrink-0 w-1.5 h-1.5 rounded-full mt-1.5"
-                style={{ background: project.accentColor }}
-              />
-              <span>{bullet}</span>
-            </li>
-          ))}
-        </ul>
-
-        {/* Metrics */}
-        <div className="flex flex-wrap gap-x-4 gap-y-2 py-3.5 border-y border-white/5 mb-5">
-          {project.metrics.map((metric, i) => (
-            <div key={i} className="flex items-center gap-1.5">
-              <span
-                className="w-1.5 h-1.5 rounded-full flex-shrink-0"
-                style={{ background: project.accentColor }}
-              />
-              <span className="text-xs font-semibold" style={{ color: project.accentColor }}>
-                {metric.label}
-              </span>
-            </div>
-          ))}
+        {/* What I Built */}
+        <div
+          className="p-5 border-b sm:border-b-0 sm:border-r"
+          style={{ borderColor: 'rgba(255,255,255,0.07)', background: 'rgba(255,255,255,0.02)' }}
+        >
+          <p
+            className="font-mono text-[10px] tracking-[0.15em] uppercase mb-3"
+            style={{ color: project.accent }}
+          >
+            What I Built
+          </p>
+          <ul className="space-y-1.5">
+            {project.built.map((b, i) => (
+              <li key={i} className="flex gap-2 text-xs text-c-sub leading-relaxed">
+                <span className="flex-shrink-0 font-mono" style={{ color: project.accent }}>→</span>
+                <span>{b}</span>
+              </li>
+            ))}
+          </ul>
         </div>
 
-        {/* Tech stack */}
-        <div className="flex flex-wrap gap-1.5">
-          {project.techStack.map((tech) => (
-            <span
-              key={tech}
-              className="bg-bg-surface-2 text-slate-300 text-xs px-2.5 py-0.5 rounded-full border border-white/5"
-            >
-              {tech}
-            </span>
-          ))}
+        {/* Impact */}
+        <div
+          className="p-5"
+          style={{ background: 'rgba(255,255,255,0.015)' }}
+        >
+          <p
+            className="font-mono text-[10px] tracking-[0.15em] uppercase mb-3"
+            style={{ color: project.accent }}
+          >
+            Impact
+          </p>
+          <div className="space-y-4">
+            {project.impact.map((m, i) => (
+              <div key={i}>
+                <div
+                  className="font-display font-bold leading-none mb-0.5"
+                  style={{ fontSize: 'clamp(1.4rem, 3vw, 2rem)', color: project.accent }}
+                >
+                  {m.value}
+                </div>
+                <div className="font-mono text-[10px] tracking-wider uppercase text-c-muted">
+                  {m.label}
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
+      </div>
+
+      {/* Tech tags */}
+      <div className="flex flex-wrap gap-1.5 mt-4">
+        {project.tech.map((t) => (
+          <span key={t} className="tag">{t}</span>
+        ))}
       </div>
     </div>
   )
 }
 
-function SubsectionHeader({
+function SubLabel({
   icon,
   label,
   meta,
-  iconBg,
 }: {
   icon: React.ReactNode
   label: string
   meta: string
-  iconBg: string
 }) {
   return (
-    <div className="reveal-up flex items-center gap-3 mb-8 flex-wrap">
-      <div className="flex items-center gap-2.5 text-sm font-semibold text-slate-200 flex-shrink-0">
-        <div
-          className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0"
-          style={{ background: iconBg }}
-        >
-          {icon}
-        </div>
-        {label}
+    <div className="reveal flex items-center gap-3 mb-2 flex-wrap">
+      <div className="flex items-center gap-2">
+        <span className="text-c-muted">{icon}</span>
+        <span className="font-mono text-[11px] tracking-[0.15em] uppercase text-c-sub font-semibold">
+          {label}
+        </span>
       </div>
-      <div className="flex-1 h-px bg-white/5 min-w-[24px]" />
-      <span className="text-xs font-mono text-c-muted bg-bg-surface px-3 py-1 rounded-full border border-white/5 flex-shrink-0">
-        {meta}
-      </span>
+      <div className="flex-1 h-px min-w-4" style={{ background: 'rgba(255,255,255,0.07)' }} />
+      <span className="tag">{meta}</span>
     </div>
   )
 }
@@ -202,13 +238,13 @@ export default function Projects() {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target
-              .querySelectorAll('.reveal-up')
-              .forEach((el) => el.classList.add('in-view'))
+            entry.target.querySelectorAll('.reveal').forEach((el) =>
+              el.classList.add('in-view')
+            )
           }
         })
       },
-      { threshold: 0.05 }
+      { threshold: 0.04 }
     )
     if (sectionRef.current) observer.observe(sectionRef.current)
     return () => observer.disconnect()
@@ -218,58 +254,66 @@ export default function Projects() {
     <section
       id="projects"
       ref={sectionRef}
-      className="relative py-24 md:py-32 bg-bg-primary"
+      className="relative py-24 md:py-32 bg-ink overflow-hidden"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Watermark */}
+      <div
+        className="absolute top-0 right-0 select-none pointer-events-none"
+        aria-hidden="true"
+        style={{
+          fontFamily: 'Syne, sans-serif',
+          fontSize: 'clamp(10rem, 22vw, 22rem)',
+          fontWeight: 800,
+          color: 'rgba(255,255,255,0.018)',
+          lineHeight: 1,
+          letterSpacing: '-0.05em',
+        }}
+      >
+        03
+      </div>
+
+      <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
         {/* Section header */}
-        <div className="text-center mb-16 space-y-4">
-          <div className="reveal-up">
-            <span className="section-label">// 03. PROJECTS</span>
+        <div className="mb-16 space-y-4">
+          <div className="reveal">
+            <span className="label" style={{ color: 'var(--c-cyan)' }}>// 03. PROJECTS</span>
           </div>
-          <h2 className="reveal-up delay-100 text-3xl sm:text-4xl md:text-5xl font-bold text-slate-100">
+          <h2
+            className="reveal delay-100 font-display font-bold text-c-text leading-tight"
+            style={{ fontSize: 'clamp(1.8rem, 4vw, 3rem)' }}
+          >
             What I&apos;ve Built
           </h2>
-          <p className="reveal-up delay-200 text-c-muted text-base sm:text-lg max-w-2xl mx-auto">
-            Production systems, cloud architecture, and security research — built to last
-          </p>
         </div>
 
-        {/* ── Professional Work (CALCE) ── */}
-        <div className="mb-16">
-          <SubsectionHeader
-            icon={<Briefcase size={15} className="text-c-primary" />}
-            label="Professional Work"
-            meta="CALCE · University of Maryland"
-            iconBg="rgba(56,189,248,0.1)"
-          />
-          <div className="grid md:grid-cols-2 gap-5 lg:gap-6">
-            {workProjects.map((project, i) => (
-              <ProjectCard
-                key={project.title}
-                project={project}
-                delay={i === 0 ? 'delay-100' : 'delay-200'}
-              />
-            ))}
+        {/* Professional Work */}
+        <SubLabel
+          icon={<Briefcase size={14} />}
+          label="Professional Work"
+          meta="CALCE · University of Maryland"
+        />
+        <hr className="h-rule" />
+        {workProjects.map((p) => (
+          <div key={p.num}>
+            <CaseStudyEntry project={p} />
+            <hr className="h-rule" />
           </div>
-        </div>
+        ))}
 
-        {/* ── Personal & Academic Projects ── */}
-        <div>
-          <SubsectionHeader
-            icon={<GraduationCap size={15} className="text-c-accent" />}
-            label="Personal &amp; Academic Projects"
+        {/* Personal & Academic */}
+        <div className="mt-16">
+          <SubLabel
+            icon={<GraduationCap size={14} />}
+            label="Personal &amp; Academic"
             meta="Independent Work"
-            iconBg="rgba(52,211,153,0.1)"
           />
-          <div className="max-w-3xl mx-auto">
-            {personalProjects.map((project, i) => (
-              <ProjectCard
-                key={project.title}
-                project={project}
-                delay={`delay-${(i + 1) * 100}`}
-              />
-            ))}
-          </div>
+          <hr className="h-rule" />
+          {personalProjects.map((p) => (
+            <div key={p.num}>
+              <CaseStudyEntry project={p} />
+              <hr className="h-rule" />
+            </div>
+          ))}
         </div>
       </div>
     </section>
