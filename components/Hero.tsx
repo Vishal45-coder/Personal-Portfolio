@@ -14,7 +14,6 @@ const stats = [
   { value: '3.88', label: 'GPA · M.Eng.' },
   { value: '2+',   label: 'Years in Production' },
   { value: '5',    label: 'Security Labs' },
-  { value: '17.4M+', label: 'Log Entries Indexed' },
 ]
 
 export default function Hero() {
@@ -173,7 +172,7 @@ export default function Hero() {
 
         {/* BOTTOM STATS STRIP */}
         <div
-          className="grid grid-cols-2 sm:grid-cols-4 gap-6 sm:gap-0"
+          className="grid grid-cols-3 gap-6 sm:gap-0"
           style={{ animation: 'fadeUp 0.6s ease-out 0.7s both' }}
         >
           {stats.map((s, i) => (
