@@ -1,6 +1,7 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { motion, useReducedMotion } from 'framer-motion'
+import { fadeUp, fadeLeft, staggerContainer, viewport, ease } from '@/lib/motion'
 
 interface Role {
   num: string
@@ -52,49 +53,51 @@ const roles: Role[] = [
 ]
 
 export default function Experience() {
-  const sectionRef = useRef<HTMLElement>(null)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.querySelectorAll('.reveal').forEach((el) => el.classList.add('in-view'))
-          }
-        })
-      },
-      { threshold: 0.05 }
-    )
-    if (sectionRef.current) observer.observe(sectionRef.current)
-    return () => observer.disconnect()
-  }, [])
+  const reduced = useReducedMotion()
 
   return (
-    <section id="experience" ref={sectionRef} className="relative py-24 md:py-32 overflow-hidden bg-ink-1">
+    <section id="experience" className="relative py-24 md:py-32 overflow-hidden bg-ink-1">
       {/* Watermark */}
       <div className="absolute top-0 left-0 watermark" aria-hidden="true">04</div>
 
       <div className="relative z-10 max-w-5xl mx-auto px-6 sm:px-10 lg:px-16">
-        <div className="mb-14 space-y-4">
-          <div className="reveal">
+        <motion.div
+          className="mb-14 space-y-4"
+          variants={reduced ? {} : staggerContainer(0.1, 0)}
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewport}
+        >
+          <motion.div variants={reduced ? {} : fadeUp}>
             <span className="label text-c-cyan">// 04. EXPERIENCE</span>
-          </div>
-          <h2
-            className="reveal delay-100 font-display font-bold text-c-text leading-tight"
+          </motion.div>
+          <motion.h2
+            className="font-display font-bold text-c-text leading-tight"
             style={{ fontSize: 'clamp(1.8rem, 4vw, 3rem)' }}
+            variants={reduced ? {} : fadeUp}
           >
             Where I&apos;ve Worked
-          </h2>
-          <p className="reveal delay-200 font-mono text-[11px] tracking-[0.12em] uppercase text-c-muted">
+          </motion.h2>
+          <motion.p
+            className="font-mono text-[11px] tracking-[0.12em] uppercase text-c-muted"
+            variants={reduced ? {} : fadeUp}
+          >
             Center for Advanced Life Cycle Engineering (CALCE) · University of Maryland
-          </p>
-        </div>
+          </motion.p>
+        </motion.div>
 
         <div>
           {roles.map((r, i) => (
             <div key={r.num}>
               <hr className="h-rule" />
-              <div className={`reveal delay-${(i + 1) * 100} py-10 flex flex-col sm:flex-row gap-6 sm:gap-10`}>
+              <motion.div
+                className="py-10 flex flex-col sm:flex-row gap-6 sm:gap-10"
+                variants={reduced ? {} : fadeLeft}
+                initial="hidden"
+                whileInView="visible"
+                viewport={viewport}
+                transition={{ delay: i * 0.05 }}
+              >
                 {/* Number */}
                 <div className="flex-shrink-0 sm:w-16">
                   <span
@@ -142,18 +145,32 @@ export default function Experience() {
                     {r.company} · {r.location}
                   </p>
 
-                  <ul className="space-y-2.5">
+                  {/* Bullets — staggered */}
+                  <motion.ul
+                    className="space-y-2.5"
+                    variants={reduced ? {} : staggerContainer(0.07, 0.1)}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={viewport}
+                  >
                     {r.bullets.map((b, j) => (
-                      <li key={j} className="flex gap-3 text-sm text-c-sub leading-relaxed">
+                      <motion.li
+                        key={j}
+                        className="flex gap-3 text-sm text-c-sub leading-relaxed"
+                        variants={reduced ? {} : {
+                          hidden:  { opacity: 0, x: -12 },
+                          visible: { opacity: 1, x: 0, transition: { duration: 0.45, ease: ease.out } },
+                        }}
+                      >
                         <span className="flex-shrink-0 font-mono font-semibold mt-0.5" style={{ color: r.accent }}>
                           →
                         </span>
                         <span>{b}</span>
-                      </li>
+                      </motion.li>
                     ))}
-                  </ul>
+                  </motion.ul>
                 </div>
-              </div>
+              </motion.div>
             </div>
           ))}
           <hr className="h-rule" />

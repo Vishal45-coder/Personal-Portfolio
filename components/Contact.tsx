@@ -1,7 +1,9 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState } from 'react'
+import { motion, useReducedMotion } from 'framer-motion'
 import { Mail, Linkedin, Github, Download, Check, Copy, ArrowUpRight } from 'lucide-react'
+import { fadeUp, fadeIn, staggerContainer, viewport, ease } from '@/lib/motion'
 
 const links = [
   {
@@ -25,8 +27,16 @@ const links = [
   },
 ]
 
+// Headline lines split for word-by-word stagger
+const headlineLines = [
+  { text: "LET'S BUILD",      color: 'text-c-text' },
+  { text: 'SOMETHING',        color: 'text-c-text' },
+  { text: 'WORTH BREAKING.',  color: 'text-c-cyan' },
+]
+
 function ContactRow({ item }: { item: (typeof links)[0] }) {
   const [copied, setCopied] = useState(false)
+  const reduced = useReducedMotion()
 
   const handleClick = async (e: React.MouseEvent) => {
     if (item.isEmail) {
@@ -42,24 +52,28 @@ function ContactRow({ item }: { item: (typeof links)[0] }) {
   }
 
   const inner = (
-    <div
-      className="flex items-center justify-between py-5 border-b group transition-colors duration-200"
+    <motion.div
+      className="flex items-center justify-between py-5 border-b"
       style={{ borderColor: 'var(--c-line)' }}
+      whileHover={reduced ? {} : { x: 4, transition: { duration: 0.2 } }}
     >
       <div className="flex items-center gap-4">
-        <span className="text-c-muted group-hover:text-c-cyan transition-colors duration-200">
+        <motion.span
+          className="text-c-muted"
+          whileHover={reduced ? {} : { color: 'var(--c-cyan)', transition: { duration: 0.15 } }}
+        >
           {item.icon}
-        </span>
+        </motion.span>
         <div>
           <p className="font-mono text-[10px] tracking-[0.15em] uppercase text-c-muted mb-0.5">
             {item.label}
           </p>
-          <p className="text-c-sub text-sm group-hover:text-c-text transition-colors duration-200">
+          <p className="text-c-sub text-sm transition-colors duration-200 group-hover:text-c-text">
             {item.value}
           </p>
         </div>
       </div>
-      <div className="flex items-center gap-2 text-c-muted group-hover:text-c-cyan transition-colors duration-200">
+      <div className="flex items-center gap-2 text-c-muted transition-colors duration-200 group-hover:text-c-cyan">
         {item.isEmail ? (
           copied ? (
             <>
@@ -76,43 +90,27 @@ function ContactRow({ item }: { item: (typeof links)[0] }) {
           <ArrowUpRight size={15} />
         )}
       </div>
-    </div>
+    </motion.div>
   )
 
   if (item.isEmail) {
-    return <div onClick={handleClick} className="cursor-pointer">{inner}</div>
+    return <div onClick={handleClick} className="cursor-pointer group">{inner}</div>
   }
-  return <a href={item.href} target="_blank" rel="noopener noreferrer">{inner}</a>
+  return <a href={item.href} target="_blank" rel="noopener noreferrer" className="group">{inner}</a>
 }
 
 export default function Contact() {
-  const sectionRef = useRef<HTMLElement>(null)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.querySelectorAll('.reveal').forEach((el) => el.classList.add('in-view'))
-          }
-        })
-      },
-      { threshold: 0.1 }
-    )
-    if (sectionRef.current) observer.observe(sectionRef.current)
-    return () => observer.disconnect()
-  }, [])
+  const reduced = useReducedMotion()
 
   return (
     <section
       id="contact"
-      ref={sectionRef}
       className="relative py-24 md:py-32 grid-bg overflow-hidden bg-ink-1"
     >
       {/* Watermark */}
       <div className="absolute top-0 left-0 watermark" aria-hidden="true">06</div>
 
-      {/* Bottom glow — adapts per theme */}
+      {/* Bottom glow */}
       <div
         className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] pointer-events-none"
         aria-hidden="true"
@@ -123,24 +121,58 @@ export default function Contact() {
       />
 
       <div className="relative z-10 max-w-3xl mx-auto px-6 sm:px-10 lg:px-16">
-        <div className="reveal mb-6">
+        <motion.div
+          variants={reduced ? {} : fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewport}
+          className="mb-6"
+        >
           <span className="label text-c-cyan">// 06. CONTACT</span>
-        </div>
+        </motion.div>
 
-        {/* Headline */}
-        <div className="reveal delay-100 mb-10">
+        {/* Headline — word-by-word reveal, line by line */}
+        <motion.div
+          className="mb-10"
+          variants={reduced ? {} : staggerContainer(0.18, 0.05)}
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewport}
+        >
           <h2
             className="font-display font-extrabold leading-[0.92] tracking-tight"
             style={{ fontSize: 'clamp(2.4rem, 7vw, 5.5rem)' }}
           >
-            <span className="block text-c-text">LET&apos;S BUILD</span>
-            <span className="block text-c-text">SOMETHING</span>
-            <span className="block text-c-cyan">WORTH BREAKING.</span>
+            {headlineLines.map((line, i) => (
+              <motion.span
+                key={i}
+                className={`block overflow-hidden`}
+                aria-hidden="true"
+              >
+                <motion.span
+                  className={`block ${line.color}`}
+                  variants={reduced ? {} : {
+                    hidden:  { y: '110%' },
+                    visible: { y: 0, transition: { duration: 0.65, ease: ease.out } },
+                  }}
+                >
+                  {line.text}
+                </motion.span>
+              </motion.span>
+            ))}
+            {/* Accessible version for screen readers */}
+            <span className="sr-only">LET&apos;S BUILD SOMETHING WORTH BREAKING.</span>
           </h2>
-        </div>
+        </motion.div>
 
         {/* Subtext + availability */}
-        <div className="reveal delay-200 mb-10 flex flex-col sm:flex-row sm:items-center gap-4">
+        <motion.div
+          className="mb-10 flex flex-col sm:flex-row sm:items-center gap-4"
+          variants={reduced ? {} : fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewport}
+        >
           <p className="text-c-sub text-sm leading-relaxed max-w-sm">
             Open to full-time roles in Software Engineering, Security Engineering, and Cloud Security.
           </p>
@@ -165,27 +197,53 @@ export default function Contact() {
               Available
             </span>
           </div>
-        </div>
+        </motion.div>
 
-        <hr className="h-rule reveal delay-300" />
+        <motion.hr
+          className="h-rule"
+          variants={reduced ? {} : fadeIn}
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewport}
+        />
 
-        {/* Contact rows */}
-        <div className="reveal delay-300">
-          {links.map((item) => <ContactRow key={item.label} item={item} />)}
-        </div>
+        {/* Contact rows — staggered */}
+        <motion.div
+          variants={reduced ? {} : staggerContainer(0.1, 0.05)}
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewport}
+        >
+          {links.map((item) => (
+            <motion.div
+              key={item.label}
+              variants={reduced ? {} : fadeUp}
+            >
+              <ContactRow item={item} />
+            </motion.div>
+          ))}
+        </motion.div>
 
         {/* Resume CTA */}
-        <div className="reveal delay-400 mt-10">
-          <a
+        <motion.div
+          className="mt-10"
+          variants={reduced ? {} : fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewport}
+        >
+          <motion.a
             href="/Vishal_Resume.pdf"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2.5 px-6 py-3 rounded font-mono text-[11px] tracking-[0.12em] uppercase font-bold transition-opacity duration-200 hover:opacity-80"
+            className="inline-flex items-center gap-2.5 px-6 py-3 rounded font-mono text-[11px] tracking-[0.12em] uppercase font-bold"
             style={{ background: 'var(--c-cyan)', color: 'var(--ink)' }}
+            whileHover={reduced ? {} : { opacity: 0.85, scale: 1.02, transition: { duration: 0.15 } }}
+            whileTap={reduced ? {} : { scale: 0.97 }}
           >
             <Download size={13} /> Download Resume
-          </a>
-        </div>
+          </motion.a>
+        </motion.div>
       </div>
     </section>
   )

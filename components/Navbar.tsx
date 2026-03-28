@@ -1,6 +1,8 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
+import { ease } from '@/lib/motion'
 import { Menu, X } from 'lucide-react'
 import { ThemeToggle } from './ThemeToggle'
 
@@ -17,6 +19,7 @@ export default function Navbar() {
   const [scrolled, setScrolled]     = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const [activeSection, setActive]  = useState('')
+  const reduced = useReducedMotion()
 
   useEffect(() => {
     const onScroll = () => {
@@ -67,100 +70,130 @@ export default function Navbar() {
             {navLinks.map((link) => {
               const isActive = activeSection === link.href.slice(1)
               return (
-                <button
+                <motion.button
                   key={link.href}
                   onClick={() => nav(link.href)}
-                  className="px-3 py-1.5 font-mono text-[11px] tracking-[0.12em] uppercase transition-colors duration-200"
+                  className="relative px-3 py-1.5 font-mono text-[11px] tracking-[0.12em] uppercase transition-colors duration-200"
                   style={{ color: isActive ? 'var(--c-cyan)' : 'var(--c-muted)' }}
-                  onMouseEnter={(e) => {
-                    if (!isActive) e.currentTarget.style.color = 'var(--c-sub)'
-                  }}
-                  onMouseLeave={(e) => {
-                    if (!isActive) e.currentTarget.style.color = 'var(--c-muted)'
-                  }}
+                  whileHover={reduced ? {} : { color: isActive ? 'var(--c-cyan)' : 'var(--c-sub)' }}
+                  whileTap={reduced ? {} : { scale: 0.95 }}
                 >
                   {link.label}
-                </button>
+                  {/* Active underline indicator with layoutId for smooth transition */}
+                  {isActive && (
+                    <motion.span
+                      className="absolute bottom-0 left-3 right-3 h-px"
+                      style={{ background: 'var(--c-cyan)' }}
+                      layoutId="nav-indicator"
+                      transition={reduced ? { duration: 0 } : { type: 'spring', stiffness: 380, damping: 30 }}
+                    />
+                  )}
+                </motion.button>
               )
             })}
           </div>
 
           {/* Right cluster: Resume + Toggle */}
           <div className="hidden md:flex items-center gap-2 flex-shrink-0">
-            <a
+            <motion.a
               href="/Vishal_Resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center px-4 py-1.5 rounded font-mono text-[11px] tracking-[0.12em] uppercase transition-all duration-200"
+              className="inline-flex items-center px-4 py-1.5 rounded font-mono text-[11px] tracking-[0.12em] uppercase"
               style={{
                 border: '1px solid var(--c-cyan-border)',
                 color: 'var(--c-cyan)',
               }}
-              onMouseEnter={(e) => (e.currentTarget.style.background = 'var(--c-cyan-tint)')}
-              onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
+              whileHover={reduced ? {} : { backgroundColor: 'var(--c-cyan-tint)', transition: { duration: 0.15 } }}
+              whileTap={reduced ? {} : { scale: 0.97 }}
             >
               Resume
-            </a>
+            </motion.a>
             <ThemeToggle />
           </div>
 
           {/* Mobile: toggle + hamburger */}
           <div className="md:hidden flex items-center gap-2">
             <ThemeToggle />
-            <button
+            <motion.button
               onClick={() => setMobileOpen(!mobileOpen)}
-              className="p-1.5 text-c-muted transition-colors duration-200"
-              onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--c-sub)')}
-              onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--c-muted)')}
+              className="p-1.5 text-c-muted"
               aria-label="Toggle menu"
+              whileHover={reduced ? {} : { color: 'var(--c-sub)' }}
+              whileTap={reduced ? {} : { scale: 0.9 }}
             >
-              {mobileOpen ? <X size={20} /> : <Menu size={20} />}
-            </button>
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.span
+                  key={mobileOpen ? 'close' : 'open'}
+                  initial={reduced ? {} : { opacity: 0, rotate: -90 }}
+                  animate={reduced ? {} : { opacity: 1, rotate: 0 }}
+                  exit={reduced ? {} : { opacity: 0, rotate: 90 }}
+                  transition={{ duration: 0.2 }}
+                  style={{ display: 'flex' }}
+                >
+                  {mobileOpen ? <X size={20} /> : <Menu size={20} />}
+                </motion.span>
+              </AnimatePresence>
+            </motion.button>
           </div>
         </div>
       </div>
 
-      {/* Mobile menu */}
-      <div
-        className={`md:hidden overflow-hidden transition-all duration-300 ${
-          mobileOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
-        }`}
-      >
-        <div
-          className="px-6 py-4 flex flex-col gap-0.5 border-b"
-          style={{
-            background: 'var(--mobile-menu-bg)',
-            backdropFilter: 'blur(20px)',
-            borderColor: 'var(--c-line)',
-          }}
-        >
-          {navLinks.map((link) => {
-            const isActive = activeSection === link.href.slice(1)
-            return (
-              <button
-                key={link.href}
-                onClick={() => nav(link.href)}
-                className="w-full text-left px-3 py-2.5 font-mono text-[11px] tracking-[0.12em] uppercase transition-colors duration-200"
-                style={{ color: isActive ? 'var(--c-cyan)' : 'var(--c-muted)' }}
-              >
-                {link.label}
-              </button>
-            )
-          })}
-          <a
-            href="/Vishal_Resume.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-3 inline-flex items-center justify-center px-4 py-2.5 rounded font-mono text-[11px] tracking-[0.12em] uppercase"
-            style={{
-              border: '1px solid var(--c-cyan-border)',
-              color: 'var(--c-cyan)',
-            }}
+      {/* Mobile menu — animated with AnimatePresence */}
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div
+            className="md:hidden overflow-hidden"
+            initial={reduced ? {} : { height: 0, opacity: 0 }}
+            animate={reduced ? {} : { height: 'auto', opacity: 1 }}
+            exit={reduced ? {} : { height: 0, opacity: 0 }}
+            transition={{ duration: 0.28, ease: ease.inOut }}
           >
-            Resume
-          </a>
-        </div>
-      </div>
+            <div
+              className="px-6 py-4 flex flex-col gap-0.5 border-b"
+              style={{
+                background: 'var(--mobile-menu-bg)',
+                backdropFilter: 'blur(20px)',
+                borderColor: 'var(--c-line)',
+              }}
+            >
+              {navLinks.map((link, i) => {
+                const isActive = activeSection === link.href.slice(1)
+                return (
+                  <motion.button
+                    key={link.href}
+                    onClick={() => nav(link.href)}
+                    className="w-full text-left px-3 py-2.5 font-mono text-[11px] tracking-[0.12em] uppercase"
+                    style={{ color: isActive ? 'var(--c-cyan)' : 'var(--c-muted)' }}
+                    initial={reduced ? {} : { opacity: 0, x: -12 }}
+                    animate={reduced ? {} : { opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.04, duration: 0.25 }}
+                    whileTap={reduced ? {} : { scale: 0.97 }}
+                  >
+                    {link.label}
+                  </motion.button>
+                )
+              })}
+              <motion.a
+                href="/Vishal_Resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-3 inline-flex items-center justify-center px-4 py-2.5 rounded font-mono text-[11px] tracking-[0.12em] uppercase"
+                style={{
+                  border: '1px solid var(--c-cyan-border)',
+                  color: 'var(--c-cyan)',
+                }}
+                initial={reduced ? {} : { opacity: 0, y: 8 }}
+                animate={reduced ? {} : { opacity: 1, y: 0 }}
+                transition={{ delay: navLinks.length * 0.04, duration: 0.25 }}
+                whileTap={reduced ? {} : { scale: 0.97 }}
+              >
+                Resume
+              </motion.a>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   )
 }

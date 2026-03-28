@@ -1,6 +1,7 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { motion, useReducedMotion } from 'framer-motion'
+import { fadeUp, tagPop, staggerContainer, staggerTags, viewport } from '@/lib/motion'
 
 interface SkillRow {
   num: string
@@ -51,50 +52,48 @@ const rows: SkillRow[] = [
 ]
 
 export default function Skills() {
-  const sectionRef = useRef<HTMLElement>(null)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.querySelectorAll('.reveal').forEach((el) => el.classList.add('in-view'))
-          }
-        })
-      },
-      { threshold: 0.05 }
-    )
-    if (sectionRef.current) observer.observe(sectionRef.current)
-    return () => observer.disconnect()
-  }, [])
+  const reduced = useReducedMotion()
 
   return (
     <section
       id="skills"
-      ref={sectionRef}
       className="relative py-24 md:py-32 overflow-hidden bg-ink-1"
     >
       {/* Watermark */}
       <div className="absolute top-0 left-0 watermark" aria-hidden="true">02</div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
-        <div className="mb-14 space-y-4">
-          <div className="reveal">
+        <motion.div
+          className="mb-14 space-y-4"
+          variants={reduced ? {} : staggerContainer(0.1, 0)}
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewport}
+        >
+          <motion.div variants={reduced ? {} : fadeUp}>
             <span className="label text-c-cyan">// 02. SKILLS</span>
-          </div>
-          <h2
-            className="reveal delay-100 font-display font-bold text-c-text leading-tight"
+          </motion.div>
+          <motion.h2
+            className="font-display font-bold text-c-text leading-tight"
             style={{ fontSize: 'clamp(1.8rem, 4vw, 3rem)' }}
+            variants={reduced ? {} : fadeUp}
           >
             Technical Arsenal
-          </h2>
-        </div>
+          </motion.h2>
+        </motion.div>
 
         <div className="space-y-0">
           {rows.map((row, i) => (
             <div key={row.num}>
               <hr className="h-rule" />
-              <div className={`reveal delay-${(i + 1) * 100} py-7 flex flex-col sm:flex-row sm:items-start gap-5 sm:gap-10`}>
+              <motion.div
+                className="py-7 flex flex-col sm:flex-row sm:items-start gap-5 sm:gap-10"
+                variants={reduced ? {} : fadeUp}
+                initial="hidden"
+                whileInView="visible"
+                viewport={viewport}
+                transition={{ delay: i * 0.06 }}
+              >
                 <div className="flex-shrink-0 sm:w-52">
                   <div className="flex items-baseline gap-3">
                     <span
@@ -111,12 +110,27 @@ export default function Skills() {
                     </span>
                   </div>
                 </div>
-                <div className="flex flex-wrap gap-1.5">
+
+                {/* Tags — staggered terminal-loading appearance */}
+                <motion.div
+                  className="flex flex-wrap gap-1.5"
+                  variants={reduced ? {} : staggerTags}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={viewport}
+                >
                   {row.tags.map((tag) => (
-                    <span key={tag} className={`tag ${row.tagClass}`}>{tag}</span>
+                    <motion.span
+                      key={tag}
+                      className={`tag ${row.tagClass}`}
+                      variants={reduced ? {} : tagPop}
+                      whileHover={reduced ? {} : { scale: 1.06, transition: { duration: 0.12 } }}
+                    >
+                      {tag}
+                    </motion.span>
                   ))}
-                </div>
-              </div>
+                </motion.div>
+              </motion.div>
             </div>
           ))}
           <hr className="h-rule" />

@@ -1,7 +1,8 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { motion, useReducedMotion } from 'framer-motion'
 import { ShieldCheck } from 'lucide-react'
+import { fadeUp, scaleIn, tagPop, staggerContainer, staggerTags, viewport, viewportEarly, ease } from '@/lib/motion'
 
 interface Lab {
   num: string
@@ -83,10 +84,20 @@ const labs: Lab[] = [
   },
 ]
 
-function LabEntry({ lab }: { lab: Lab }) {
+// Each lab row slides in like a new terminal line
+const terminalLine = {
+  hidden:  { opacity: 0, x: -16 },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.42, ease: ease.out } },
+}
+
+function LabEntry({ lab, index }: { lab: Lab; index: number }) {
+  const reduced = useReducedMotion()
   return (
-    // terminal-row-border and terminal-tools-divider are always-dark classes from globals.css
-    <div className="reveal border-b terminal-row-border">
+    <motion.div
+      className="border-b terminal-row-border"
+      variants={reduced ? {} : terminalLine}
+      custom={index}
+    >
       <div className="flex overflow-hidden" style={{ borderLeft: `2px solid ${lab.accent}` }}>
         <div className="flex-1 p-5">
           <div className="flex flex-wrap items-start gap-3 mb-4">
@@ -114,81 +125,118 @@ function LabEntry({ lab }: { lab: Lab }) {
               <p className="font-mono text-[10px] tracking-[0.14em] uppercase mb-2 text-c-muted">
                 Attack Chain
               </p>
-              <div className="flex flex-col gap-1.5">
+              <motion.div
+                className="flex flex-col gap-1.5"
+                variants={reduced ? {} : staggerContainer(0.06, 0.05)}
+                initial="hidden"
+                whileInView="visible"
+                viewport={viewportEarly}
+              >
                 {lab.steps.map((step, i) => (
-                  <div key={i} className="flex items-start gap-1.5">
+                  <motion.div
+                    key={i}
+                    className="flex items-start gap-1.5"
+                    variants={reduced ? {} : {
+                      hidden:  { opacity: 0, x: -8 },
+                      visible: { opacity: 1, x: 0, transition: { duration: 0.3 } },
+                    }}
+                  >
                     <span className="font-mono text-[10px] font-bold flex-shrink-0" style={{ color: lab.accent }}>
                       {String(i + 1).padStart(2, '0')}
                     </span>
                     <span className="text-[11px] leading-relaxed text-c-sub">{step}</span>
-                  </div>
+                  </motion.div>
                 ))}
-              </div>
+              </motion.div>
             </div>
           )}
 
           {lab.bullets && (
-            <ul className="space-y-1.5 mb-4">
+            <motion.ul
+              className="space-y-1.5 mb-4"
+              variants={reduced ? {} : staggerContainer(0.06, 0.05)}
+              initial="hidden"
+              whileInView="visible"
+              viewport={viewportEarly}
+            >
               {lab.bullets.map((b, i) => (
-                <li key={i} className="flex gap-2 text-[11px] leading-relaxed text-c-sub">
+                <motion.li
+                  key={i}
+                  className="flex gap-2 text-[11px] leading-relaxed text-c-sub"
+                  variants={reduced ? {} : {
+                    hidden:  { opacity: 0, x: -8 },
+                    visible: { opacity: 1, x: 0, transition: { duration: 0.3 } },
+                  }}
+                >
                   <span className="flex-shrink-0 font-mono" style={{ color: lab.accent }}>→</span>
                   <span>{b}</span>
-                </li>
+                </motion.li>
               ))}
-            </ul>
+            </motion.ul>
           )}
 
-          <div className="flex flex-wrap gap-1.5 pt-2 border-t terminal-tools-divider">
-            {lab.tools.map((t) => <span key={t} className="tag">{t}</span>)}
-          </div>
+          <motion.div
+            className="flex flex-wrap gap-1.5 pt-2 border-t terminal-tools-divider"
+            variants={reduced ? {} : staggerTags}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportEarly}
+          >
+            {lab.tools.map((t) => (
+              <motion.span key={t} className="tag" variants={reduced ? {} : tagPop}>
+                {t}
+              </motion.span>
+            ))}
+          </motion.div>
         </div>
       </div>
-    </div>
+    </motion.div>
   )
 }
 
 export default function Security() {
-  const sectionRef = useRef<HTMLElement>(null)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.querySelectorAll('.reveal').forEach((el) => el.classList.add('in-view'))
-          }
-        })
-      },
-      { threshold: 0.04 }
-    )
-    if (sectionRef.current) observer.observe(sectionRef.current)
-    return () => observer.disconnect()
-  }, [])
+  const reduced = useReducedMotion()
 
   return (
-    <section id="security" ref={sectionRef} className="relative py-24 md:py-32 bg-ink overflow-hidden">
+    <section id="security" className="relative py-24 md:py-32 bg-ink overflow-hidden">
       {/* Watermark */}
       <div className="absolute top-0 right-0 watermark" aria-hidden="true">05</div>
 
       <div className="relative z-10 max-w-5xl mx-auto px-6 sm:px-10 lg:px-16">
-        <div className="mb-10 space-y-4">
-          <div className="reveal">
+        <motion.div
+          className="mb-10 space-y-4"
+          variants={reduced ? {} : staggerContainer(0.1, 0)}
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewport}
+        >
+          <motion.div variants={reduced ? {} : fadeUp}>
             <span className="label text-c-green">// 05. SECURITY</span>
-          </div>
-          <h2
-            className="reveal delay-100 font-display font-bold text-c-text leading-tight"
+          </motion.div>
+          <motion.h2
+            className="font-display font-bold text-c-text leading-tight"
             style={{ fontSize: 'clamp(1.8rem, 4vw, 3rem)' }}
+            variants={reduced ? {} : fadeUp}
           >
             Offensive Security Practice
-          </h2>
-          <p className="reveal delay-200 text-c-muted text-sm leading-relaxed max-w-lg">
+          </motion.h2>
+          <motion.p
+            className="text-c-muted text-sm leading-relaxed max-w-lg"
+            variants={reduced ? {} : fadeUp}
+          >
             From black-box recon to root access — documented attack chains and security research
             from isolated lab environments.
-          </p>
-        </div>
+          </motion.p>
+        </motion.div>
 
         {/* BSCP badge */}
-        <div className="reveal delay-300 mb-10">
+        <motion.div
+          className="mb-10"
+          variants={reduced ? {} : scaleIn}
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewport}
+        >
           <div
             className="inline-flex items-center gap-3 px-4 py-3 rounded"
             style={{
@@ -209,18 +257,32 @@ export default function Security() {
               In Progress
             </span>
           </div>
-        </div>
+        </motion.div>
 
-        {/* Terminal — intentionally always dark (it's a terminal) */}
-        <div className="reveal delay-200 terminal overflow-hidden">
+        {/* Terminal — lab entries stagger like terminal output */}
+        <motion.div
+          className="terminal overflow-hidden"
+          variants={reduced ? {} : scaleIn}
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewport}
+        >
           <div className="terminal-header flex items-center gap-2 px-4 py-3">
             <span className="w-2.5 h-2.5 rounded-full bg-c-rose opacity-70" />
             <span className="w-2.5 h-2.5 rounded-full bg-c-amber opacity-70" />
             <span className="w-2.5 h-2.5 rounded-full bg-c-green opacity-70" />
             <span className="ml-3 font-mono text-[11px] text-c-muted">~/security-labs</span>
           </div>
-          {labs.map((lab) => <LabEntry key={lab.num} lab={lab} />)}
-        </div>
+
+          <motion.div
+            variants={reduced ? {} : staggerContainer(0.1, 0.15)}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewport}
+          >
+            {labs.map((lab, i) => <LabEntry key={lab.num} lab={lab} index={i} />)}
+          </motion.div>
+        </motion.div>
       </div>
     </section>
   )

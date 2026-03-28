@@ -1,6 +1,10 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { motion, useReducedMotion } from 'framer-motion'
+import {
+  fadeUp, fadeLeft, fadeRight, tagPop,
+  staggerContainer, staggerNormal, viewport,
+} from '@/lib/motion'
 
 const stats = [
   { value: '3.88 / 4.0', label: 'M.Eng. Cybersecurity + GCEN · UMD', color: 'var(--c-cyan)' },
@@ -9,34 +13,17 @@ const stats = [
 ]
 
 const credentials = [
-  { label: 'M.Eng. Cybersecurity',        meta: 'UMD · 2025', dot: 'var(--c-cyan)' },
-  { label: 'Grad. Cert. Cloud Engineering', meta: 'UMD · 2025', dot: 'var(--c-cyan)' },
-  { label: 'B.Tech Computer Science',     meta: 'GITAM · 2023', dot: 'var(--c-violet)' },
-  { label: 'BSCP',                        meta: 'In Progress',  dot: 'var(--c-amber)', amber: true },
+  { label: 'M.Eng. Cybersecurity',         meta: 'UMD · 2025',  dot: 'var(--c-cyan)' },
+  { label: 'Grad. Cert. Cloud Engineering', meta: 'UMD · 2025',  dot: 'var(--c-cyan)' },
+  { label: 'B.Tech Computer Science',       meta: 'GITAM · 2023', dot: 'var(--c-violet)' },
+  { label: 'BSCP',                          meta: 'In Progress',  dot: 'var(--c-amber)', amber: true },
 ]
 
 export default function About() {
-  const sectionRef = useRef<HTMLElement>(null)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target
-              .querySelectorAll('.reveal, .reveal-left, .reveal-right')
-              .forEach((el) => el.classList.add('in-view'))
-          }
-        })
-      },
-      { threshold: 0.08 }
-    )
-    if (sectionRef.current) observer.observe(sectionRef.current)
-    return () => observer.disconnect()
-  }, [])
+  const reduced = useReducedMotion()
 
   return (
-    <section id="about" ref={sectionRef} className="relative py-24 md:py-32 bg-ink overflow-hidden">
+    <section id="about" className="relative py-24 md:py-32 bg-ink overflow-hidden">
       {/* Watermark */}
       <div className="absolute top-0 right-0 watermark" aria-hidden="true">01</div>
 
@@ -44,13 +31,19 @@ export default function About() {
         <div className="grid lg:grid-cols-5 gap-12 lg:gap-20 items-start">
 
           {/* Left — story */}
-          <div className="lg:col-span-3 space-y-7">
-            <div className="reveal">
+          <motion.div
+            className="lg:col-span-3 space-y-7"
+            variants={reduced ? {} : fadeLeft}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewport}
+          >
+            <div>
               <span className="label text-c-cyan">// 01. ABOUT</span>
             </div>
 
             <h2
-              className="reveal delay-100 font-display font-bold leading-tight text-c-text"
+              className="font-display font-bold leading-tight text-c-text"
               style={{ fontSize: 'clamp(1.8rem, 4vw, 3rem)' }}
             >
               Engineering at the intersection of{' '}
@@ -59,37 +52,51 @@ export default function About() {
               <span className="text-c-violet">Security</span>
             </h2>
 
-            <div className="space-y-4 text-c-sub leading-relaxed text-sm sm:text-base">
-              <p className="reveal delay-200">
+            <motion.div
+              className="space-y-4 text-c-sub leading-relaxed text-sm sm:text-base"
+              variants={reduced ? {} : staggerNormal}
+              initial="hidden"
+              whileInView="visible"
+              viewport={viewport}
+            >
+              <motion.p variants={reduced ? {} : fadeUp}>
                 I&apos;m a Master&apos;s student in Cybersecurity at the University of Maryland (GPA: 3.88),
                 with a background in Computer Science from GITAM University. For the past 2+ years, I&apos;ve
                 been building production systems at the Center for Advanced Life Cycle Engineering (CALCE) —
                 full-stack web platforms, containerized microservices, REST APIs, and data visualization tools
                 used by researchers daily.
-              </p>
-              <p className="reveal delay-300">
+              </motion.p>
+              <motion.p variants={reduced ? {} : fadeUp}>
                 What sets me apart is the combination: I don&apos;t just build systems — I attack them too.
                 I&apos;ve executed full offensive kill chains in isolated CTF environments: black-box
                 reconnaissance, SQL injection exploitation, webshell deployment, privilege escalation, and
                 data exfiltration. That attacker&apos;s perspective directly informs how I write and review code.
-              </p>
-              <p className="reveal delay-400">
+              </motion.p>
+              <motion.p variants={reduced ? {} : fadeUp}>
                 I&apos;m actively pursuing the Burp Suite Certified Practitioner (BSCP) certification and
                 targeting roles at the intersection of secure software engineering and information security —
                 where building and breaking converge.
-              </p>
-            </div>
+              </motion.p>
+            </motion.div>
 
-            {/* Credentials */}
-            <div className="reveal delay-500 flex flex-wrap gap-2 pt-1">
+            {/* Credentials — staggered tag pop */}
+            <motion.div
+              className="flex flex-wrap gap-2 pt-1"
+              variants={reduced ? {} : staggerContainer(0.08, 0.1)}
+              initial="hidden"
+              whileInView="visible"
+              viewport={viewport}
+            >
               {credentials.map((c) => (
-                <div
+                <motion.div
                   key={c.label}
                   className="flex items-center gap-2 px-3 py-1.5 rounded"
                   style={{
                     background: 'var(--overlay-xs)',
                     border: '1px solid var(--c-line)',
                   }}
+                  variants={reduced ? {} : tagPop}
+                  whileHover={reduced ? {} : { scale: 1.03, transition: { duration: 0.15 } }}
                 >
                   <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ backgroundColor: c.dot }} />
                   <span className="text-c-sub text-xs font-medium">{c.label}</span>
@@ -99,16 +106,28 @@ export default function About() {
                   >
                     {c.meta}
                   </span>
-                </div>
+                </motion.div>
               ))}
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
           {/* Right — data lines */}
-          <div className="lg:col-span-2 reveal-right delay-200">
-            <div className="space-y-0">
+          <motion.div
+            className="lg:col-span-2"
+            variants={reduced ? {} : fadeRight}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewport}
+          >
+            <motion.div
+              className="space-y-0"
+              variants={reduced ? {} : staggerContainer(0.12, 0.15)}
+              initial="hidden"
+              whileInView="visible"
+              viewport={viewport}
+            >
               {stats.map((s, i) => (
-                <div key={i}>
+                <motion.div key={i} variants={reduced ? {} : fadeUp}>
                   <div className="py-6">
                     <div
                       className="font-display font-bold leading-none mb-2"
@@ -121,10 +140,10 @@ export default function About() {
                     </div>
                   </div>
                   {i < stats.length - 1 && <hr className="h-rule" />}
-                </div>
+                </motion.div>
               ))}
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
         </div>
       </div>

@@ -1,7 +1,8 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { motion, useReducedMotion } from 'framer-motion'
 import { Briefcase, GraduationCap } from 'lucide-react'
+import { fadeUp, fadeIn, staggerContainer, tagPop, staggerTags, viewport } from '@/lib/motion'
 
 interface CaseStudy {
   num: string
@@ -89,8 +90,16 @@ const personalProjects: CaseStudy[] = [
 ]
 
 function CaseStudyEntry({ project }: { project: CaseStudy }) {
+  const reduced = useReducedMotion()
+
   return (
-    <div className="reveal py-12">
+    <motion.div
+      className="py-12"
+      variants={reduced ? {} : fadeUp}
+      initial="hidden"
+      whileInView="visible"
+      viewport={viewport}
+    >
       <div className="flex flex-col sm:flex-row sm:items-start gap-4 mb-6">
         <span
           className="font-display font-bold leading-none flex-shrink-0"
@@ -110,10 +119,11 @@ function CaseStudyEntry({ project }: { project: CaseStudy }) {
         </div>
       </div>
 
-      {/* 3-column case study grid */}
-      <div
+      {/* 3-column case study grid — lifts slightly on hover */}
+      <motion.div
         className="grid sm:grid-cols-3 gap-0 border rounded overflow-hidden"
         style={{ borderColor: 'var(--c-line)' }}
+        whileHover={reduced ? {} : { y: -3, boxShadow: '0 8px 32px rgba(0,0,0,0.18)', transition: { duration: 0.22 } }}
       >
         {/* Challenge */}
         <div
@@ -165,19 +175,36 @@ function CaseStudyEntry({ project }: { project: CaseStudy }) {
             ))}
           </div>
         </div>
-      </div>
+      </motion.div>
 
       {/* Tech tags */}
-      <div className="flex flex-wrap gap-1.5 mt-4">
-        {project.tech.map((t) => <span key={t} className="tag">{t}</span>)}
-      </div>
-    </div>
+      <motion.div
+        className="flex flex-wrap gap-1.5 mt-4"
+        variants={reduced ? {} : staggerTags}
+        initial="hidden"
+        whileInView="visible"
+        viewport={viewport}
+      >
+        {project.tech.map((t) => (
+          <motion.span key={t} className="tag" variants={reduced ? {} : tagPop}>
+            {t}
+          </motion.span>
+        ))}
+      </motion.div>
+    </motion.div>
   )
 }
 
 function SubLabel({ icon, label, meta }: { icon: React.ReactNode; label: string; meta: string }) {
+  const reduced = useReducedMotion()
   return (
-    <div className="reveal flex items-center gap-3 mb-2 flex-wrap">
+    <motion.div
+      className="flex items-center gap-3 mb-2 flex-wrap"
+      variants={reduced ? {} : fadeIn}
+      initial="hidden"
+      whileInView="visible"
+      viewport={viewport}
+    >
       <div className="flex items-center gap-2">
         <span className="text-c-muted">{icon}</span>
         <span className="font-mono text-[11px] tracking-[0.15em] uppercase text-c-sub font-semibold">
@@ -186,45 +213,37 @@ function SubLabel({ icon, label, meta }: { icon: React.ReactNode; label: string;
       </div>
       <div className="flex-1 h-px min-w-4" style={{ background: 'var(--c-line)' }} />
       <span className="tag">{meta}</span>
-    </div>
+    </motion.div>
   )
 }
 
 export default function Projects() {
-  const sectionRef = useRef<HTMLElement>(null)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.querySelectorAll('.reveal').forEach((el) => el.classList.add('in-view'))
-          }
-        })
-      },
-      { threshold: 0.04 }
-    )
-    if (sectionRef.current) observer.observe(sectionRef.current)
-    return () => observer.disconnect()
-  }, [])
+  const reduced = useReducedMotion()
 
   return (
-    <section id="projects" ref={sectionRef} className="relative py-24 md:py-32 bg-ink overflow-hidden">
+    <section id="projects" className="relative py-24 md:py-32 bg-ink overflow-hidden">
       {/* Watermark */}
       <div className="absolute top-0 right-0 watermark" aria-hidden="true">03</div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
-        <div className="mb-16 space-y-4">
-          <div className="reveal">
+        <motion.div
+          className="mb-16 space-y-4"
+          variants={reduced ? {} : staggerContainer(0.1, 0)}
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewport}
+        >
+          <motion.div variants={reduced ? {} : fadeUp}>
             <span className="label text-c-cyan">// 03. PROJECTS</span>
-          </div>
-          <h2
-            className="reveal delay-100 font-display font-bold text-c-text leading-tight"
+          </motion.div>
+          <motion.h2
+            className="font-display font-bold text-c-text leading-tight"
             style={{ fontSize: 'clamp(1.8rem, 4vw, 3rem)' }}
+            variants={reduced ? {} : fadeUp}
           >
             What I&apos;ve Built
-          </h2>
-        </div>
+          </motion.h2>
+        </motion.div>
 
         <SubLabel icon={<Briefcase size={14} />} label="Professional Work" meta="CALCE · University of Maryland" />
         <hr className="h-rule" />
