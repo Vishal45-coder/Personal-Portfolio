@@ -53,27 +53,27 @@ function ContactRow({ item }: { item: (typeof links)[0] }) {
 
   const inner = (
     <motion.div
-      className="flex items-center justify-between py-5 border-b"
+      className="flex items-center justify-between gap-3 py-5 border-b"
       style={{ borderColor: 'var(--c-line)' }}
       whileHover={reduced ? {} : { x: 4, transition: { duration: 0.2 } }}
     >
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-4 min-w-0 flex-1">
         <motion.span
-          className="text-c-muted"
+          className="text-c-muted flex-shrink-0"
           whileHover={reduced ? {} : { color: 'var(--c-cyan)', transition: { duration: 0.15 } }}
         >
           {item.icon}
         </motion.span>
-        <div>
+        <div className="min-w-0">
           <p className="font-mono text-[10px] tracking-[0.15em] uppercase text-c-muted mb-0.5">
             {item.label}
           </p>
-          <p className="text-c-sub text-sm transition-colors duration-200 group-hover:text-c-text">
+          <p className="text-c-sub text-sm transition-colors duration-200 group-hover:text-c-text break-all">
             {item.value}
           </p>
         </div>
       </div>
-      <div className="flex items-center gap-2 text-c-muted transition-colors duration-200 group-hover:text-c-cyan">
+      <div className="flex items-center gap-2 flex-shrink-0 text-c-muted transition-colors duration-200 group-hover:text-c-cyan">
         {item.isEmail ? (
           copied ? (
             <>
@@ -140,28 +140,21 @@ export default function Contact() {
           viewport={viewport}
         >
           <h2
-            className="font-display font-extrabold leading-[0.92] tracking-tight"
+            className="font-display font-extrabold leading-[1] tracking-tight"
             style={{ fontSize: 'clamp(2.4rem, 7vw, 5.5rem)' }}
           >
             {headlineLines.map((line, i) => (
               <motion.span
                 key={i}
-                className={`block overflow-hidden`}
-                aria-hidden="true"
+                className={`block ${line.color}`}
+                variants={reduced ? {} : {
+                  hidden:  { opacity: 0, y: 24 },
+                  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: ease.out } },
+                }}
               >
-                <motion.span
-                  className={`block ${line.color}`}
-                  variants={reduced ? {} : {
-                    hidden:  { y: '110%' },
-                    visible: { y: 0, transition: { duration: 0.65, ease: ease.out } },
-                  }}
-                >
-                  {line.text}
-                </motion.span>
+                {line.text}
               </motion.span>
             ))}
-            {/* Accessible version for screen readers */}
-            <span className="sr-only">LET&apos;S BUILD SOMETHING WORTH BREAKING.</span>
           </h2>
         </motion.div>
 
