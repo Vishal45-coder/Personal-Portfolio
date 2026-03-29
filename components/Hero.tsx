@@ -2,14 +2,13 @@
 
 import { useState, useEffect, useRef } from 'react'
 import { motion, useReducedMotion, useMotionValue, useSpring } from 'framer-motion'
-import { ArrowRight, Download } from 'lucide-react'
+import { ArrowRight, Mail } from 'lucide-react'
 import { fadeUp, fadeIn, staggerContainer, dur, ease } from '@/lib/motion'
 
 const roles = [
   'SOFTWARE ENGINEER',
   'SECURITY ENGINEER',
   'PENETRATION TESTER',
-  'FULL-STACK DEVELOPER',
 ]
 
 const stats = [
@@ -140,7 +139,7 @@ export default function Hero() {
                   visible: { opacity: 1, y: 0, transition: { duration: dur.slow, ease: ease.out } },
                 }}
               >
-                BUILDING SYSTEMS
+                I BUILD SYSTEMS
               </motion.span>
               <motion.span
                 className="block text-c-cyan"
@@ -161,8 +160,8 @@ export default function Hero() {
             variants={fadeUp}
           >
             <p className="text-c-sub text-sm sm:text-base leading-relaxed max-w-xs">
-              M.Eng. Cybersecurity · UMD. Building production systems for 2+ years.
-              Breaking them on purpose.
+              M.Eng. Cybersecurity at UMD. I&apos;ve spent 2+ years building production
+              systems at CALCE — and breaking them to make them stronger.
             </p>
             <div className="flex items-center gap-3 flex-shrink-0">
               <motion.button
@@ -173,12 +172,10 @@ export default function Hero() {
                 whileTap={reduced ? {} : { scale: 0.97 }}
                 transition={{ duration: 0.15 }}
               >
-                View Work <ArrowRight size={12} />
+                View My Work <ArrowRight size={12} />
               </motion.button>
-              <motion.a
-                href="/Vishal_Resume.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
+              <motion.button
+                onClick={() => scrollTo('contact')}
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded font-mono text-[11px] tracking-[0.12em] uppercase transition-colors duration-200"
                 style={{
                   border: '1px solid var(--border-md)',
@@ -188,8 +185,8 @@ export default function Hero() {
                 whileTap={reduced ? {} : { scale: 0.97 }}
                 transition={{ duration: 0.15 }}
               >
-                <Download size={12} /> Resume
-              </motion.a>
+                <Mail size={12} /> Get In Touch
+              </motion.button>
             </div>
           </motion.div>
         </div>

@@ -79,6 +79,26 @@ export default function About() {
               </motion.p>
             </motion.div>
 
+            {/* Approach block */}
+            <motion.div
+              className="pt-5 border-t space-y-2"
+              style={{ borderColor: 'var(--c-line)' }}
+              variants={reduced ? {} : fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={viewport}
+            >
+              <p className="font-mono text-[10px] tracking-[0.18em] uppercase text-c-muted">
+                How I Think
+              </p>
+              <p className="text-c-sub text-sm leading-relaxed">
+                Every system I build starts with one question:{' '}
+                <span className="text-c-cyan font-medium">&ldquo;How would I break this?&rdquo;</span>{' '}
+                That attacker&apos;s lens — built through real offensive security labs — shapes how I
+                architect, review, and harden every system I ship.
+              </p>
+            </motion.div>
+
             {/* Credentials — staggered tag pop */}
             <motion.div
               className="flex flex-wrap gap-2 pt-1"
