@@ -58,7 +58,7 @@ export default function Navbar() {
           {/* Logo */}
           <div className="flex-shrink-0">
             <span className="font-display text-xl font-black text-c-text tracking-tight leading-none">
-              VR
+              Vishal Raavi
             </span>
             <span className="block font-mono text-[9px] tracking-[0.18em] text-c-muted uppercase leading-none mt-0.5">
               Security Engineer

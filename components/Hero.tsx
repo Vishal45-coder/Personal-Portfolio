@@ -91,12 +91,9 @@ export default function Hero() {
       >
         {/* TOP STRIP */}
         <motion.div
-          className="flex items-center justify-between mb-5"
+          className="flex items-center justify-end mb-5"
           variants={fadeIn}
         >
-          <span className="font-mono text-[11px] tracking-[0.2em] text-c-muted uppercase">
-            Vishal Raavi
-          </span>
           <div className="flex items-center gap-2">
             <span className="relative flex h-1.5 w-1.5 flex-shrink-0">
               <span
