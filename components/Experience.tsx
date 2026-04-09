@@ -70,10 +70,10 @@ export default function Experience() {
         >
           <motion.div variants={reduced ? {} : fadeUp}>
             <div className="flex items-center gap-3">
-            <span className="font-mono text-[10px] font-medium text-c-muted">04</span>
-            <div className="w-6 h-px" style={{ background: 'var(--c-line)' }} />
-            <span className="font-mono text-[10px] tracking-[0.2em] uppercase text-c-muted">Experience</span>
-          </div>
+              <span className="font-mono text-[10px] font-medium text-c-muted">04</span>
+              <div className="w-6 h-px" style={{ background: 'var(--c-line)' }} />
+              <span className="font-mono text-[10px] tracking-[0.2em] uppercase text-c-muted">Experience</span>
+            </div>
           </motion.div>
           <motion.h2
             className="font-display font-bold text-c-text leading-tight"

@@ -103,30 +103,8 @@ export default function Hero() {
         initial="hidden"
         animate="visible"
       >
-        {/* TOP STRIP */}
-        <motion.div
-          className="flex items-center justify-end mb-5"
-          variants={fadeIn}
-        >
-          <div className="flex items-center gap-2">
-            <span className="relative flex h-1.5 w-1.5 flex-shrink-0">
-              <span
-                className="absolute inset-0 rounded-full opacity-60"
-                style={{
-                  backgroundColor: 'var(--c-green)',
-                  animation: 'ping 2s cubic-bezier(0,0,0.2,1) infinite',
-                }}
-              />
-              <span className="relative rounded-full h-1.5 w-1.5 bg-c-green" />
-            </span>
-            <span className="font-mono text-[11px] tracking-[0.15em] uppercase text-c-green">
-              Available for Hire
-            </span>
-          </div>
-        </motion.div>
-
         {/* Thin rule */}
-        <motion.hr className="h-rule mb-10 sm:mb-14" variants={fadeIn} />
+        <motion.hr className="h-rule mb-10 sm:mb-14 mt-0" variants={fadeIn} />
 
         {/* MAIN */}
         <div className="flex-1 flex flex-col justify-center">

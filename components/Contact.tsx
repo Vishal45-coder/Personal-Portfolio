@@ -129,10 +129,10 @@ export default function Contact() {
           className="mb-6"
         >
           <div className="flex items-center gap-3">
-          <span className="font-mono text-[10px] font-medium text-c-muted">06</span>
-          <div className="w-6 h-px" style={{ background: 'var(--c-line)' }} />
-          <span className="font-mono text-[10px] tracking-[0.2em] uppercase text-c-muted">Contact</span>
-        </div>
+            <span className="font-mono text-[10px] font-medium text-c-muted">06</span>
+            <div className="w-6 h-px" style={{ background: 'var(--c-line)' }} />
+            <span className="font-mono text-[10px] tracking-[0.2em] uppercase text-c-muted">Contact</span>
+          </div>
         </motion.div>
 
         {/* Headline — word-by-word reveal, line by line */}
@@ -162,9 +162,9 @@ export default function Contact() {
           </h2>
         </motion.div>
 
-        {/* Subtext + availability */}
+        {/* Subtext */}
         <motion.div
-          className="mb-10 flex flex-col sm:flex-row sm:items-center gap-4"
+          className="mb-10"
           variants={reduced ? {} : fadeUp}
           initial="hidden"
           whileInView="visible"
@@ -173,27 +173,6 @@ export default function Contact() {
           <p className="text-c-sub text-sm leading-relaxed max-w-sm">
             Open to full-time roles in Software Engineering, Security Engineering, and Cloud Security.
           </p>
-          <div
-            className="inline-flex items-center gap-2 px-3 py-1.5 rounded flex-shrink-0 self-start"
-            style={{
-              border: '1px solid var(--c-green-border)',
-              background: 'var(--c-green-tint)',
-            }}
-          >
-            <span className="relative flex h-1.5 w-1.5 flex-shrink-0">
-              <span
-                className="absolute inset-0 rounded-full opacity-60"
-                style={{
-                  backgroundColor: 'var(--c-green)',
-                  animation: 'ping 2s cubic-bezier(0,0,0.2,1) infinite',
-                }}
-              />
-              <span className="relative rounded-full h-1.5 w-1.5 bg-c-green" />
-            </span>
-            <span className="font-mono text-[10px] tracking-[0.15em] uppercase text-c-green">
-              Available
-            </span>
-          </div>
         </motion.div>
 
         <motion.hr
