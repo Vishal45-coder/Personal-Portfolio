@@ -234,7 +234,11 @@ export default function Projects() {
           viewport={viewport}
         >
           <motion.div variants={reduced ? {} : fadeUp}>
-            <span className="label text-c-cyan">// 03. PROJECTS</span>
+            <div className="flex items-center gap-3">
+              <span className="font-mono text-[10px] font-medium text-c-muted">03</span>
+              <div className="w-6 h-px" style={{ background: 'var(--c-line)' }} />
+              <span className="font-mono text-[10px] tracking-[0.2em] uppercase text-c-muted">Projects</span>
+            </div>
           </motion.div>
           <motion.h2
             className="font-display font-bold text-c-text leading-tight"

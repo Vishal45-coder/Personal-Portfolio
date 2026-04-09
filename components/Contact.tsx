@@ -128,7 +128,11 @@ export default function Contact() {
           viewport={viewport}
           className="mb-6"
         >
-          <span className="label text-c-cyan">// 06. CONTACT</span>
+          <div className="flex items-center gap-3">
+          <span className="font-mono text-[10px] font-medium text-c-muted">06</span>
+          <div className="w-6 h-px" style={{ background: 'var(--c-line)' }} />
+          <span className="font-mono text-[10px] tracking-[0.2em] uppercase text-c-muted">Contact</span>
+        </div>
         </motion.div>
 
         {/* Headline — word-by-word reveal, line by line */}

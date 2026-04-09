@@ -7,9 +7,9 @@ import {
 } from '@/lib/motion'
 
 const stats = [
-  { value: '3.88 / 4.0', label: 'M.Eng. Cybersecurity + GCEN · UMD', color: 'var(--c-cyan)' },
-  { value: '2+ Years',   label: 'Production engineering at CALCE',     color: 'var(--c-violet)' },
-  { value: '17.4M+',    label: 'Log entries indexed · EK Stack lab',   color: 'var(--c-green)' },
+  { value: '3.88 / 4.0', label: 'M.Eng. GPA · UMD',        color: 'var(--c-cyan)' },
+  { value: '2+ Years',   label: 'Production Tenure · CALCE', color: 'var(--c-violet)' },
+  { value: '17.4M+',    label: 'Logs Indexed · EK Stack',   color: 'var(--c-green)' },
 ]
 
 const credentials = [
@@ -38,8 +38,10 @@ export default function About() {
             whileInView="visible"
             viewport={viewport}
           >
-            <div>
-              <span className="label text-c-cyan">// 01. ABOUT</span>
+            <div className="flex items-center gap-3">
+              <span className="font-mono text-[10px] font-medium text-c-muted">01</span>
+              <div className="w-6 h-px" style={{ background: 'var(--c-line)' }} />
+              <span className="font-mono text-[10px] tracking-[0.2em] uppercase text-c-muted">About</span>
             </div>
 
             <h2
@@ -131,7 +133,7 @@ export default function About() {
             </motion.div>
           </motion.div>
 
-          {/* Right — data lines */}
+          {/* Right — technical readout */}
           <motion.div
             className="lg:col-span-2"
             variants={reduced ? {} : fadeRight}
@@ -139,6 +141,10 @@ export default function About() {
             whileInView="visible"
             viewport={viewport}
           >
+            <div className="flex items-center gap-3 mb-6">
+              <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-c-muted">Profile</span>
+              <div className="flex-1 h-px" style={{ background: 'var(--c-line)' }} />
+            </div>
             <motion.div
               className="space-y-0"
               variants={reduced ? {} : staggerContainer(0.12, 0.15)}
@@ -148,18 +154,20 @@ export default function About() {
             >
               {stats.map((s, i) => (
                 <motion.div key={i} variants={reduced ? {} : fadeUp}>
-                  <div className="py-6">
-                    <div
-                      className="font-display font-bold leading-none mb-2"
-                      style={{ fontSize: 'clamp(1.8rem, 3.5vw, 2.8rem)', color: s.color }}
+                  <div className="py-4 flex items-center justify-between gap-4">
+                    <span className="font-mono text-[10px] tracking-wider uppercase text-c-muted">
+                      {s.label}
+                    </span>
+                    <span
+                      className="font-mono font-bold tabular-nums flex-shrink-0"
+                      style={{ fontSize: 'clamp(1rem, 2vw, 1.4rem)', color: s.color }}
                     >
                       {s.value}
-                    </div>
-                    <div className="font-mono text-[11px] tracking-wider uppercase text-c-muted">
-                      {s.label}
-                    </div>
+                    </span>
                   </div>
-                  {i < stats.length - 1 && <hr className="h-rule" />}
+                  {i < stats.length - 1 && (
+                    <div className="h-px" style={{ background: 'var(--c-line)' }} />
+                  )}
                 </motion.div>
               ))}
             </motion.div>

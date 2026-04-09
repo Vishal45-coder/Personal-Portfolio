@@ -1,7 +1,7 @@
 'use client'
 
 import { motion, useReducedMotion } from 'framer-motion'
-import { fadeUp, tagPop, staggerContainer, staggerTags, viewport } from '@/lib/motion'
+import { fadeUp, tagPop, staggerTags, viewport } from '@/lib/motion'
 
 interface SkillRow {
   num: string
@@ -64,22 +64,18 @@ export default function Skills() {
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
         <motion.div
-          className="mb-14 space-y-4"
-          variants={reduced ? {} : staggerContainer(0.1, 0)}
+          className="mb-10 flex items-center justify-between"
+          variants={reduced ? {} : fadeUp}
           initial="hidden"
           whileInView="visible"
           viewport={viewport}
         >
-          <motion.div variants={reduced ? {} : fadeUp}>
-            <span className="label text-c-cyan">// 02. SKILLS</span>
-          </motion.div>
-          <motion.h2
-            className="font-display font-bold text-c-text leading-tight"
-            style={{ fontSize: 'clamp(1.8rem, 4vw, 3rem)' }}
-            variants={reduced ? {} : fadeUp}
-          >
-            Technical Arsenal
-          </motion.h2>
+          <div className="flex items-center gap-3">
+            <span className="font-mono text-[10px] font-medium text-c-muted">02</span>
+            <div className="w-6 h-px" style={{ background: 'var(--c-line)' }} />
+            <span className="font-mono text-[10px] tracking-[0.2em] uppercase text-c-muted">Skills &amp; Tools</span>
+          </div>
+          <span className="font-mono text-[10px] text-c-muted hidden sm:block">70+ technologies</span>
         </motion.div>
 
         <div className="space-y-0">

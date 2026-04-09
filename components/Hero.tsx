@@ -82,6 +82,21 @@ export default function Hero() {
         }}
       />
 
+      {/* Left rail — editorial accent, desktop only */}
+      <div
+        className="hidden lg:flex absolute left-5 top-1/2 -translate-y-1/2 flex-col items-center gap-4 z-10"
+        aria-hidden="true"
+      >
+        <div className="w-px h-16" style={{ background: 'var(--c-line)' }} />
+        <span
+          className="font-mono text-[9px] tracking-[0.22em] uppercase text-c-muted"
+          style={{ writingMode: 'vertical-rl', transform: 'rotate(180deg)' }}
+        >
+          College Park · MD
+        </span>
+        <div className="w-px h-16" style={{ background: 'var(--c-line)' }} />
+      </div>
+
       <motion.div
         className="relative z-10 flex flex-col flex-1 w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 pt-28 pb-12"
         variants={heroContainer}
@@ -121,7 +136,7 @@ export default function Hero() {
             variants={fadeUp}
           >
             <span
-              className="font-mono text-[11px] tracking-[0.2em] uppercase text-c-cyan"
+              className="font-mono text-[11px] tracking-[0.2em] uppercase text-c-muted"
               style={{ opacity: fading ? 0 : 1, transition: 'opacity 0.28s ease' }}
             >
               {roles[roleIdx]}
