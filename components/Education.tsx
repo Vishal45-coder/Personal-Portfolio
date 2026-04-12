@@ -68,7 +68,7 @@ export default function Education() {
             style={{ fontSize: 'clamp(1.8rem, 4vw, 3rem)' }}
             variants={reduced ? {} : fadeUp}
           >
-            Where I Studied
+            Academic Background
           </motion.h2>
         </motion.div>
 

@@ -12,9 +12,9 @@ const roles = [
 ]
 
 const stats = [
-  { value: '3.88', label: 'GPA · M.Eng.' },
-  { value: '2+',   label: 'Years in Production' },
-  { value: '5',    label: 'Security Labs' },
+  { value: '3.88', label: 'GPA · M.Eng.', color: 'var(--c-cyan)' },
+  { value: '2+',   label: 'Years in Production', color: 'var(--c-violet)' },
+  { value: '850+', label: 'Downloads Served', color: 'var(--c-green)' },
 ]
 
 const heroContainer = staggerContainer(0.12, 0.1)
@@ -202,7 +202,10 @@ export default function Hero() {
                 visible: { opacity: 1, y: 0, transition: { duration: dur.normal, ease: ease.out } },
               }}
             >
-              <div className="font-display text-3xl sm:text-4xl font-bold leading-none mb-1 text-c-cyan">
+              <div
+                className="font-display text-3xl sm:text-4xl font-bold leading-none mb-1"
+                style={{ color: s.color }}
+              >
                 {s.value}
               </div>
               <div className="font-mono text-[10px] tracking-widest uppercase text-c-muted">

@@ -36,14 +36,14 @@ export default function About() {
           </h2>
 
           <motion.div
-            className="space-y-4 text-c-sub leading-relaxed text-sm sm:text-base max-w-2xl"
+            className="space-y-4 text-c-sub leading-relaxed text-sm sm:text-base"
             variants={reduced ? {} : staggerNormal}
             initial="hidden"
             whileInView="visible"
             viewport={viewport}
           >
             <motion.p variants={reduced ? {} : fadeUp}>
-              I&apos;m a Master&apos;s student in Cybersecurity at the University of Maryland (GPA: 3.88),
+              I&apos;m a Master&apos;s student in Cybersecurity at the University of Maryland,
               with a background in Computer Science from GITAM University. For the past 2+ years, I&apos;ve
               been building production systems at the Center for Advanced Life Cycle Engineering (CALCE) —
               full-stack web platforms, containerized microservices, REST APIs, and data visualization tools
@@ -64,7 +64,7 @@ export default function About() {
 
           {/* Approach block */}
           <motion.div
-            className="pt-5 border-t space-y-2 max-w-2xl"
+            className="pt-5 border-t space-y-2"
             style={{ borderColor: 'var(--c-line)' }}
             variants={reduced ? {} : fadeUp}
             initial="hidden"
