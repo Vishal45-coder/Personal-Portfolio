@@ -11,11 +11,6 @@ const roles = [
   'PENETRATION TESTER',
 ]
 
-const stats = [
-  { value: '3.88', label: 'GPA · M.Eng.', color: 'var(--c-cyan)' },
-  { value: '2+',   label: 'Years in Production', color: 'var(--c-violet)' },
-  { value: '850+', label: 'Downloads Served', color: 'var(--c-green)' },
-]
 
 const heroContainer = staggerContainer(0.12, 0.1)
 
@@ -184,36 +179,6 @@ export default function Hero() {
           </motion.div>
         </div>
 
-        {/* Bottom rule */}
-        <motion.hr className="h-rule mt-10 sm:mt-14 mb-7" variants={fadeIn} />
-
-        {/* STATS STRIP */}
-        <motion.div
-          className="grid grid-cols-3 gap-6 sm:gap-0"
-          variants={staggerContainer(0.1, 0.05)}
-        >
-          {stats.map((s, i) => (
-            <motion.div
-              key={i}
-              className="sm:px-6 sm:border-r last:border-0"
-              style={{ borderColor: 'var(--c-line)' }}
-              variants={{
-                hidden:  { opacity: 0, y: 16 },
-                visible: { opacity: 1, y: 0, transition: { duration: dur.normal, ease: ease.out } },
-              }}
-            >
-              <div
-                className="font-display text-3xl sm:text-4xl font-bold leading-none mb-1"
-                style={{ color: s.color }}
-              >
-                {s.value}
-              </div>
-              <div className="font-mono text-[10px] tracking-widest uppercase text-c-muted">
-                {s.label}
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
 
       </motion.div>
     </section>
