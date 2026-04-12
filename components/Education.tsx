@@ -25,9 +25,9 @@ const degrees = [
     degree: 'B.Tech — Computer Science',
     cert: null,
     school: 'GITAM University',
-    location: 'Visakhapatnam, India',
+    location: 'Bangalore, India',
     period: '2019 – 2023',
-    gpa: null,
+    gpa: '3.2 / 4.0',
     accent: 'var(--c-violet)',
     tagClass: 'tag-violet',
     courses: [
@@ -47,6 +47,7 @@ export default function Education() {
       <div className="absolute top-0 right-0 watermark" aria-hidden="true">05</div>
 
       <div className="relative z-10 max-w-5xl mx-auto px-6 sm:px-10 lg:px-16">
+
         {/* Header */}
         <motion.div
           className="mb-14 space-y-4"
@@ -71,97 +72,131 @@ export default function Education() {
           </motion.h2>
         </motion.div>
 
-        {/* Degree entries */}
-        <div className="grid lg:grid-cols-2 gap-0">
-          {degrees.map((d, i) => (
-            <div key={d.num}>
-              {i === 0 && <hr className="h-rule lg:hidden" />}
-              {i === 0 && <div className="hidden lg:block h-px mb-0" style={{ background: 'var(--c-line)' }} />}
-              <hr className="h-rule hidden lg:block" />
-              <motion.div
-                className="py-10 lg:pr-10"
-                style={i === 0 ? { borderRight: 'none' } : {}}
-                variants={reduced ? {} : i === 0 ? fadeLeft : fadeRight}
-                initial="hidden"
-                whileInView="visible"
-                viewport={viewport}
-              >
-                {/* Number + period */}
-                <div className="flex items-baseline gap-4 mb-4">
-                  <span
-                    className="font-display font-bold leading-none flex-shrink-0"
-                    style={{ fontSize: 'clamp(2rem, 3.5vw, 3rem)', color: d.accent, opacity: 0.28 }}
-                  >
-                    {d.num}
-                  </span>
-                  <span
-                    className="font-mono text-[11px] tracking-[0.12em] uppercase"
-                    style={{ color: d.accent }}
-                  >
-                    {d.period}
-                  </span>
-                </div>
+        {/* Top rule */}
+        <hr className="h-rule" />
 
-                {/* Degree title */}
-                <h3
-                  className="font-display font-bold text-c-text leading-tight mb-1"
-                  style={{ fontSize: 'clamp(1rem, 2vw, 1.35rem)' }}
-                >
-                  {d.degree}
-                </h3>
+        {/* Degrees — side by side on desktop with vertical separator */}
+        <div className="grid lg:grid-cols-[1fr_1px_1fr]">
 
-                {/* Certificate (if any) */}
-                {d.cert && (
-                  <p
-                    className="font-mono text-[10px] tracking-[0.1em] uppercase mb-1"
-                    style={{ color: d.accent, opacity: 0.7 }}
-                  >
-                    + {d.cert}
-                  </p>
-                )}
+          {/* Degree 01 */}
+          <motion.div
+            className="py-10 lg:pr-12"
+            variants={reduced ? {} : fadeLeft}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewport}
+          >
+            <DegreeCard degree={degrees[0]} reduced={!!reduced} />
+          </motion.div>
 
-                {/* School + location */}
-                <p
-                  className="font-mono text-[11px] tracking-[0.1em] uppercase mb-5"
-                  style={{ color: d.accent, opacity: 0.55 }}
-                >
-                  {d.school} · {d.location}
-                </p>
+          {/* Vertical separator — desktop only */}
+          <div
+            className="hidden lg:block"
+            style={{ background: 'var(--c-line)' }}
+          />
 
-                {/* GPA */}
-                {d.gpa && (
-                  <div
-                    className="inline-flex items-center gap-2 px-3 py-1.5 rounded mb-5"
-                    style={{
-                      border: `1px solid ${d.accent}33`,
-                      background: `${d.accent}0d`,
-                    }}
-                  >
-                    <span className="font-mono text-[10px] tracking-wider uppercase text-c-muted">GPA</span>
-                    <span className="font-mono text-sm font-bold" style={{ color: d.accent }}>{d.gpa}</span>
-                  </div>
-                )}
+          {/* Mobile separator */}
+          <hr className="h-rule lg:hidden" />
 
-                {/* Course tags */}
-                <motion.div
-                  className="flex flex-wrap gap-1.5"
-                  variants={reduced ? {} : staggerTags}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={viewport}
-                >
-                  {d.courses.map((c) => (
-                    <motion.span key={c} className={`tag ${d.tagClass}`} variants={reduced ? {} : tagPop}>
-                      {c}
-                    </motion.span>
-                  ))}
-                </motion.div>
-              </motion.div>
-              <hr className="h-rule" />
-            </div>
-          ))}
+          {/* Degree 02 */}
+          <motion.div
+            className="py-10 lg:pl-12"
+            variants={reduced ? {} : fadeRight}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewport}
+          >
+            <DegreeCard degree={degrees[1]} reduced={!!reduced} />
+          </motion.div>
         </div>
+
+        {/* Bottom rule */}
+        <hr className="h-rule" />
       </div>
     </section>
+  )
+}
+
+function DegreeCard({
+  degree: d,
+  reduced,
+}: {
+  degree: (typeof degrees)[0]
+  reduced: boolean
+}) {
+  return (
+    <div>
+      {/* Number + period row */}
+      <div className="flex items-baseline gap-4 mb-5">
+        <span
+          className="font-display font-bold leading-none flex-shrink-0"
+          style={{ fontSize: 'clamp(1.8rem, 3vw, 2.5rem)', color: d.accent, opacity: 0.25 }}
+        >
+          {d.num}
+        </span>
+        <span
+          className="font-mono text-[11px] tracking-[0.12em] uppercase"
+          style={{ color: d.accent }}
+        >
+          {d.period}
+        </span>
+      </div>
+
+      {/* Degree */}
+      <h3
+        className="font-display font-bold text-c-text leading-tight mb-1"
+        style={{ fontSize: 'clamp(1rem, 1.8vw, 1.3rem)' }}
+      >
+        {d.degree}
+      </h3>
+
+      {/* Certificate */}
+      {d.cert && (
+        <p
+          className="font-mono text-[10px] tracking-[0.1em] uppercase mb-1"
+          style={{ color: d.accent, opacity: 0.65 }}
+        >
+          + {d.cert}
+        </p>
+      )}
+
+      {/* School · Location */}
+      <p
+        className="font-mono text-[11px] tracking-[0.1em] uppercase mb-5"
+        style={{ color: d.accent, opacity: 0.5 }}
+      >
+        {d.school} · {d.location}
+      </p>
+
+      {/* GPA badge */}
+      {d.gpa && (
+        <div
+          className="inline-flex items-center gap-2.5 px-3 py-1.5 rounded mb-6"
+          style={{
+            border: '1px solid var(--c-line)',
+            background: 'var(--overlay-xs)',
+          }}
+        >
+          <span className="font-mono text-[10px] tracking-wider uppercase text-c-muted">GPA</span>
+          <div className="w-px h-3" style={{ background: 'var(--c-line)' }} />
+          <span className="font-mono text-sm font-bold" style={{ color: d.accent }}>{d.gpa}</span>
+        </div>
+      )}
+
+      {/* Course tags */}
+      <motion.div
+        className="flex flex-wrap gap-1.5"
+        variants={reduced ? {} : staggerTags}
+        initial="hidden"
+        whileInView="visible"
+        viewport={viewport}
+      >
+        {d.courses.map((c) => (
+          <motion.span key={c} className={`tag ${d.tagClass}`} variants={reduced ? {} : tagPop}>
+            {c}
+          </motion.span>
+        ))}
+      </motion.div>
+    </div>
   )
 }
