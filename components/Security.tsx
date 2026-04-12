@@ -200,7 +200,7 @@ export default function Security() {
   return (
     <section id="security" className="relative py-24 md:py-32 bg-ink overflow-hidden">
       {/* Watermark */}
-      <div className="absolute top-0 right-0 watermark" aria-hidden="true">05</div>
+      <div className="absolute top-0 right-0 watermark" aria-hidden="true">06</div>
 
       <div className="relative z-10 max-w-5xl mx-auto px-6 sm:px-10 lg:px-16">
         <motion.div
@@ -212,7 +212,7 @@ export default function Security() {
         >
           <motion.div variants={reduced ? {} : fadeUp}>
             <div className="flex items-center gap-3">
-              <span className="font-mono text-[10px] font-medium text-c-muted">05</span>
+              <span className="font-mono text-[10px] font-medium text-c-muted">06</span>
               <div className="w-6 h-px" style={{ background: 'var(--c-line)' }} />
               <span className="font-mono text-[10px] tracking-[0.2em] uppercase text-c-muted">Security</span>
             </div>

@@ -2,7 +2,7 @@
 
 import { motion, useReducedMotion } from 'framer-motion'
 import {
-  fadeUp, fadeLeft, fadeRight, tagPop,
+  fadeUp, fadeLeft, fadeRight,
   staggerContainer, staggerNormal, viewport,
 } from '@/lib/motion'
 
@@ -12,12 +12,6 @@ const stats = [
   { value: '17.4M+',    label: 'Logs Indexed · EK Stack',   color: 'var(--c-green)' },
 ]
 
-const credentials = [
-  { label: 'M.Eng. Cybersecurity',         meta: 'UMD · 2025',  dot: 'var(--c-cyan)' },
-  { label: 'Grad. Cert. Cloud Engineering', meta: 'UMD · 2025',  dot: 'var(--c-cyan)' },
-  { label: 'B.Tech Computer Science',       meta: 'GITAM · 2023', dot: 'var(--c-violet)' },
-  { label: 'BSCP',                          meta: 'In Progress',  dot: 'var(--c-amber)', amber: true },
-]
 
 export default function About() {
   const reduced = useReducedMotion()
@@ -101,36 +95,6 @@ export default function About() {
               </p>
             </motion.div>
 
-            {/* Credentials — staggered tag pop */}
-            <motion.div
-              className="flex flex-wrap gap-2 pt-1"
-              variants={reduced ? {} : staggerContainer(0.08, 0.1)}
-              initial="hidden"
-              whileInView="visible"
-              viewport={viewport}
-            >
-              {credentials.map((c) => (
-                <motion.div
-                  key={c.label}
-                  className="flex items-center gap-2 px-3 py-1.5 rounded"
-                  style={{
-                    background: 'var(--overlay-xs)',
-                    border: '1px solid var(--c-line)',
-                  }}
-                  variants={reduced ? {} : tagPop}
-                  whileHover={reduced ? {} : { scale: 1.03, transition: { duration: 0.15 } }}
-                >
-                  <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ backgroundColor: c.dot }} />
-                  <span className="text-c-sub text-xs font-medium">{c.label}</span>
-                  <span
-                    className="text-[10px] font-mono"
-                    style={{ color: c.amber ? 'var(--c-amber)' : 'var(--c-muted)' }}
-                  >
-                    {c.meta}
-                  </span>
-                </motion.div>
-              ))}
-            </motion.div>
           </motion.div>
 
           {/* Right — technical readout */}

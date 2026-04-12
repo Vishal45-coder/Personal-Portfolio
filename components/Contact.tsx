@@ -108,7 +108,7 @@ export default function Contact() {
       className="relative py-24 md:py-32 grid-bg overflow-hidden bg-ink-1"
     >
       {/* Watermark */}
-      <div className="absolute top-0 left-0 watermark" aria-hidden="true">06</div>
+      <div className="absolute top-0 left-0 watermark" aria-hidden="true">07</div>
 
       {/* Bottom glow */}
       <div
@@ -129,7 +129,7 @@ export default function Contact() {
           className="mb-6"
         >
           <div className="flex items-center gap-3">
-            <span className="font-mono text-[10px] font-medium text-c-muted">06</span>
+            <span className="font-mono text-[10px] font-medium text-c-muted">07</span>
             <div className="w-6 h-px" style={{ background: 'var(--c-line)' }} />
             <span className="font-mono text-[10px] tracking-[0.2em] uppercase text-c-muted">Contact</span>
           </div>
