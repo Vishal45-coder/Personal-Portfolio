@@ -11,7 +11,7 @@ export default function About() {
       {/* Watermark */}
       <div className="absolute top-0 right-0 watermark" aria-hidden="true">01</div>
 
-      <div className="relative z-10 max-w-5xl mx-auto px-6 sm:px-10 lg:px-16">
+      <div className="relative z-10 max-w-6xl mx-auto px-6 sm:px-10 lg:px-16">
         <motion.div
           className="space-y-7"
           variants={reduced ? {} : fadeLeft}

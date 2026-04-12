@@ -198,11 +198,11 @@ export default function Security() {
   const reduced = useReducedMotion()
 
   return (
-    <section id="security" className="relative py-24 md:py-32 bg-ink overflow-hidden">
+    <section id="security" className="relative py-24 md:py-32 bg-ink-1 overflow-hidden">
       {/* Watermark */}
       <div className="absolute top-0 right-0 watermark" aria-hidden="true">06</div>
 
-      <div className="relative z-10 max-w-5xl mx-auto px-6 sm:px-10 lg:px-16">
+      <div className="relative z-10 max-w-6xl mx-auto px-6 sm:px-10 lg:px-16">
         <motion.div
           className="mb-10 space-y-4"
           variants={reduced ? {} : staggerContainer(0.1, 0)}

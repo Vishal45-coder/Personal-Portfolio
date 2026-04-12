@@ -46,7 +46,7 @@ export default function Education() {
       {/* Watermark */}
       <div className="absolute top-0 right-0 watermark" aria-hidden="true">05</div>
 
-      <div className="relative z-10 max-w-5xl mx-auto px-6 sm:px-10 lg:px-16">
+      <div className="relative z-10 max-w-6xl mx-auto px-6 sm:px-10 lg:px-16">
 
         {/* Header */}
         <motion.div

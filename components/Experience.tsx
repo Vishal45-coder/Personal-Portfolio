@@ -60,7 +60,7 @@ export default function Experience() {
       {/* Watermark */}
       <div className="absolute top-0 left-0 watermark" aria-hidden="true">04</div>
 
-      <div className="relative z-10 max-w-5xl mx-auto px-6 sm:px-10 lg:px-16">
+      <div className="relative z-10 max-w-6xl mx-auto px-6 sm:px-10 lg:px-16">
         <motion.div
           className="mb-14 space-y-4"
           variants={reduced ? {} : staggerContainer(0.1, 0)}

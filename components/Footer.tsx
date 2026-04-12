@@ -3,6 +3,7 @@ const footerLinks = [
   { label: 'Skills',     href: '#skills' },
   { label: 'Projects',   href: '#projects' },
   { label: 'Experience', href: '#experience' },
+  { label: 'Education',  href: '#education' },
   { label: 'Security',   href: '#security' },
   { label: 'Contact',    href: '#contact' },
 ]
@@ -16,9 +17,9 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <span className="font-display text-lg font-black text-c-text">VR</span>
+            <span className="font-display text-lg font-black text-c-text tracking-tight">Vishal Raavi</span>
             <span className="font-mono text-[10px] tracking-[0.15em] uppercase text-c-muted">
-              Vishal Raavi
+              Security Engineer
             </span>
           </div>
 

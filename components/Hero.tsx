@@ -179,7 +179,8 @@ export default function Hero() {
           </motion.div>
         </div>
 
-
+        {/* Bottom rule */}
+        <motion.hr className="h-rule mt-auto" variants={fadeIn} />
       </motion.div>
     </section>
   )
