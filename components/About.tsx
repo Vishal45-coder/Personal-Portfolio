@@ -13,7 +13,7 @@ export default function About() {
 
       <div className="relative z-10 max-w-6xl mx-auto px-6 sm:px-10 lg:px-16">
         <motion.div
-          className="space-y-7"
+          className="mb-14 space-y-4"
           variants={reduced ? {} : fadeLeft}
           initial="hidden"
           whileInView="visible"
@@ -24,7 +24,6 @@ export default function About() {
             <div className="w-6 h-px" style={{ background: 'var(--c-line)' }} />
             <span className="font-mono text-[10px] tracking-[0.2em] uppercase text-c-muted">About</span>
           </div>
-
           <h2
             className="font-display font-bold leading-tight text-c-text"
             style={{ fontSize: 'clamp(1.8rem, 4vw, 3rem)' }}
@@ -34,7 +33,14 @@ export default function About() {
             &amp;{' '}
             <span className="text-c-violet">Security</span>
           </h2>
+        </motion.div>
 
+        <motion.div
+          variants={reduced ? {} : fadeLeft}
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewport}
+        >
           <motion.div
             className="space-y-4 text-c-sub leading-relaxed text-sm sm:text-base max-w-3xl"
             variants={reduced ? {} : staggerNormal}

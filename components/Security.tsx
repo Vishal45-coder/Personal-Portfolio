@@ -200,11 +200,11 @@ export default function Security() {
   return (
     <section id="security" className="relative py-24 md:py-32 bg-ink-1 overflow-hidden">
       {/* Watermark */}
-      <div className="absolute top-0 right-0 watermark" aria-hidden="true">06</div>
+      <div className="absolute top-0 left-0 watermark" aria-hidden="true">06</div>
 
       <div className="relative z-10 max-w-6xl mx-auto px-6 sm:px-10 lg:px-16">
         <motion.div
-          className="mb-10 space-y-4"
+          className="mb-14 space-y-4"
           variants={reduced ? {} : staggerContainer(0.1, 0)}
           initial="hidden"
           whileInView="visible"
@@ -225,11 +225,10 @@ export default function Security() {
             Offensive Security Practice
           </motion.h2>
           <motion.p
-            className="text-c-muted text-sm leading-relaxed max-w-lg"
+            className="font-mono text-[11px] tracking-[0.12em] uppercase text-c-muted"
             variants={reduced ? {} : fadeUp}
           >
-            From black-box recon to root access — documented attack chains and security research
-            from isolated lab environments.
+            Documented attack chains &amp; security research from isolated lab environments
           </motion.p>
         </motion.div>
 

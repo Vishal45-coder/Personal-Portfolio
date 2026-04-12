@@ -227,7 +227,7 @@ export default function Projects() {
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
         <motion.div
-          className="mb-16 space-y-4"
+          className="mb-14 space-y-4"
           variants={reduced ? {} : staggerContainer(0.1, 0)}
           initial="hidden"
           whileInView="visible"

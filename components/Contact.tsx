@@ -120,27 +120,19 @@ export default function Contact() {
 
       <div className="relative z-10 max-w-3xl mx-auto px-6 sm:px-10 lg:px-16">
         <motion.div
-          variants={reduced ? {} : fadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={viewport}
-          className="mb-6"
-        >
-          <div className="flex items-center gap-3">
-            <span className="font-mono text-[10px] font-medium text-c-muted">07</span>
-            <div className="w-6 h-px" style={{ background: 'var(--c-line)' }} />
-            <span className="font-mono text-[10px] tracking-[0.2em] uppercase text-c-muted">Contact</span>
-          </div>
-        </motion.div>
-
-        {/* Headline — word-by-word reveal, line by line */}
-        <motion.div
-          className="mb-10"
+          className="mb-14 space-y-4"
           variants={reduced ? {} : staggerContainer(0.18, 0.05)}
           initial="hidden"
           whileInView="visible"
           viewport={viewport}
         >
+          <motion.div variants={reduced ? {} : fadeUp}>
+            <div className="flex items-center gap-3">
+              <span className="font-mono text-[10px] font-medium text-c-muted">07</span>
+              <div className="w-6 h-px" style={{ background: 'var(--c-line)' }} />
+              <span className="font-mono text-[10px] tracking-[0.2em] uppercase text-c-muted">Contact</span>
+            </div>
+          </motion.div>
           <h2
             className="font-display font-extrabold leading-[1] tracking-tight"
             style={{ fontSize: 'clamp(2.4rem, 7vw, 5.5rem)' }}

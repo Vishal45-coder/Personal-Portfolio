@@ -64,7 +64,7 @@ export default function Skills() {
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
         <motion.div
-          className="mb-10 flex items-center justify-between"
+          className="mb-14 flex items-center justify-between"
           variants={reduced ? {} : fadeUp}
           initial="hidden"
           whileInView="visible"
