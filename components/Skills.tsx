@@ -62,7 +62,7 @@ export default function Skills() {
       {/* Watermark */}
       <div className="absolute top-0 left-0 watermark" aria-hidden="true">02</div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
+      <div className="relative z-10 max-w-6xl mx-auto px-6 sm:px-10 lg:px-16">
         <motion.div
           className="mb-14 flex items-center justify-between"
           variants={reduced ? {} : fadeUp}
