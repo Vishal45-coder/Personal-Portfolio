@@ -1,22 +1,13 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { motion, useReducedMotion, useMotionValue, useSpring } from 'framer-motion'
 import { ArrowRight, Mail } from 'lucide-react'
 import { fadeUp, fadeIn, staggerContainer, dur, ease } from '@/lib/motion'
 
-const roles = [
-  'SOFTWARE ENGINEER',
-  'SECURITY ENGINEER',
-  'PENETRATION TESTER',
-]
-
-
 const heroContainer = staggerContainer(0.12, 0.1)
 
 export default function Hero() {
-  const [roleIdx, setRoleIdx] = useState(0)
-  const [fading, setFading]   = useState(false)
   const reduced = useReducedMotion()
 
   // Mouse parallax for ambient glows
@@ -39,16 +30,6 @@ export default function Hero() {
     return () => el.removeEventListener('mousemove', handleMouse)
   }, [reduced, mouseX, mouseY])
 
-  useEffect(() => {
-    const t = setInterval(() => {
-      setFading(true)
-      setTimeout(() => {
-        setRoleIdx((i) => (i + 1) % roles.length)
-        setFading(false)
-      }, 280)
-    }, 2800)
-    return () => clearInterval(t)
-  }, [])
 
   const scrollTo = (id: string) =>
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
@@ -103,48 +84,49 @@ export default function Hero() {
 
         {/* MAIN */}
         <div className="flex-1 flex flex-col justify-center">
-          {/* Cycling role */}
-          <motion.div
-            className="mb-5 h-5 overflow-hidden"
-            variants={fadeUp}
-          >
-            <span
-              className="font-mono text-[11px] tracking-[0.2em] uppercase text-c-muted"
-              style={{ opacity: fading ? 0 : 1, transition: 'opacity 0.28s ease' }}
-            >
-              {roles[roleIdx]}
-            </span>
-          </motion.div>
-
-          {/* Headline — two lines stagger independently */}
+          {/* Name */}
           <motion.div variants={fadeUp}>
-            <h1 className="font-display font-extrabold leading-[0.92] tracking-tight">
+            <h1
+              className="font-display font-extrabold leading-[0.92] tracking-tight text-c-text"
+              style={{ fontSize: 'clamp(3rem, 9vw, 8rem)' }}
+            >
               <motion.span
-                className="block text-c-text"
-                style={{ fontSize: 'clamp(2.8rem, 8.5vw, 7.5rem)' }}
+                className="block"
                 variants={{
                   hidden:  { opacity: 0, y: 30 },
                   visible: { opacity: 1, y: 0, transition: { duration: dur.slow, ease: ease.out } },
                 }}
               >
-                I BUILD SYSTEMS
+                VISHAL
               </motion.span>
               <motion.span
-                className="block text-c-cyan"
-                style={{ fontSize: 'clamp(2.8rem, 8.5vw, 7.5rem)' }}
+                className="block"
                 variants={{
                   hidden:  { opacity: 0, y: 30 },
-                  visible: { opacity: 1, y: 0, transition: { duration: dur.slow, ease: ease.out, delay: 0.12 } },
+                  visible: { opacity: 1, y: 0, transition: { duration: dur.slow, ease: ease.out, delay: 0.1 } },
                 }}
               >
-                THAT HOLD.
+                RAAVI
               </motion.span>
             </h1>
           </motion.div>
 
+          {/* Role */}
+          <motion.div
+            className="mt-5 mb-8 sm:mb-10 flex items-center gap-3"
+            variants={fadeUp}
+          >
+            <div className="w-6 h-px" style={{ background: 'var(--c-cyan)' }} />
+            <span
+              className="font-mono text-[11px] tracking-[0.2em] uppercase text-c-cyan"
+            >
+              Software &amp; Security Engineer
+            </span>
+          </motion.div>
+
           {/* Tagline + CTAs */}
           <motion.div
-            className="mt-8 sm:mt-10 flex flex-col sm:flex-row sm:items-center gap-6 sm:gap-10"
+            className="flex flex-col sm:flex-row sm:items-center gap-6 sm:gap-10"
             variants={fadeUp}
           >
             <p className="text-c-sub text-sm sm:text-base leading-relaxed max-w-xs">
