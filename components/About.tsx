@@ -36,7 +36,7 @@ export default function About() {
           </h2>
 
           <motion.div
-            className="space-y-4 text-c-sub leading-relaxed text-sm sm:text-base"
+            className="space-y-4 text-c-sub leading-relaxed text-sm sm:text-base max-w-3xl"
             variants={reduced ? {} : staggerNormal}
             initial="hidden"
             whileInView="visible"
@@ -64,7 +64,7 @@ export default function About() {
 
           {/* Approach block */}
           <motion.div
-            className="pt-5 border-t space-y-2"
+            className="pt-5 border-t space-y-2 max-w-3xl"
             style={{ borderColor: 'var(--c-line)' }}
             variants={reduced ? {} : fadeUp}
             initial="hidden"

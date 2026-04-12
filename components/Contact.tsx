@@ -27,11 +27,9 @@ const links = [
   },
 ]
 
-// Headline lines split for word-by-word stagger
 const headlineLines = [
-  { text: "LET'S BUILD",      color: 'text-c-text' },
-  { text: 'SOMETHING',        color: 'text-c-text' },
-  { text: 'WORTH BREAKING.',  color: 'text-c-cyan' },
+  { text: "LET'S",    color: 'text-c-text' },
+  { text: 'CONNECT.', color: 'text-c-cyan' },
 ]
 
 function ContactRow({ item }: { item: (typeof links)[0] }) {
@@ -105,10 +103,10 @@ export default function Contact() {
   return (
     <section
       id="contact"
-      className="relative py-24 md:py-32 grid-bg overflow-hidden bg-ink-1"
+      className="relative py-24 md:py-32 overflow-hidden bg-ink-1"
     >
       {/* Watermark */}
-      <div className="absolute top-0 left-0 watermark" aria-hidden="true">07</div>
+      <div className="absolute top-0 right-0 watermark" aria-hidden="true">07</div>
 
       {/* Bottom glow */}
       <div
