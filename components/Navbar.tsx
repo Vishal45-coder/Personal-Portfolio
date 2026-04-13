@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 import { ease } from '@/lib/motion'
-import { Menu, X } from 'lucide-react'
+import { Menu, X, Linkedin } from 'lucide-react'
 import { ThemeToggle } from './ThemeToggle'
 
 const navLinks = [
@@ -94,8 +94,20 @@ export default function Navbar() {
             })}
           </div>
 
-          {/* Right cluster: Resume + Toggle */}
-          <div className="hidden md:flex items-center gap-2 flex-shrink-0">
+          {/* Right cluster: Social + Resume + Toggle */}
+          <div className="hidden md:flex items-center gap-1.5 flex-shrink-0">
+            <motion.a
+              href="https://linkedin.com/in/vishalraavi"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2 text-c-muted transition-colors duration-150"
+              aria-label="LinkedIn"
+              whileHover={reduced ? {} : { color: 'var(--c-sub)' }}
+              whileTap={reduced ? {} : { scale: 0.92 }}
+            >
+              <Linkedin size={15} />
+            </motion.a>
+            <div className="w-px h-4 mx-1" style={{ background: 'var(--c-line)' }} />
             <motion.a
               href="/Vishal_Resume.pdf"
               target="_blank"
@@ -191,6 +203,22 @@ export default function Navbar() {
               >
                 Resume
               </motion.a>
+              <motion.div
+                className="flex items-center gap-3 mt-3 px-3"
+                initial={reduced ? {} : { opacity: 0, y: 8 }}
+                animate={reduced ? {} : { opacity: 1, y: 0 }}
+                transition={{ delay: (navLinks.length + 1) * 0.04, duration: 0.25 }}
+              >
+                <a
+                  href="https://linkedin.com/in/vishalraavi"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-1.5 text-c-muted transition-colors duration-150 hover:text-c-sub"
+                  aria-label="LinkedIn"
+                >
+                  <Linkedin size={16} />
+                </a>
+              </motion.div>
             </div>
           </motion.div>
         )}
