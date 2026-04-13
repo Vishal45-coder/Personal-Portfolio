@@ -53,12 +53,6 @@ export const tagPop: Variants = {
   visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.28, ease: ease.out } },
 }
 
-// Word reveal — for contact headline split animation
-export const wordReveal: Variants = {
-  hidden:  { opacity: 0, y: '100%' },
-  visible: { opacity: 1, y: 0, transition: { duration: dur.slow, ease: ease.out } },
-}
-
 // ─── Stagger container factory ────────────────────────────────────────────────
 /**
  * Returns a variants object that staggers children.
@@ -78,9 +72,7 @@ export function staggerContainer(
 }
 
 // Pre-built containers for common use cases
-export const staggerFast   = staggerContainer(0.05, 0)
 export const staggerNormal = staggerContainer(0.09, 0)
-export const staggerSlow   = staggerContainer(0.14, 0)
 export const staggerTags   = staggerContainer(0.04, 0)
 
 // ─── Viewport defaults ────────────────────────────────────────────────────────
