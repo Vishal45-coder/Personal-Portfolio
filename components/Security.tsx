@@ -253,7 +253,7 @@ export default function Security() {
                 OffSec Certified Professional (OSCP)
               </p>
               <p className="font-mono text-[10px] text-c-muted tracking-wider mt-0.5">
-                Certification In Progress · PortSwigger
+                Certification In Progress · OffSec
               </p>
             </div>
             <span className="tag tag-amber font-mono text-[10px] tracking-wider uppercase">
