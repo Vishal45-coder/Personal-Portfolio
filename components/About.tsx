@@ -49,17 +49,18 @@ export default function About() {
             viewport={viewport}
           >
             <motion.p variants={reduced ? {} : fadeUp}>
-              I&apos;m a Master&apos;s student in Cybersecurity at the University of Maryland,
-              with a background in Computer Science from GITAM University. For the past 2+ years, I&apos;ve
-              been building production systems at the Center for Advanced Life Cycle Engineering (CALCE) —
-              full-stack web platforms, containerized microservices, REST APIs, and data visualization tools
-              — all used daily by active researchers.
+              I&apos;m an M.Eng. graduate in Cybersecurity (GPA: 3.88/4.0) from the University of Maryland,
+              with a Graduate Certificate in Cloud Engineering and a background in Computer Science from
+              GITAM University. For 2+ years I built and secured production systems at the Center for
+              Advanced Life Cycle Engineering (CALCE) — containerized web platforms, REST APIs, and
+              data visualization tools used daily by active researchers.
             </motion.p>
             <motion.p variants={reduced ? {} : fadeUp}>
               What sets me apart is the combination: I don&apos;t just build systems — I attack them too.
               I&apos;ve executed full offensive kill chains in isolated CTF environments: black-box
               reconnaissance, SQL injection exploitation, webshell deployment, privilege escalation, and
-              data exfiltration.
+              data exfiltration. Cloud security experience spans AWS infrastructure aligned to NIST CSF
+              and CIS Benchmarks.
             </motion.p>
             <motion.p variants={reduced ? {} : fadeUp}>
               I&apos;m actively pursuing the Burp Suite Certified Practitioner (BSCP) certification and
