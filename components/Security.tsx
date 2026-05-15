@@ -77,7 +77,7 @@ const labs: Lab[] = [
     bullets: [
       '2-tier LAMP stack (www-vm + db-vm): Apache2, PHP, MySQL, phpMyAdmin, WordPress',
       'Least-privilege RBAC with ACLs + UFW firewall (SSH restricted to VM host IP)',
-      'EK Stack (Elasticsearch + Kibana) — 17.4M+ log entries indexed and queryable in real-time',
+      'EK Stack (Elasticsearch + Kibana) — 17.4M+ log entries indexed and queryable in real time',
       'MySQL port 3306 locked to www-vm IP only (network segmentation)',
     ],
     tools: ['Elasticsearch', 'Kibana', 'Filebeat', 'UFW', 'Apache2', 'auditd'],

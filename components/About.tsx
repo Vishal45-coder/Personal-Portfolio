@@ -53,18 +53,18 @@ export default function About() {
               with a background in Computer Science from GITAM University. For the past 2+ years, I&apos;ve
               been building production systems at the Center for Advanced Life Cycle Engineering (CALCE) —
               full-stack web platforms, containerized microservices, REST APIs, and data visualization tools
-              used by researchers daily.
+              — all used daily by active researchers.
             </motion.p>
             <motion.p variants={reduced ? {} : fadeUp}>
               What sets me apart is the combination: I don&apos;t just build systems — I attack them too.
               I&apos;ve executed full offensive kill chains in isolated CTF environments: black-box
               reconnaissance, SQL injection exploitation, webshell deployment, privilege escalation, and
-              data exfiltration. That attacker&apos;s perspective directly informs how I write and review code.
+              data exfiltration.
             </motion.p>
             <motion.p variants={reduced ? {} : fadeUp}>
               I&apos;m actively pursuing the Burp Suite Certified Practitioner (BSCP) certification and
-              targeting roles at the intersection of secure software engineering and information security —
-              where building and breaking converge.
+              looking for roles where security and engineering are inseparable — where building and
+              breaking are the same job.
             </motion.p>
           </motion.div>
 

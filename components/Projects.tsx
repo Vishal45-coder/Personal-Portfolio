@@ -28,9 +28,9 @@ const workProjects: CaseStudy[] = [
     challenge: 'Researchers at CALCE were locked into a Windows-only desktop app with no web access, no API, and no scalability. I needed to rebuild the entire system as a modern, deployable web platform.',
     built: [
       'Built a microservice-decoupled React.js + Flask architecture with 8 REST endpoints',
-      'Designed a React Flow graph editor with 7 custom node types, 14 action types, 6 parallel Map collections',
+      'Designed a React Flow graph editor with 7 custom node types, 14 action types, and 6 parallel Map collections',
       'Implemented brute-force DFS state enumeration (Python + NetworkX) — 2ᴺ states, capped at N=22 (4.2M evaluations)',
-      'Engineered multi-sheet Excel round-trip serialization via SheetJS (5 worksheets, full backward compat)',
+      'Engineered multi-sheet Excel round-trip serialization via SheetJS (5 worksheets, full backward compatibility)',
       'Wrote cross-platform Bash automation for Docker orchestration across ARM64 + x86_64',
     ],
     impact: [
@@ -47,7 +47,7 @@ const workProjects: CaseStudy[] = [
     title: 'MOSTCOOL Research Platform',
     tagline: 'I built the entire public web presence for a federally funded research lab from scratch — automated software distribution, OWASP-hardened, serving 850+ downloads.',
     accent: 'var(--c-violet)',
-    challenge: 'The lab had no public web presence, no way to distribute software to researchers, and no support infrastructure. I designed and built the full platform from zero.',
+    challenge: 'The lab had no public web presence, no way to distribute software to researchers, and no support infrastructure. I designed and built the full platform from scratch.',
     built: [
       'Designed a 10+ page responsive MPA: modal modules directory, team directory, timeline news feed',
       'Built a Flask REST API integrated with GitHub Issues API for automated support ticketing',
@@ -69,7 +69,7 @@ const personalProjects: CaseStudy[] = [
     badge: 'Personal · Cloud Security',
     badgeClass: 'tag-green',
     title: 'Scalable & Secure E-Commerce Platform on AWS',
-    tagline: 'I designed and deployed a production-grade AWS architecture with defense-in-depth security at every layer — zero single points of failure, end-to-end encrypted.',
+    tagline: 'I designed and deployed a production-grade AWS architecture with defense-in-depth security at every layer — no single points of failure, end-to-end encryption throughout.',
     accent: 'var(--c-green)',
     challenge: 'I set out to build a production e-commerce system on AWS from scratch — handling variable load, eliminating single points of failure, and embedding security at every layer rather than bolting it on after.',
     built: [
