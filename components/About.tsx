@@ -63,7 +63,7 @@ export default function About() {
               and CIS Benchmarks.
             </motion.p>
             <motion.p variants={reduced ? {} : fadeUp}>
-              I&apos;m actively pursuing the Burp Suite Certified Practitioner (BSCP) certification and
+              I&apos;m actively pursuing the OffSec Certified Professional (OSCP) certification and
               looking for roles where security and engineering are inseparable — where building and
               breaking are the same job.
             </motion.p>

@@ -250,7 +250,7 @@ export default function Security() {
             <ShieldCheck size={16} className="text-c-amber" />
             <div>
               <p className="font-mono text-xs font-semibold text-c-amber">
-                Burp Suite Certified Practitioner (BSCP)
+                OffSec Certified Professional (OSCP)
               </p>
               <p className="font-mono text-[10px] text-c-muted tracking-wider mt-0.5">
                 Certification In Progress · PortSwigger
