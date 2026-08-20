@@ -4,7 +4,7 @@ import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import { Container, PageHeader } from '@/components/Section'
 import { PostMeta } from '@/components/PostMeta'
-import { blogPosts } from '@/lib/blogPosts'
+import { getAllPosts } from '@/lib/blog'
 
 export const metadata: Metadata = {
   title: 'Blog | Vishal Raavi',
@@ -13,6 +13,8 @@ export const metadata: Metadata = {
 }
 
 export default function BlogIndexPage() {
+  const posts = getAllPosts()
+
   return (
     <>
       <Navbar />
@@ -25,7 +27,7 @@ export default function BlogIndexPage() {
           />
 
           <ul className="grid gap-4 pb-14">
-            {blogPosts.map((post) => (
+            {posts.map((post) => (
               <li key={post.slug}>
                 <Link href={`/blog/${post.slug}`} className="card p-6 block group">
                   <PostMeta post={post} className="mb-2.5" />

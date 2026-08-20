@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" width="1200" height="600" role="img" aria-label="Placeholder image">
+  <rect width="1200" height="600" fill="#161C26"/>
+  <g fill="#6B7A8D" font-family="monospace" text-anchor="middle">
+    <text x="600" y="292" font-size="34">public/blog/example.svg</text>
+    <text x="600" y="342" font-size="22">Replace this with your own screenshot</text>
+  </g>
+</svg>

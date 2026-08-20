@@ -8,9 +8,12 @@ import { Container, Section } from '@/components/Section'
 import { ProjectCard } from '@/components/ProjectCard'
 import { PostMeta } from '@/components/PostMeta'
 import { projects } from '@/lib/content'
-import { blogPosts } from '@/lib/blogPosts'
+import { getAllPosts } from '@/lib/blog'
 
 export default function Home() {
+  // Newest posts first; the home page shows only the most recent few.
+  const posts = getAllPosts().slice(0, 2)
+
   return (
     <>
       <Navbar />
@@ -40,7 +43,7 @@ export default function Home() {
             action={{ label: 'All posts', href: '/blog' }}
           >
             <ul className="grid sm:grid-cols-2 gap-4">
-              {blogPosts.map((post) => (
+              {posts.map((post) => (
                 <li key={post.slug}>
                   <Link href={`/blog/${post.slug}`} className="card p-5 h-full flex flex-col group">
                     <PostMeta post={post} className="mb-2" />

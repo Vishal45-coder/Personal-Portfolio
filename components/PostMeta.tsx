@@ -1,8 +1,8 @@
-import type { BlogPost } from '@/lib/blogPosts'
+import type { PostSummary } from '@/lib/blog'
 
 /** Date, reading time and draft state for a post. Shared so every
  *  surface that lists a post renders its metadata the same way. */
-export function PostMeta({ post, className = '' }: { post: BlogPost; className?: string }) {
+export function PostMeta({ post, className = '' }: { post: PostSummary; className?: string }) {
   const meta = [post.displayDate, post.readingTime].filter(Boolean)
 
   return (
@@ -10,7 +10,7 @@ export function PostMeta({ post, className = '' }: { post: BlogPost; className?:
       {meta.length > 0 && (
         <span className="font-mono text-xs text-c-muted">{meta.join(' · ')}</span>
       )}
-      {post.status === 'draft' && <span className="tag">In progress</span>}
+      {post.draft && <span className="tag">In progress</span>}
     </div>
   )
 }
