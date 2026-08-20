@@ -1,69 +1,57 @@
 'use client'
 
 import { useState } from 'react'
+import { Mail, Linkedin, Github, Copy, Check } from 'lucide-react'
+import { profile } from '@/lib/content'
 
-const links = [
-  { label: 'Email', value: 'vishalraavi.work@gmail.com', href: 'mailto:vishalraavi.work@gmail.com', isEmail: true },
-  { label: 'LinkedIn', value: 'linkedin.com/in/vishalraavi', href: 'https://linkedin.com/in/vishalraavi' },
-  { label: 'GitHub', value: 'github.com/vishal45-coder', href: 'https://github.com/vishal45-coder' },
+const channels = [
+  { label: 'Email',    value: profile.email,                 href: `mailto:${profile.email}`, Icon: Mail,     copyable: true },
+  { label: 'LinkedIn', value: 'linkedin.com/in/vishalraavi', href: profile.linkedin,          Icon: Linkedin, copyable: false },
+  { label: 'GitHub',   value: 'github.com/vishal45-coder',   href: profile.github,            Icon: Github,   copyable: false },
 ]
 
-function ContactRow({ item }: { item: (typeof links)[0] }) {
+export default function Contact() {
   const [copied, setCopied] = useState(false)
 
-  const handleClick = async (e: React.MouseEvent) => {
-    if (item.isEmail) {
-      e.preventDefault()
-      try {
-        await navigator.clipboard.writeText(item.value)
-        setCopied(true)
-        setTimeout(() => setCopied(false), 2000)
-      } catch {
-        window.location.href = item.href
-      }
+  const copyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(profile.email)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    } catch {
+      window.location.href = `mailto:${profile.email}`
     }
   }
 
-  const inner = (
-    <div className="group flex items-center justify-between gap-3 py-2">
-      <span className="text-sm text-c-muted w-20 flex-shrink-0">{item.label}</span>
-      <span className="text-sm text-c-sub flex-1 transition-colors duration-150 group-hover:text-c-cyan">
-        {item.value}
-      </span>
-      {item.isEmail && (
-        <span className="text-xs text-c-muted flex-shrink-0">{copied ? 'Copied' : 'Copy'}</span>
-      )}
-    </div>
-  )
-
-  if (item.isEmail) {
-    return <div onClick={handleClick} className="cursor-pointer">{inner}</div>
-  }
-  return <a href={item.href} target="_blank" rel="noopener noreferrer">{inner}</a>
-}
-
-export default function Contact() {
   return (
-    <section id="contact" className="py-10">
-      <h2 className="text-xl font-semibold text-c-text mb-1">Contact</h2>
-      <p className="text-sm text-c-sub mb-4">
-        Open to full-time roles in Software Engineering, Security Engineering, and Cloud Security.
-      </p>
+    <ul className="grid sm:grid-cols-3 gap-4">
+      {channels.map(({ label, value, href, Icon, copyable }) => (
+        <li key={label} className="card p-5 flex flex-col">
+          <h3 className="subhead flex items-center gap-2 mb-2.5">
+            <Icon size={14} className="text-c-cyan" aria-hidden="true" />
+            {label}
+          </h3>
 
-      <div className="max-w-md">
-        {links.map((item) => (
-          <ContactRow key={item.label} item={item} />
-        ))}
-      </div>
+          <a
+            href={href}
+            target={href.startsWith('http') ? '_blank' : undefined}
+            rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
+            className="text-sm text-c-sub break-all link-underline"
+          >
+            {value}
+          </a>
 
-      <a
-        href="/Vishal_Resume.pdf"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="inline-block mt-4 text-sm underline underline-offset-2 text-c-text transition-colors duration-150 hover:text-c-cyan"
-      >
-        Download Resume
-      </a>
-    </section>
+          {copyable && (
+            <button
+              onClick={copyEmail}
+              className="inline-flex items-center gap-1.5 mt-3 text-xs text-c-muted self-start transition-colors duration-150 hover:text-c-cyan"
+            >
+              {copied ? <Check size={12} /> : <Copy size={12} />}
+              {copied ? 'Copied' : 'Copy address'}
+            </button>
+          )}
+        </li>
+      ))}
+    </ul>
   )
 }

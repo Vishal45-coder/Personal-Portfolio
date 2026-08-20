@@ -1,28 +1,31 @@
-const degree = {
-  degree: 'Master of Engineering — Cybersecurity',
-  school: 'University of Maryland, College Park',
-  location: 'College Park, MD',
-  period: 'Jan 2024 – Dec 2025',
-  gpa: '3.88 / 4.0',
-  courses: ['Cloud Security', 'Penetration Testing', 'Security Tools', 'Secure Software Design'],
-}
+import { education } from '@/lib/content'
 
 export default function Education() {
   return (
-    <section id="education" className="py-10">
-      <h2 className="text-xl font-semibold text-c-text mb-6">Education</h2>
+    <article className="grid md:grid-cols-[10rem_1fr] gap-3 md:gap-8">
+      <p className="font-mono text-xs text-c-muted md:pt-1">{education.period}</p>
 
       <div>
-        <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 mb-1">
-          <h3 className="font-medium text-c-text">{degree.degree}</h3>
-          <span className="text-sm text-c-muted">{degree.period}</span>
-        </div>
-        <p className="text-sm text-c-muted mb-2">{degree.school} · {degree.location}</p>
-        <p className="text-sm text-c-sub mb-2">GPA: {degree.gpa}</p>
-        <p className="text-sm text-c-sub">
-          Relevant coursework: {degree.courses.join(', ')}
+        <h3 className="text-lg font-bold tracking-tight text-c-text leading-snug">
+          {education.degree}
+        </h3>
+        <p className="text-sm text-c-cyan font-medium mt-0.5 mb-3">
+          {education.school} · {education.location}
         </p>
+
+        <p className="text-sm text-c-sub mb-3">
+          <span className="font-semibold text-c-text">GPA {education.gpa}</span>
+        </p>
+
+        <div>
+          <h4 className="text-sm font-semibold text-c-text mb-2">Relevant coursework</h4>
+          <ul className="flex flex-wrap gap-1.5">
+            {education.coursework.map((course) => (
+              <li key={course} className="tag">{course}</li>
+            ))}
+          </ul>
+        </div>
       </div>
-    </section>
+    </article>
   )
 }

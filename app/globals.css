@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,238 +6,159 @@
 
 /* ═══════════════════════════════════════
    DARK THEME
-   Deep cybersecurity aesthetic
 ═══════════════════════════════════════ */
 [data-theme="dark"] {
-  /* Backgrounds — layered depths */
-  --ink:      #070B12;
-  --ink-1:    #0D1117;
-  --ink-2:    #111827;
+  --ink:      #0A0E14;
+  --ink-1:    #10151D;
+  --ink-2:    #161C26;
 
-  /* Text */
-  --c-text:   #E8EDF5;
-  --c-sub:    #94A3B8;
-  --c-muted:  #5B6878;
+  --c-text:   #E9EEF5;
+  --c-sub:    #A3AFC0;
+  --c-muted:  #6B7A8D;
 
-  /* Accents — electric, neon-adjacent */
-  --c-cyan:   #22D3EE;
-  --c-violet: #8B5CF6;
-  --c-green:  #10B981;
-  --c-amber:  #F59E0B;
-  --c-rose:   #F43F5E;
+  --c-cyan:   #38BDF8;
+  --c-green:  #34D399;
+  --c-amber:  #FBBF24;
 
-  /* Accent tints (colored rgba overlays) */
-  --c-cyan-tint:    rgba(34, 211, 238, 0.08);
-  --c-cyan-border:  rgba(34, 211, 238, 0.22);
-  --c-cyan-glow:    rgba(34, 211, 238, 0.05);
-  --c-violet-tint:  rgba(139, 92, 246, 0.08);
-  --c-violet-border:rgba(139, 92, 246, 0.22);
-  --c-violet-glow:  rgba(139, 92, 246, 0.04);
-  --c-green-tint:   rgba(16, 185, 129, 0.08);
-  --c-green-border: rgba(16, 185, 129, 0.22);
-  --c-amber-tint:   rgba(245, 158, 11, 0.08);
-  --c-amber-border: rgba(245, 158, 11, 0.25);
-  --c-rose-tint:    rgba(244, 63, 94, 0.08);
-  --c-rose-border:  rgba(244, 63, 94, 0.22);
+  --c-cyan-tint:   rgba(56, 189, 248, 0.10);
+  --c-cyan-border: rgba(56, 189, 248, 0.30);
 
-  /* Neutral overlays */
-  --overlay-xs: rgba(255, 255, 255, 0.025);
-  --overlay-sm: rgba(255, 255, 255, 0.05);
-  --overlay-md: rgba(255, 255, 255, 0.08);
+  --overlay-xs: rgba(255, 255, 255, 0.02);
+  --overlay-sm: rgba(255, 255, 255, 0.045);
 
-  /* Borders */
-  --c-line:   rgba(255, 255, 255, 0.07);
-  --border-md: rgba(255, 255, 255, 0.12);
+  --c-line:    rgba(255, 255, 255, 0.09);
+  --border-md: rgba(255, 255, 255, 0.16);
 
-  /* UI chrome */
-  --watermark:      rgba(255, 255, 255, 0.018);
-  --navbar-bg:      rgba(7, 11, 18, 0.92);
-  --mobile-menu-bg: rgba(7, 11, 18, 0.97);
-  --grid-line:      rgba(255, 255, 255, 0.025);
-  --scrollbar:      rgba(34, 211, 238, 0.2);
-  --selection:      rgba(34, 211, 238, 0.18);
-  --shadow-card:    0 2px 12px rgba(0, 0, 0, 0.4);
-  --shadow-float:   0 8px 32px rgba(0, 0, 0, 0.6);
+  --navbar-bg: rgba(10, 14, 20, 0.85);
+  --scrollbar: rgba(56, 189, 248, 0.25);
+  --selection: rgba(56, 189, 248, 0.22);
 
-  /* Toggle button */
   --toggle-bg:     rgba(255, 255, 255, 0.05);
-  --toggle-border: rgba(255, 255, 255, 0.1);
-  --toggle-hover:  rgba(255, 255, 255, 0.09);
+  --toggle-border: rgba(255, 255, 255, 0.12);
+  --toggle-hover:  rgba(255, 255, 255, 0.10);
 }
 
 /* ═══════════════════════════════════════
    LIGHT THEME
-   Premium SaaS — Vercel / Linear aesthetic
 ═══════════════════════════════════════ */
 [data-theme="light"] {
-  /* Backgrounds — cool blue-gray foundation */
-  --ink:      #EFF3F8;
-  --ink-1:    #FFFFFF;
-  --ink-2:    #E4EAF2;
+  --ink:      #FFFFFF;
+  --ink-1:    #F6F8FB;
+  --ink-2:    #EDF1F6;
 
-  /* Text — deep navy for authority */
-  --c-text:   #0F172A;
-  --c-sub:    #334155;
+  --c-text:   #0E1726;
+  --c-sub:    #3D4B5C;
   --c-muted:  #64748B;
 
-  /* Accents — deeper, richer for contrast on light */
-  --c-cyan:   #0891B2;
-  --c-violet: #7C3AED;
-  --c-green:  #059669;
-  --c-amber:  #D97706;
-  --c-rose:   #E11D48;
+  --c-cyan:   #0369A1;
+  --c-green:  #047857;
+  --c-amber:  #B45309;
 
-  /* Accent tints */
-  --c-cyan-tint:    rgba(8, 145, 178, 0.08);
-  --c-cyan-border:  rgba(8, 145, 178, 0.25);
-  --c-cyan-glow:    rgba(8, 145, 178, 0.06);
-  --c-violet-tint:  rgba(124, 58, 237, 0.08);
-  --c-violet-border:rgba(124, 58, 237, 0.25);
-  --c-violet-glow:  rgba(124, 58, 237, 0.05);
-  --c-green-tint:   rgba(5, 150, 105, 0.08);
-  --c-green-border: rgba(5, 150, 105, 0.25);
-  --c-amber-tint:   rgba(217, 119, 6, 0.09);
-  --c-amber-border: rgba(217, 119, 6, 0.28);
-  --c-rose-tint:    rgba(225, 29, 72, 0.07);
-  --c-rose-border:  rgba(225, 29, 72, 0.22);
+  --c-cyan-tint:   rgba(3, 105, 161, 0.07);
+  --c-cyan-border: rgba(3, 105, 161, 0.28);
 
-  /* Neutral overlays */
-  --overlay-xs: rgba(0, 0, 0, 0.03);
-  --overlay-sm: rgba(0, 0, 0, 0.055);
-  --overlay-md: rgba(0, 0, 0, 0.09);
+  --overlay-xs: rgba(0, 0, 0, 0.02);
+  --overlay-sm: rgba(0, 0, 0, 0.04);
 
-  /* Borders */
-  --c-line:    rgba(0, 0, 0, 0.08);
-  --border-md: rgba(0, 0, 0, 0.14);
+  --c-line:    rgba(14, 23, 38, 0.11);
+  --border-md: rgba(14, 23, 38, 0.20);
 
-  /* UI chrome */
-  --watermark:      rgba(0, 0, 0, 0.05);
-  --navbar-bg:      rgba(239, 243, 248, 0.94);
-  --mobile-menu-bg: rgba(239, 243, 248, 0.98);
-  --grid-line:      rgba(0, 0, 0, 0.055);
-  --scrollbar:      rgba(8, 145, 178, 0.3);
-  --selection:      rgba(8, 145, 178, 0.2);
-  --shadow-card:    0 1px 4px rgba(0, 0, 0, 0.07), 0 4px 16px rgba(0, 0, 0, 0.05);
-  --shadow-float:   0 8px 32px rgba(0, 0, 0, 0.12);
+  --navbar-bg: rgba(255, 255, 255, 0.88);
+  --scrollbar: rgba(3, 105, 161, 0.30);
+  --selection: rgba(3, 105, 161, 0.16);
 
-  /* Toggle button */
-  --toggle-bg:     rgba(0, 0, 0, 0.05);
-  --toggle-border: rgba(0, 0, 0, 0.12);
-  --toggle-hover:  rgba(0, 0, 0, 0.09);
+  --toggle-bg:     rgba(0, 0, 0, 0.04);
+  --toggle-border: rgba(0, 0, 0, 0.13);
+  --toggle-hover:  rgba(0, 0, 0, 0.08);
 }
 
 /* ═══════════════════════════════════════
-   BASE STYLES
+   BASE
 ═══════════════════════════════════════ */
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
   color-scheme: dark;
 }
-
-[data-theme="light"] {
-  color-scheme: light;
-}
+[data-theme="light"] { color-scheme: light; }
 
 body {
   background-color: var(--ink);
   color: var(--c-text);
-  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
+  font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+
+  /* Keeps the footer at the bottom of the viewport on short pages. */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
-/* Scrollbar */
-::-webkit-scrollbar { width: 4px; }
+main { flex: 1 0 auto; }
+
+::-webkit-scrollbar { width: 10px; }
 ::-webkit-scrollbar-track { background: var(--ink); }
-::-webkit-scrollbar-thumb { background: var(--scrollbar); border-radius: 2px; }
-::-webkit-scrollbar-thumb:hover { background: var(--c-cyan); opacity: 0.4; }
+::-webkit-scrollbar-thumb { background: var(--scrollbar); border-radius: 5px; }
 
 ::selection { background: var(--selection); color: var(--c-text); }
 
-/* Reduced motion */
+:focus-visible {
+  outline: 2px solid var(--c-cyan);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
   html { scroll-behavior: auto; }
 }
 
-/* ═══════════════════════════════════════
-   SMOOTH THEME TRANSITION
-   Applied only during the switch — doesn't
-   interfere with hover/reveal animations.
-═══════════════════════════════════════ */
 .theme-switching *,
 .theme-switching *::before,
 .theme-switching *::after {
-  transition:
-    background-color 0.3s ease,
-    border-color 0.3s ease,
-    color 0.3s ease,
-    fill 0.3s ease,
-    stroke 0.3s ease,
-    box-shadow 0.3s ease !important;
+  transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease !important;
 }
 
 /* ═══════════════════════════════════════
-   UTILITIES
+   COMPONENTS
 ═══════════════════════════════════════ */
-@layer utilities {
-  /* Scroll reveal */
-  .reveal {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.65s ease-out, transform 0.65s ease-out;
-  }
-  .reveal-left {
-    opacity: 0;
-    transform: translateX(-24px);
-    transition: opacity 0.65s ease-out, transform 0.65s ease-out;
-  }
-  .reveal-right {
-    opacity: 0;
-    transform: translateX(24px);
-    transition: opacity 0.65s ease-out, transform 0.65s ease-out;
-  }
-  .in-view {
-    opacity: 1 !important;
-    transform: none !important;
-  }
-  .delay-100 { transition-delay: 0.10s; }
-  .delay-150 { transition-delay: 0.15s; }
-  .delay-200 { transition-delay: 0.20s; }
-  .delay-300 { transition-delay: 0.30s; }
-  .delay-400 { transition-delay: 0.40s; }
-  .delay-500 { transition-delay: 0.50s; }
-  .delay-600 { transition-delay: 0.60s; }
-
-  /* Grid background — adapts per theme */
-  .grid-bg {
-    background-image:
-      linear-gradient(var(--grid-line) 1px, transparent 1px),
-      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
-    background-size: 64px 64px;
+@layer components {
+  .card {
+    border: 1px solid var(--c-line);
+    background: var(--overlay-xs);
+    border-radius: 8px;
   }
 
-  /* Section watermark numbers */
-  .watermark {
-    color: var(--watermark);
-    font-family: 'Syne', sans-serif;
-    font-weight: 800;
-    font-size: clamp(10rem, 22vw, 22rem);
-    line-height: 1;
-    letter-spacing: -0.05em;
-    user-select: none;
-    pointer-events: none;
+  /* No nowrap here: long labels must be able to wrap or they force
+     horizontal overflow on narrow screens. */
+  .tag {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    border: 1px solid var(--c-line);
+    background: var(--overlay-sm);
+    color: var(--c-sub);
+    line-height: 1.5;
+    max-width: 100%;
   }
 
-  /* Mono label */
-  .label {
+  .tag-accent {
+    border-color: var(--c-cyan-border);
+    background: var(--c-cyan-tint);
+    color: var(--c-cyan);
+  }
+
+  /* Small uppercase heading used inside cards, one step below .eyebrow. */
+  .subhead {
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.68rem;
     font-weight: 500;
@@ -246,108 +167,29 @@ body {
     color: var(--c-muted);
   }
 
-  /* Tags — neutral base */
-  .tag {
-    display: inline-block;
+  .eyebrow {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.68rem;
-    padding: 0.2rem 0.55rem;
-    border-radius: 3px;
-    border: 1px solid var(--c-line);
-    background: var(--overlay-xs);
-    color: var(--c-muted);
-    line-height: 1.6;
-  }
-  /* Accent tags — use theme-aware tint vars */
-  .tag-cyan {
-    border-color: var(--c-cyan-border);
-    background: var(--c-cyan-tint);
-    color: var(--c-cyan);
-  }
-  .tag-violet {
-    border-color: var(--c-violet-border);
-    background: var(--c-violet-tint);
-    color: var(--c-violet);
-  }
-  .tag-green {
-    border-color: var(--c-green-border);
-    background: var(--c-green-tint);
-    color: var(--c-green);
-  }
-  .tag-amber {
-    border-color: var(--c-amber-border);
-    background: var(--c-amber-tint);
-    color: var(--c-amber);
-  }
-  .tag-rose {
-    border-color: var(--c-rose-border);
-    background: var(--c-rose-tint);
-    color: var(--c-rose);
-  }
-
-  /* Horizontal rule */
-  .h-rule {
-    border: none;
-    border-top: 1px solid var(--c-line);
-    width: 100%;
-  }
-
-  /* Blinking cursor */
-  .cursor::after {
-    content: '_';
-    animation: blink 1.2s step-end infinite;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
     color: var(--c-cyan);
   }
 
-  /* Terminal block — theme-aware */
-  .terminal {
-    background: var(--ink-2);
-    border: 1px solid var(--c-line);
-    border-radius: 6px;
-    font-family: 'JetBrains Mono', monospace;
+  .link-underline {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-color: var(--border-md);
+    transition: color 0.15s ease, text-decoration-color 0.15s ease;
   }
-  .terminal-header {
-    background: var(--overlay-xs);
-    border-bottom: 1px solid var(--c-line);
-  }
-  .terminal-row-border {
-    border-color: var(--c-line);
-  }
-  .terminal-tools-divider {
-    border-color: var(--c-line);
-  }
-
-  /* Surface card */
-  .surface {
-    background: var(--overlay-xs);
-    border: 1px solid var(--c-line);
+  .link-underline:hover {
+    color: var(--c-cyan);
+    text-decoration-color: var(--c-cyan);
   }
 }
 
-/* ═══════════════════════════════════════
-   EXPLICIT KEYFRAMES
-═══════════════════════════════════════ */
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50%       { opacity: 0; }
-}
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50%       { transform: translateY(-8px); }
-}
-@keyframes ping {
-  75%, 100% { transform: scale(2); opacity: 0; }
-}
 @keyframes toggleSpin {
   0%   { transform: rotate(0deg) scale(1); }
-  50%  { transform: rotate(180deg) scale(0.8); }
+  50%  { transform: rotate(180deg) scale(0.75); }
   100% { transform: rotate(360deg) scale(1); }
 }

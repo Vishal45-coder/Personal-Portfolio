@@ -8,7 +8,9 @@ export interface BlogPost {
   slug: string
   title: string
   date: string
+  displayDate: string
   status: 'published' | 'draft'
+  readingTime: string
   excerpt: string
   tags: string[]
   sections: BlogSection[]
@@ -19,23 +21,33 @@ export const blogPosts: BlogPost[] = [
     slug: 'oscp-journey',
     title: 'My OSCP Journey',
     date: '2026-08-19',
+    displayDate: 'August 2026',
     status: 'published',
+    readingTime: '4 min read',
     excerpt:
-      'From security fundamentals to OffSec Certified Professional — the mindset shift, the workflow, and what actually moved the needle.',
-    tags: ['OSCP', 'Penetration Testing', 'Career'],
+      'What actually changed between starting PEN-200 and passing the exam. Less about tooling than about method, and about treating every box as a full attack path.',
+    tags: ['OSCP', 'Penetration testing', 'Career'],
     sections: [
       {
-        heading: 'From Security Fundamentals to OSCP',
+        heading: 'Where I started',
         paragraphs: [
-          'Started the PEN-200 path from security fundamentals and gradually built hands-on confidence across reconnaissance, web exploitation, Linux and Windows privilege escalation, password attacks, tunneling, pivoting, and Active Directory.',
+          'I began the PEN-200 path from fundamentals and worked up through reconnaissance, web exploitation, Linux and Windows privilege escalation, password attacks, tunneling, pivoting, and Active Directory. The early labs were slow. The value was not in finishing them quickly, it was in building a process I could repeat under pressure.',
         ],
       },
       {
+        heading: 'What changed my results',
         bullets: [
-          'Learned to work through machines as complete attack paths rather than isolated vulnerabilities, moving from enumeration and initial access to privilege escalation, credential discovery, lateral movement, and post-exploitation.',
-          'Developed my own repeatable workflow using BloodHound, Impacket, Chisel, NetExec, WinPEAS, LinPEAS, msfvenom, Burp Suite, Nmap, and Wireshark, using tools to support enumeration and validation rather than relying on a single automated path.',
-          'Earned the OSCP in 2026 after extensive hands-on practice, with the biggest improvement being a more methodical approach to enumeration, troubleshooting failed paths, and revisiting assumptions when an exploit or privilege-escalation route did not work.',
-          'Continued practicing hands-on CTF and OSCP lab boxes across web, Linux, Windows, and Active Directory environments to strengthen exploitation, privilege escalation, credential attacks, pivoting, and lateral movement.',
+          'I stopped treating machines as a list of isolated vulnerabilities and started treating each one as a full attack path, from enumeration and initial access through privilege escalation, credential discovery, lateral movement, and post exploitation.',
+          'I built a repeatable workflow around BloodHound, Impacket, Chisel, NetExec, WinPEAS, LinPEAS, msfvenom, Burp Suite, Nmap, and Wireshark. Tools support enumeration and validation. They do not replace either one.',
+          'The largest single improvement was method rather than tooling. Careful enumeration, disciplined troubleshooting when something failed, and going back to question an assumption were worth more than any specific exploit.',
+          'When a privilege escalation route stalled, the answer was almost always something I had already collected and not read closely enough.',
+        ],
+      },
+      {
+        heading: 'After the exam',
+        paragraphs: [
+          'I passed in 2026. I still run CTF and lab boxes across web, Linux, Windows, and Active Directory environments to keep exploitation, privilege escalation, credential attacks, pivoting, and lateral movement current.',
+          'The part that carried directly into my day job was the discipline around validation. Confirming real impact before reporting a finding is the same skill in a lab and in production.',
         ],
       },
     ],
@@ -44,14 +56,16 @@ export const blogPosts: BlogPost[] = [
     slug: 'database-vulnerabilities',
     title: 'Database Vulnerabilities',
     date: '2026-08-19',
+    displayDate: '',
     status: 'draft',
+    readingTime: '',
     excerpt:
-      'A closer look at common database-layer vulnerabilities — SQL injection, misconfigurations, and privilege escalation paths. Coming soon.',
-    tags: ['SQL Injection', 'Database Security'],
+      'A practical walkthrough of database layer weaknesses: injection beyond the basics, privilege and role misconfiguration, and the escalation paths they open up.',
+    tags: ['SQL injection', 'Database security'],
     sections: [
       {
         paragraphs: [
-          'This post is still being written. Check back soon for a deeper look at database-layer vulnerabilities and how to find and fix them.',
+          'This post is in progress. It will cover injection techniques past the standard payloads, privilege and role misconfiguration, insecure defaults, and how each one turns into a realistic escalation path, along with the fixes and detections that hold up in production.',
         ],
       },
     ],

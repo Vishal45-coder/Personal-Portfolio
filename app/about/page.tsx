@@ -5,24 +5,43 @@ import Experience from '@/components/Experience'
 import Education from '@/components/Education'
 import Certifications from '@/components/Certifications'
 import Footer from '@/components/Footer'
+import { Container, PageHeader, Section } from '@/components/Section'
 
 export const metadata: Metadata = {
   title: 'About | Vishal Raavi',
   description:
-    'Experience, education, and certifications for Vishal Raavi — Software Security Engineer, OSCP-certified, M.Eng. Cybersecurity at UMD.',
+    'Experience, certifications, and education for Vishal Raavi, a Software Security Engineer with the OSCP and an M.Eng. in Cybersecurity from the University of Maryland.',
 }
 
 export default function AboutPage() {
   return (
-    <main>
+    <>
       <Navbar />
-      <div className="max-w-2xl mx-auto px-6">
-        <About />
-        <Experience />
-        <Education />
-        <Certifications />
-      </div>
+      <main>
+        <Container>
+          <PageHeader
+            eyebrow="About"
+            title="Security engineer who ships the code as well as the findings"
+          >
+            <div className="mt-4">
+              <About />
+            </div>
+          </PageHeader>
+
+          <Section eyebrow="Career" title="Experience">
+            <Experience />
+          </Section>
+
+          <Section eyebrow="Credentials" title="Certifications">
+            <Certifications />
+          </Section>
+
+          <Section eyebrow="Academic" title="Education">
+            <Education />
+          </Section>
+        </Container>
+      </main>
       <Footer />
-    </main>
+    </>
   )
 }
