@@ -1,6 +1,6 @@
 ---
 title: The Security Control That Ships Turned Off
-date: 2026-09-07
+date: 2026-04-07
 excerpt: A widely used open source database lets users fetch external URLs from SQL, and the filter that restricts where those requests can go does nothing until an administrator configures it. Granting read access to external data quietly grants server side request forgery.
 tags:
   - SSRF
