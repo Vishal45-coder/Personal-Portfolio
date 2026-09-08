@@ -268,7 +268,9 @@ main { flex: 1 0 auto; }
 }
 
 /* Shiki emits both palettes as CSS variables so code follows the theme. */
+.prose pre code,
 .prose pre code span { color: var(--shiki-light); }
+[data-theme="dark"] .prose pre code,
 [data-theme="dark"] .prose pre code span { color: var(--shiki-dark); }
 
 .prose figure { margin-top: 1.75rem; }

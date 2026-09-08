@@ -121,7 +121,9 @@ export async function getPost(slug: string): Promise<Post | null> {
     .use(rehypeSlug)
     .use(rehypeAutolinkHeadings, autolinkOptions)
     .use(rehypePrettyCode, {
-      themes: { light: 'github-light', dark: 'github-dark-dimmed' },
+      // Note: the option is `theme`, not `themes`. An object enables dual
+      // themes, emitting --shiki-light and --shiki-dark on every token.
+      theme: { light: 'github-light', dark: 'one-dark-pro' },
       keepBackground: false,
       defaultLang: 'text',
     })
